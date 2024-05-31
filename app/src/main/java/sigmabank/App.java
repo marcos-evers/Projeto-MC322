@@ -6,6 +6,12 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
+
+import sigmabank.model.Register;
+
 public class App extends Application {
     @Override
     public void start(Stage stage) {
@@ -17,7 +23,7 @@ public class App extends Application {
         stage.show();
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         launch();
     }
 }

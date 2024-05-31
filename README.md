@@ -13,8 +13,8 @@ Nosso projeto é um sistema que simula um banco virtual feito em java.
 ## Build
 
 ```shell
-./gradlew run # to run the app
-./gradlew test # to run unit tests
+gradle :app:run  # to run the app
+gradle :app:test # to run unit the app tests
 ```
 
 ## Functionalities
@@ -28,7 +28,7 @@ Nosso projeto é um sistema que simula um banco virtual feito em java.
 
 ## Classes TODO
 
-- [ ] Register
+- [x] Register
     - UUID (final)
     - name: string (final)
     - dateOfBirth: string (final)
