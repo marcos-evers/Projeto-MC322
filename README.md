@@ -91,6 +91,7 @@ gradle :app:test # to run unit the app tests
     - type: TransactionType
     - value: BigNumber
     - time: string
+    - status: TransactionStatus
 
 - [ ] TransactionType(Enum)
     - TRANSFER
@@ -99,6 +100,11 @@ gradle :app:test # to run unit the app tests
     - LOAN
     - CREDIT_CARD
     - DEBIT_CARD
+
+- [ ] TransactionStatus(Enum)
+    - PROCESSING
+    - APPROVED
+    - CANCELLED
 
 - [ ] Admin(Person)
     - CPF: String (final)
