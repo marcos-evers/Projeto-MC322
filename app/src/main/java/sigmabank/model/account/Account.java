@@ -1,7 +1,9 @@
 package sigmabank.model.account;
 
+// import sigmabank.model.utils.HashPassword;
+
 import java.math.BigDecimal;
-import java.math.RoundingMode;
+// import java.math.RoundingMode;
 
 import java.time.LocalDate;
 
@@ -17,14 +19,14 @@ public class Account {
     // TODO: substitute the type Object on statement by Operations/Transaction
     @XmlElement protected final UUID uuid;
     @XmlElement protected final UUID clientUUID;
-    @XmlElement protected final String creationDate;
+    @XmlElement protected final LocalDate creationDate;
     @XmlElement protected BigDecimal balance;
     @XmlElement protected final ArrayList<Object> statement; 
 
     public Account(UUID clientUUID){
         this.uuid = UUID.randomUUID();
         this.clientUUID = clientUUID;
-        this.creationDate = LocalDate.now().toString();
+        this.creationDate = LocalDate.now();
         this.balance = new BigDecimal(0);
         this.statement = new ArrayList<Object>();
     }
@@ -37,7 +39,7 @@ public class Account {
         return clientUUID;
     }
 
-    public String getCreationDate() {
+    public LocalDate getCreationDate() {
         return creationDate;
     }
 
@@ -47,6 +49,10 @@ public class Account {
 
     public ArrayList<Object> getStatement() {
         return statement;
+    }
+
+    public void setBalance(BigDecimal balance) {
+        this.balance = balance;
     }
 
     /**
@@ -61,11 +67,24 @@ public class Account {
     }
 
     /**
-     * Initializes a transfer of funds from this account to the account of the specified client seller.
+     * Initializes a transfer of funds from this account to the account of the specified client seller
      * 
-     * @param clientSeller The UUID of the client seller's account to transfer funds to.
+     * @param clientSellerAccount The UUID of the client seller's account to transfer funds to.
+     * @param amount The amount of money to transfer.
+     * @param description A description of the transfer.
+     * @param password The password of the account to transfer funds from.
+     * @throws InvalidAttributeValueException if the password is incorrect
+     * @throws InvalidAttributeValueException if the client seller's account does not exist
+     * @throws InvalidAttributeValueException if the amount is higher than the balance of the account
      */
-    public void Transfer(UUID clientSeller) {
-        // TODO: method implementation
+    public void Transfer(UUID clientSellerAccount, BigDecimal amount, String description, String password) {
+        // TODO: Check if the amount is higher than the balance of the account
+        
+        // TODO: implement the transfer logic here
+
+        // TODO: Check if the password is correct
+        //String realPassword = HashPassword.hashPassword(this.clientUUID, password);
+
+        // TODO: Check if the client seller's account exists
     }
 }
