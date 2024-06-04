@@ -1,12 +1,19 @@
-package account;
+package sigmabank.model.account;
 
-import java.util.UUID;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+
 import java.time.LocalDate;
 
+import java.util.ArrayList;
+import java.util.UUID;
+
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.management.InvalidAttributeValueException;
+import javax.xml.bind.annotation.XmlElement;
+
 @XmlRootElement
-public class Account{
+public class Account {
     // TODO: substitute the type Object on statement by Operations/Transaction
     @XmlElement protected final UUID uuid;
     @XmlElement protected final UUID clientUUID;
@@ -17,7 +24,7 @@ public class Account{
     public Account(UUID clientUUID){
         this.uuid = UUID.randomUUID();
         this.clientUUID = clientUUID;
-        this.creationDate = LocalDate.now();
+        this.creationDate = LocalDate.now().toString();
         this.balance = new BigDecimal(0);
         this.statement = new ArrayList<Object>();
     }
@@ -58,7 +65,7 @@ public class Account{
      * 
      * @param clientSeller The UUID of the client seller's account to transfer funds to.
      */
-    public Transfer(UUID clientSeller) {
+    public void Transfer(UUID clientSeller) {
         // TODO: method implementation
     }
 }

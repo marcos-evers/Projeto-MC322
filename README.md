@@ -69,10 +69,10 @@ gradle :app:test # to run unit the app tests
     - sellerUUID: UUID
 
 - [ ] BankCard
-    - number: UUID
-    - dueData: string
-    - securityCode: string
-    - clientUUID: UUID
+    - number: string (final)
+    - dueDate: string (final)
+    - securityCode: string (final)
+    - clientUUID: UUID (final)
     - password: string
 
 - [ ] CreditCard(BankCard)
