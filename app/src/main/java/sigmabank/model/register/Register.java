@@ -6,8 +6,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.management.InvalidAttributeValueException;
 import javax.xml.bind.annotation.XmlElement;
 
-import java.util.regex.Pattern;
 import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @XmlRootElement
 public class Register {
@@ -80,7 +80,7 @@ public class Register {
         if (matcher.find())
             this.address = address;
         else
-            throw new InvalidAttributeValueException(address + " is not a addres");
+            throw new InvalidAttributeValueException(address + " is not a address");
     }
 
     public UUID getUuid() {
