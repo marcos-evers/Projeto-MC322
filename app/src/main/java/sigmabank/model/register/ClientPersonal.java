@@ -8,12 +8,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.management.InvalidAttributeValueException;
 import javax.xml.bind.annotation.XmlElement;
 
-import sigmabank.model.account.CurrentAccount;
-import sigmabank.model.account.SavingsAccount;
-import sigmabank.model.account.SalaryAccount;
-
-import sigmabank.model.bankcard.CreditCard;
-import sigmabank.model.bankcard.DebitCard;
+import sigmabank.model.card.CreditCard;
+import sigmabank.model.card.DebitCard;
 
 @XmlRootElement
 public class ClientPersonal extends Register {
@@ -58,12 +54,13 @@ public class ClientPersonal extends Register {
     * @param number The card number of the credit card to be removed.
     */
     public void removeCreditCard(String number) {
-        CreditCard cardToRemove;
+        CreditCard cardToRemove = null;
         for (CreditCard creditCard: creditCards) {
             if (creditCard.getNumber().equals(number))
                 cardToRemove = creditCard;
         }
-        creditCards.remove(cardToRemove);
+        if (cardToRemove != null)
+            creditCards.remove(cardToRemove);
     }
 
     /**
@@ -72,12 +69,13 @@ public class ClientPersonal extends Register {
     * @param number The card number of the debit card to be removed.
     */
     public void removeDebitCard(String number) {
-        DebitCard cardToRemove;
+        DebitCard cardToRemove = null;
         for (DebitCard debitCard: debitCards) {
             if (debitCard.getNumber().equals(number))
                 cardToRemove = debitCard;
         }
-        debitCards.remove(cardToRemove);
+        if (cardToRemove != null)
+            debitCards.remove(cardToRemove);
     }
 
     public String getCpf() {

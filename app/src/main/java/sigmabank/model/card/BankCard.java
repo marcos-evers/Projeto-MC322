@@ -1,7 +1,7 @@
 package sigmabank.model.card;
 
-import java.time.LocalDate;
-
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.UUID;
 
 import javax.xml.bind.annotation.XmlRootElement;
@@ -11,9 +11,10 @@ import javax.xml.bind.annotation.XmlElement;
 @XmlRootElement
 public class BankCard {
     @XmlElement private final String number;
-    @XmlElement private final LocalDate dueDate;
+    @XmlElement private final String dueDate;
     @XmlElement private final String securityCode;
     @XmlElement private final UUID clientUuid;
+    @XmlElement private final UUID uuid;
     
     private String password;
 
@@ -22,14 +23,17 @@ public class BankCard {
         this.dueDate = null;
         this.securityCode = null;
         this.clientUuid = null;
+        this.number = null;
     }
 
-    public BankCard(LocalDate dueDate, String securityCode, UUID clientUuid) {
+    public BankCard(String dueDate, String securityCode, UUID clientUuid) {
         // TODO add validation to dueDate, securityCode and clientUuid
+        // TODO generate card number
         this.uuid = UUID.randomUUID();
         this.dueDate = dueDate;
         this.securityCode = securityCode;
         this.clientUuid = clientUuid;
+        this.number = ""; 
     }
 
     /**
@@ -40,12 +44,12 @@ public class BankCard {
      */
     public void setPassword(String password) throws InvalidAttributeValueException {
         Pattern pattern = Pattern.compile("^[0-9]{4}$");
-        Matcher matcher = pattern.matcher(address);
+        Matcher matcher = pattern.matcher(password);
 
         if (matcher.find())
             this.password = password;
         else
-            throw new InvalidAttributeValueException(address + " is not a valid password");
+            throw new InvalidAttributeValueException(password + " is not a valid password");
     }
 
     public UUID getUuid() {
@@ -66,5 +70,9 @@ public class BankCard {
 
     public String getPassword() {
         return this.password;
+    }
+
+    public String getNumber() {
+        return this.number;
     }
 }
