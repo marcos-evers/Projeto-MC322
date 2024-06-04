@@ -1,5 +1,5 @@
 .gradle
 build
 app/bin
-.settings
+.settings/*
 app/.settings
