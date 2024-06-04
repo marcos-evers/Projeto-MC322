@@ -68,21 +68,21 @@ gradle :app:test # to run unit the app tests
 - [ ] SalaryAccount(Account)
     - sellerUUID: UUID
 
-- [ ] BankCard
+- [x] BankCard
     - number: string (final)
     - dueDate: string (final)
     - securityCode: string (final)
     - clientUUID: UUID (final)
     - password: string
 
-- [ ] CreditCard(BankCard)
+- [x] CreditCard(BankCard)
     - credit: BigNumber
-    - statement: List<Transaction>
-    - dueDay: uint8
-    - closeDay: uint8
+    - statement: List<Transaction> (final)
+    - dueDay: uint8 (final)
+    - closeDay: uint8 (final)
 
-- [ ] DebitCard(BankCard)
-    - accountUUID
+- [x] DebitCard(BankCard)
+    - accountUUID (final)
 
 - [ ] Transaction
     - UUID
