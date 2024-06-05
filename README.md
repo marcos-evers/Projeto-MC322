@@ -14,7 +14,10 @@ Nosso projeto é um sistema que simula um banco virtual feito em java.
 
 ```shell
 gradle :app:run  # to run the app
-gradle :app:test # to run unit the app tests
+gradle :app:test # to run the app unit tests
+
+gradle :server:run  # to run the server
+gradle :server:test # to run the server unit tests
 ```
 
 ## Functionalities
