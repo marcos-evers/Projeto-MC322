@@ -1,16 +1,15 @@
-# Projeto MC322 - Sigma Bank
+# MC322 - Sigma Bank
 
-Este é o nosso projeto final para a disciplina de Orientação a Objetos.
-Nosso projeto é um sistema que simula um banco virtual feito em java.
+This is our final project for the OOP discipline.
+Our project aims to model a system that emulates a virtual bank, made with Java.
 
-## Ferramentas Usadas
+## Tools
 
-- ```MySQL``` para Banco de Dados,
-- ```JavaFX``` para GUI,
-- ```Gradle``` como Build System
-- ```JUnit Jupiter``` como Framework de Test
+- ```JavaFX``` for the GUI;
+- ```Gradle``` as build tool;
+- ```JUnit Jupiter``` como testing framework.
 
-## Build
+## Build commands
 
 ```shell
 gradle :app:run  # to run the app
@@ -20,11 +19,11 @@ gradle :app:test # to run unit the app tests
 ## Functionalities
 
 - Register of new clients
-- Bank Transfer payment
-- Balance and Statement
+- Bank transfer payment
+- Balance and statement
 - Loan
 - Investment
-- Different types of Bank Accounts
+- Different types of bank accounts
 
 ## Classes TODO
 
