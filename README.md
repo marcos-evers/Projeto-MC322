@@ -110,10 +110,11 @@ gradle :app:test # to run unit the app tests
     - CPF: String (final)
 
 - [ ] Loan
-    value: BigDecimal
-    termInMonths: uint32
-    clientUUID: UUID
-    startDay: Date
+    - value: BigDecimal
+    - rate: BigDecimal
+    - termInMonths: uint32
+    - clientUUID: UUID
+    - startDay: Date
 
 - [ ] Investment
 
