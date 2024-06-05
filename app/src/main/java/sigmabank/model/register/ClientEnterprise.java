@@ -10,15 +10,15 @@ import sigmabank.model.card.CreditCard;
 import sigmabank.model.card.DebitCard;
 
 @XmlRootElement
-public class ClientPersonal extends Register {
-    @XmlElement private final String cpf;
+public class ClientEnterprise extends Register {
+    @XmlElement private final String cnpj;
 
     private List<CreditCard> creditCards;
     private List<DebitCard> debitCards;
 
-    public ClientPersonal(String name, String dateOfBirth, String cpf) {
+    public ClientEnterprise(String name, String dateOfBirth, String cnpj) {
         super(name, dateOfBirth);
-        this.cpf = cpf;
+        this.cnpj = cnpj;
 
         creditCards = new ArrayList<>();
         debitCards = new ArrayList<>();
@@ -72,8 +72,8 @@ public class ClientPersonal extends Register {
             debitCards.remove(cardToRemove);
     }
 
-    public String getCpf() {
-        return this.cpf;
+    public String getCNPJ() {
+        return this.cnpj;
     }
 
     public List<CreditCard> getCreditCards() {

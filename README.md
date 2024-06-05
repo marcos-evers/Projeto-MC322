@@ -37,7 +37,7 @@ gradle :app:test # to run unit the app tests
     - address: string
     - password: string (db only)
 
-- [ ] ClientPersonal(Person)
+- [x] ClientPersonal(Person)
     - CPF: string (final)
     - currentAccount (final)
     - savingsAccount (final)
@@ -45,7 +45,7 @@ gradle :app:test # to run unit the app tests
     - creditCards: List<CreditCard>
     - debitCards: List<DebitCard>
 
-- [ ] ClientEnterprise(Person)
+- [x] ClientEnterprise(Person)
     - CNPJ: string (final)
     - currentAccount (final)
     - creditCards: List<CreditCard>
