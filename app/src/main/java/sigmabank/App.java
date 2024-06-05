@@ -6,11 +6,12 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
+/* Saving for later use 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
-
-import sigmabank.model.Register;
+import sigmabank.model.register.Register;
+*/
 
 public class App extends Application {
     @Override

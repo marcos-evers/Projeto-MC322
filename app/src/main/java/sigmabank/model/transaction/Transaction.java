@@ -16,7 +16,7 @@ public class Transaction {
     @XmlElement private final BigDecimal value;
     @XmlElement private final LocalDate dateTime;
     @XmlElement private final TransactionType type;
-    private TransactionStatus status;
+    @XmlElement private TransactionStatus status;
 
     public Transaction() {
         this.uuid = UUID.randomUUID();
