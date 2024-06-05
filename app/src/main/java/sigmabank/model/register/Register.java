@@ -6,6 +6,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.management.InvalidAttributeValueException;
 import javax.xml.bind.annotation.XmlElement;
 
+import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -14,7 +15,7 @@ public class Register {
     // Personal Data
     @XmlElement private final UUID uuid;
     @XmlElement private final String name;
-    @XmlElement private final String dateOfBirth;
+    @XmlElement private final Date dateOfBirth;
 
     // Contact Data
     private String email;
@@ -27,7 +28,7 @@ public class Register {
         this.dateOfBirth = null;
     }
 
-    public Register(String name, String dateOfBirth) {
+    public Register(String name, Date dateOfBirth) {
         // TODO add validation to dateOfBirth
         this.uuid = UUID.randomUUID();
         this.name = name;
@@ -91,7 +92,7 @@ public class Register {
         return this.name;
     }
 
-    public String getDateOfBirth() {
+    public Date getDateOfBirth() {
         return this.dateOfBirth;
     }
 

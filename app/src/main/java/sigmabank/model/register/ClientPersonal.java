@@ -1,6 +1,7 @@
 package sigmabank.model.register;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlRootElement;
@@ -16,7 +17,7 @@ public class ClientPersonal extends Register {
     private List<CreditCard> creditCards;
     private List<DebitCard> debitCards;
 
-    public ClientPersonal(String name, String dateOfBirth, String cpf) {
+    public ClientPersonal(String name, Date dateOfBirth, String cpf) {
         super(name, dateOfBirth);
         this.cpf = cpf;
 
