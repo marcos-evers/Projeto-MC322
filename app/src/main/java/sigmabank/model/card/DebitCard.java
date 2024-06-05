@@ -3,10 +3,11 @@ package sigmabank.model.card;
 import java.util.UUID;
 
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.management.InvalidAttributeValueException;
 import javax.xml.bind.annotation.XmlElement;
-import java.util.Objects;
 
+import java.time.LocalDate;
+
+@XmlRootElement
 public class DebitCard extends BankCard {
     @XmlElement private final UUID accountUuid;
 
@@ -14,7 +15,7 @@ public class DebitCard extends BankCard {
         this.accountUuid = null;
     }
 
-    public DebitCard(String dueDate, String securityCode, UUID clientUuid, UUID accountUuid) {
+    public DebitCard(LocalDate dueDate, String securityCode, UUID clientUuid, UUID accountUuid) {
         super(dueDate, securityCode, clientUuid);
         this.accountUuid = accountUuid;
     }

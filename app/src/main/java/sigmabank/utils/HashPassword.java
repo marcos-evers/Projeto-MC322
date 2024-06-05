@@ -1,4 +1,4 @@
-package sigmabank.model.utils;
+package sigmabank.utils;
 
 import java.util.UUID;
 
