@@ -7,8 +7,8 @@ Nosso projeto é um sistema que simula um banco virtual feito em java.
 
 - ```MySQL``` para Banco de Dados,
 - ```JavaFX``` para GUI,
-- ```Gradle``` como Build System
-- ```JUnit Jupiter``` como Framework de Test
+- ```Gradle``` como Build System,
+- ```JUnit Jupiter``` como Framework de Teste
 
 ## Build
 
@@ -31,7 +31,7 @@ gradle :app:test # to run unit the app tests
 - [x] Register
     - UUID (final)
     - name: string (final)
-    - dateOfBirth: string (final)
+    - dateOfBirth: Date (final)
     - email: string
     - phonenumber: string
     - address: string
@@ -54,7 +54,7 @@ gradle :app:test # to run unit the app tests
 - [ ] Account
     - UUID (final)
     - clientUUID: UUID (final)
-    - creationDate: string (final)
+    - creationDate: Date (final) *
     - balance: BigNumber
     - statement: List<Transaction>
 
@@ -70,7 +70,7 @@ gradle :app:test # to run unit the app tests
 
 - [x] BankCard
     - number: string (final)
-    - dueDate: string (final)
+    - dueDate: Date (final) *
     - securityCode: string (final)
     - clientUUID: UUID (final)
     - password: string
@@ -90,7 +90,7 @@ gradle :app:test # to run unit the app tests
     - seller: UUID
     - type: TransactionType
     - value: BigNumber
-    - time: string
+    - time: Date
     - status: TransactionStatus
 
 - [ ] TransactionType(Enum)
@@ -109,7 +109,11 @@ gradle :app:test # to run unit the app tests
 - [ ] Admin(Person)
     - CPF: String (final)
 
-- [ ] Investment
-
 - [ ] Loan
+    value: BigDecimal
+    termInMonths: uint32
+    clientUUID: UUID
+    startDay: Date
+
+- [ ] Investment
 
