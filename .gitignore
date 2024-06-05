@@ -1,5 +1,7 @@
 .gradle
 build
 app/bin
+server/bin
 .settings/*
 app/.settings
+server/.settings
