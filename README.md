@@ -84,7 +84,7 @@ gradle :app:test # to run unit the app tests
 - [x] DebitCard(BankCard)
     - accountUUID (final)
 
-- [ ] Transaction
+- [x] Transaction
     - UUID
     - buyer: UUID
     - seller: UUID
@@ -92,6 +92,7 @@ gradle :app:test # to run unit the app tests
     - value: BigNumber
     - time: Date
     - status: TransactionStatus
+    - descrition: String
 
 - [ ] TransactionType(Enum)
     - TRANSFER
@@ -110,10 +111,11 @@ gradle :app:test # to run unit the app tests
     - CPF: String (final)
 
 - [ ] Loan
-    value: BigDecimal
-    termInMonths: uint32
-    clientUUID: UUID
-    startDay: Date
+    - value: BigDecimal
+    - fee: BigDecimal
+    - clientUUID: UUID
+    - startDay: Date
+    - montante: BigDecimal
 
 - [ ] Investment
 

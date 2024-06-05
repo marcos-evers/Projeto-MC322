@@ -10,5 +10,5 @@ public class Transaction {
     private String dateTime;
     private TransactionType type;
     private TransactionStatus status;
-
+    private String descrition;
 }
