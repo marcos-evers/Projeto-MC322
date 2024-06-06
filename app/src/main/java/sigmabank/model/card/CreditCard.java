@@ -1,8 +1,9 @@
 package sigmabank.model.card;
 
-import java.math.BigDecimal;
-import java.math.RoudingMode;
+import sigmabank.model.transaction.*;
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -11,6 +12,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.management.InvalidAttributeValueException;
 import javax.xml.bind.annotation.XmlElement;
 
+@XmlRootElement
 public class CreditCard extends BankCard {
     @XmlElement private final List<Transaction> statement;
     @XmlElement private final short closeDay;
@@ -23,7 +25,7 @@ public class CreditCard extends BankCard {
         this.dueDay = 0;
     }
 
-    public CreditCard(String dueDate, String securityCode, UUID clientUuid, BigDecimal credit, short closeDay, short dueDay) {
+    public CreditCard(LocalDate dueDate, String securityCode, UUID clientUuid, BigDecimal credit, short closeDay, short dueDay) {
         super(dueDate, securityCode, clientUuid);
         this.credit = credit;
         this.closeDay = closeDay;
@@ -38,9 +40,8 @@ public class CreditCard extends BankCard {
      * @throws InvalidAttributeValueException if the provided credit is not positive.
      */
     public void setCredit(BigDecimal credit) throws InvalidAttributeValueException {
-        if (credit.compareTo(BigDecimal.ZERO) > 0) {
-            BigDecimal temp = credit.setScale(2, RoudingMode.ROUND);
-            throw new InvalidAttributeValueException(temp + " is not a valid credit");
+        if (credit.compareTo(BigDecimal.ZERO) <= 0) {
+            throw new InvalidAttributeValueException(credit.toString() + " is not a valid credit");
         }
 
         this.credit = credit;
