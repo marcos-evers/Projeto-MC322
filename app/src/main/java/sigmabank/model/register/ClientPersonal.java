@@ -84,4 +84,9 @@ public class ClientPersonal extends Register {
     public List<DebitCard> getDebitCards() {
         return this.debitCards;
     }
+
+    @Override
+    public String toString(){
+        return getName() + " " + getCpf() + " " + getDateOfBirth().toString();
+    }
 }

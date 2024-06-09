@@ -2,13 +2,17 @@ package sigmabank.model.register;
 
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDate;
+
 import javax.management.InvalidAttributeValueException;
+
+import sigmabank.model.register.Register;
 
 class RegisterTest {
 
     @Test
     void settersValidation() throws InvalidAttributeValueException {
-        Register register = new Register("john", "01/01/2000");
+        Register register = new Register("john", LocalDate.parse("01/01/2000"));
         String testEmails[] = {
             "john@gmail.com",
             "j0_hn@gmail.com",
