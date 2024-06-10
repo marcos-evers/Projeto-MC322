@@ -17,6 +17,7 @@ public class Transaction {
     @XmlElement private final LocalDate dateTime;
     @XmlElement private final TransactionType type;
     @XmlElement private TransactionStatus status;
+    @XmlElement private final String descrition;
 
     public Transaction() {
         this.uuid = UUID.randomUUID();
@@ -25,9 +26,10 @@ public class Transaction {
         this.value = null;
         this.dateTime = null;
         this.type = null;
+        this.descrition = null;
     }
     
-    public Transaction(UUID idBuyer, UUID idSeller, BigDecimal value, LocalDate dateTime, TransactionType type) {
+    public Transaction(UUID idBuyer, UUID idSeller, BigDecimal value, LocalDate dateTime, TransactionType type, String descrition) {
         this.uuid = UUID.randomUUID();
         this.idBuyer = idBuyer;
         this.idSeller = idSeller;
@@ -35,6 +37,7 @@ public class Transaction {
         this.dateTime = dateTime;
         this.type = type;
         this.status = TransactionStatus.PROCESSING;
+        this.descrition = descrition;
     }
 
     /**
