@@ -48,10 +48,17 @@ public class Loan {
     }
 
     public void pagarParteEmprestimo(BigDecimal valuePay){
-        
+        //falta comparar se o cliente tem valor na conta pra pagar
+        BigDecimal zero = BigDecimal.valueOf(0);
+        if(valuePay.compareTo(zero) <= -1){
+            //o valor para o pagamento é invalido(zero ou negativo)
+            return;
+        }
+        this.amount = amount.subtract(valuePay);
+        //Precisa ainda retirar o valor da conta do cliente
     }
 
-    public void calcularAmount(){
+    public void calculateAmount(){
         //A cada virada de mes recalcular o amount de acordo com o juros
         BigDecimal one = BigDecimal.valueOf(1);
         BigDecimal sum = this.fee.add(one);
@@ -59,16 +66,16 @@ public class Loan {
         this.amount = newAmount;
     }
 
-    public BigDecimal simularPagamento(int numMonth){
+    public BigDecimal simulatePayment(int numMonth){
         //Formula é valorParcela = (amount * fee) / (1- ((1 + fee)^(-n)))
         BigDecimal one = BigDecimal.valueOf(1);
-        BigDecimal valorParcela = null;
+        BigDecimal valueParcel = null;
         BigDecimal amountFee = this.amount.multiply(this.fee);
         BigDecimal sumFee = one.add(this.fee);
         BigDecimal sumFeeN = sumFee.pow(numMonth);
         BigDecimal sumFeeNDiv = one.divide(sumFeeN);
         BigDecimal feeSub = one.subtract(sumFeeNDiv);
-        valorParcela = amountFee.divide(feeSub);
-        return valorParcela;
+        valueParcel = amountFee.divide(feeSub);
+        return valueParcel;
     }
 }
