@@ -1,10 +1,14 @@
 package sigmabank;
 
+import java.time.LocalDate;
+
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import sigmabank.model.register.ClientPersonal;
+import sigmabank.net.PostClientPersonal;
 
 /* Saving for later use 
 import javax.xml.bind.JAXBContext;
@@ -25,6 +29,10 @@ public class App extends Application {
     }
 
     public static void main(String[] args) throws Exception {
-        launch();
+        // launch();
+
+        PostClientPersonal pcp = new PostClientPersonal("http://localhost:8000/register");
+        ClientPersonal cp = new ClientPersonal("marcos", LocalDate.of(2005, 2, 21), "12312312312");
+        System.out.println("Response Code: " + pcp.send(cp));
     }
 }
