@@ -1,16 +1,15 @@
-# Projeto MC322 - Sigma Bank
+# MC322 - Sigma Bank
 
-Este é o nosso projeto final para a disciplina de Orientação a Objetos.
-Nosso projeto é um sistema que simula um banco virtual feito em java.
+This is our final project for the OOP discipline.
+Our project aims to model a system that emulates a virtual bank, made with Java.
 
-## Ferramentas Usadas
+## Tools
 
-- ```MySQL``` para Banco de Dados,
-- ```JavaFX``` para GUI,
-- ```Gradle``` como Build System,
-- ```JUnit Jupiter``` como Framework de Teste
+- ```JavaFX``` for the GUI;
+- ```Gradle``` as build tool;
+- ```JUnit Jupiter``` como testing framework.
 
-## Build
+## Build commands
 
 ```shell
 gradle :app:run  # to run the app
@@ -23,11 +22,11 @@ gradle :server:test # to run the server unit tests
 ## Functionalities
 
 - Register of new clients
-- Bank Transfer payment
-- Balance and Statement
-- Loan
-- Investment
-- Different types of Bank Accounts
+- Bank transfer as payment method
+- Balance and statement
+- Loans
+- Investments
+- Different types of bank accounts
 
 ## Classes TODO
 
@@ -87,16 +86,17 @@ gradle :server:test # to run the server unit tests
 - [x] DebitCard(BankCard)
     - accountUUID (final)
 
-- [ ] Transaction
-    - UUID
-    - buyer: UUID
-    - seller: UUID
-    - type: TransactionType
-    - value: BigNumber
-    - time: Date
+- [x] Transaction
+    - UUID (final)
+    - buyer: UUID (final)
+    - seller: UUID (final)
+    - type: TransactionType (final)
+    - value: BigNumber (final)
+    - time: Date (final)
     - status: TransactionStatus
+    - discrition: String (final)
 
-- [ ] TransactionType(Enum)
+- [x] TransactionType(Enum)
     - TRANSFER
     - PAYMENT
     - INVESTMENT
@@ -104,7 +104,7 @@ gradle :server:test # to run the server unit tests
     - CREDIT_CARD
     - DEBIT_CARD
 
-- [ ] TransactionStatus(Enum)
+- [x] TransactionStatus(Enum)
     - PROCESSING
     - APPROVED
     - CANCELLED
@@ -113,11 +113,11 @@ gradle :server:test # to run the server unit tests
     - CPF: String (final)
 
 - [ ] Loan
-    - value: BigDecimal
-    - rate: BigDecimal
-    - termInMonths: uint32
-    - clientUUID: UUID
-    - startDay: Date
+    - value: BigDecimal (final)
+    - fee: BigDecimal (final)
+    - clientUUID: UUID (final)
+    - startDay: Date (final)
+    - montante: BigDecimal 
 
 - [ ] Investment
 
