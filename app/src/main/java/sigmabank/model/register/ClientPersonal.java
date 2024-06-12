@@ -2,6 +2,7 @@ package sigmabank.model.register;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlElement;
@@ -83,5 +84,10 @@ public class ClientPersonal extends Register {
 
     public List<DebitCard> getDebitCards() {
         return this.debitCards;
+    }
+
+    @Override
+    public String toString(){
+        return getName() + " " + getCpf() + " " + getDateOfBirth().toString();
     }
 }

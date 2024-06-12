@@ -2,6 +2,11 @@ package sigmabank.model.register;
 
 import java.time.LocalDate;
 import java.util.UUID;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.management.InvalidAttributeValueException;
+import javax.xml.bind.annotation.XmlElement;
+
+import java.time.LocalDate;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 

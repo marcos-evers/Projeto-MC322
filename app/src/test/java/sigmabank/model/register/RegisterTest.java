@@ -4,13 +4,15 @@ import java.time.LocalDate;
 
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDate;
+
 import javax.management.InvalidAttributeValueException;
 
 class RegisterTest {
 
     @Test
     void settersValidation() throws InvalidAttributeValueException {
-        Register register = new Register("john", LocalDate.parse("2020-01-01"));
+        Register register = new Register("john", LocalDate.parse("2000-01-01"));
         String testEmails[] = {
             "john@gmail.com",
             "j0_hn@gmail.com",
