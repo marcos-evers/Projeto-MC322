@@ -1,6 +1,8 @@
 package sigmabank.net;
 
+import java.io.BufferedReader;
 import java.io.DataOutputStream;
+import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URI;
 import java.net.URL;
@@ -16,7 +18,7 @@ public class PostClientPersonal {
 
     private String buildPostData(ClientPersonal client) {
         return "name=" + client.getName() + "&"
-            +  "dateOfBirth=" + client.getDateOfBirth() + "&"
+            +  "dob=" + client.getDateOfBirth() + "&"
             +  "cpf=" + client.getCpf() + "&"
             +  "phoneNumber=" + client.getPhoneNumber() + "&"
             +  "email=" + client.getEmail();
@@ -34,6 +36,14 @@ public class PostClientPersonal {
         }
 
         int responseCode = connection.getResponseCode();
+        try (BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()))) {
+            String inputLine;
+            StringBuilder response = new StringBuilder();
+            while ((inputLine = in.readLine()) != null) {
+                response.append(inputLine);
+            }
+            System.out.println(response.toString());
+        }
         connection.disconnect();
         return responseCode;
     }

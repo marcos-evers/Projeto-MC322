@@ -33,6 +33,8 @@ public class App extends Application {
 
         PostClientPersonal pcp = new PostClientPersonal("http://localhost:8000/register");
         ClientPersonal cp = new ClientPersonal("marcos", LocalDate.of(2005, 2, 21), "12312312312");
+        cp.setEmail("marcos@paulo.evers");
+        cp.setPhoneNumber("85912341234");
         System.out.println("Response Code: " + pcp.send(cp));
     }
 }
