@@ -11,7 +11,7 @@ import sigmabank.model.register.ClientPersonal;
 
 public class WriteToXML {
     public static void writeToXML(ClientPersonal client, String pathToXML) {
-        try {
+        try {       
             File xmlFile = new File(pathToXML); // Using the pathToXML variable correctly
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
