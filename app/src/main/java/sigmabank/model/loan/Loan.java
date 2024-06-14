@@ -47,35 +47,49 @@ public class Loan {
         return this.amount;
     }
 
+    /**
+     * Pay a portion of the loan.
+     * @param valuePay the value to be paid.
+     */
     public void pagarParteEmprestimo(BigDecimal valuePay){
-        //falta comparar se o cliente tem valor na conta pra pagar
+        // TODO check if the client has the money to pay the loan
         BigDecimal zero = BigDecimal.valueOf(0);
         if(valuePay.compareTo(zero) <= -1){
-            //o valor para o pagamento é invalido(zero ou negativo)
             return;
         }
         this.amount = amount.subtract(valuePay);
-        //Precisa ainda retirar o valor da conta do cliente
+        // TODO remember to remove the money from the client account  
     }
 
+    /**
+     * Calculates the amount of the total loan and updates the amount attribute.
+     * The formula used to calculate the amount is: amount = amount * (1 + fee)
+     */
     public void calculateAmount(){
-        //A cada virada de mes recalcular o amount de acordo com o juros
         BigDecimal one = BigDecimal.valueOf(1);
         BigDecimal sum = this.fee.add(one);
         BigDecimal newAmount = this.amount.multiply(sum);
         this.amount = newAmount;
     }
 
+
+    /**
+     * Simulates the payment of the loan for a given number of months.
+     * The formula used to calculate the payment is: valueParcel = (amount * fee) / (1- ((1 + fee)^(-n)))
+     * 
+     * @param numMonth the number of months to simulate the payment.
+     * @return the value of the payment.
+     * @throws IllegalArgumentException if the number of months is less than 1.
+     */
     public BigDecimal simulatePayment(int numMonth){
-        //Formula é valorParcela = (amount * fee) / (1- ((1 + fee)^(-n)))
         BigDecimal one = BigDecimal.valueOf(1);
-        BigDecimal valueParcel = null;
         BigDecimal amountFee = this.amount.multiply(this.fee);
         BigDecimal sumFee = one.add(this.fee);
         BigDecimal sumFeeN = sumFee.pow(numMonth);
         BigDecimal sumFeeNDiv = one.divide(sumFeeN);
         BigDecimal feeSub = one.subtract(sumFeeNDiv);
-        valueParcel = amountFee.divide(feeSub);
+        BigDecimal valueParcel = amountFee.divide(feeSub);
+
         return valueParcel;
     }
 }
