@@ -1,14 +1,14 @@
 package sigmabank.model.loan;
 
 import java.math.BigDecimal;
-import java.sql.Date;
+import java.time.LocalDate;
 import java.util.UUID;
 
 public class Loan {
     private final BigDecimal value;
     private final BigDecimal fee;
     private final UUID clientUUID;
-    private final Date startDay;
+    private final LocalDate startDay;
     private BigDecimal amount;
 
     public Loan(){
@@ -19,7 +19,7 @@ public class Loan {
         this.amount = null;
     }
 
-    public Loan(BigDecimal value, BigDecimal fee, UUID clientUUID, Date startDay){
+    public Loan(BigDecimal value, BigDecimal fee, UUID clientUUID, LocalDate startDay){
         this.value = value;
         this.fee = fee;
         this.clientUUID = clientUUID;
@@ -39,7 +39,7 @@ public class Loan {
         return this.clientUUID;
     }
 
-    public Date getStartDay(){
+    public LocalDate getStartDay(){
         return this.startDay;
     }
     

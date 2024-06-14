@@ -74,7 +74,7 @@ public class LoanWritter implements WritterXML<Loan>{
     }
 
     public static void main(String[] args) throws InvalidAttributeValueException {
-        Loan loan = new Loan(BigDecimal.valueOf(1000), BigDecimal.valueOf(0.5), UUID.randomUUID() , LocalDate.now(), BigDecimal.valueOf(1000));
+        Loan loan = new Loan(BigDecimal.valueOf(1000), BigDecimal.valueOf(0.5), UUID.randomUUID() , LocalDate.now());
         LoanWritter writter = new LoanWritter();
 
         try {
