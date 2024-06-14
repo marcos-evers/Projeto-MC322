@@ -2,7 +2,11 @@ package sigmabank.utils.writters;
 
 import java.io.File;
 import java.io.IOException;
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.util.UUID;
 
+import javax.management.InvalidAttributeValueException;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.transform.Transformer;
@@ -15,6 +19,7 @@ import org.w3c.dom.Element;
 
 import sigmabank.model.loan.Loan;
 
+ 
 public class LoanWritter implements WritterXML<Loan>{
     @Override
     public void writeToXML(Loan loan, String filename) throws IOException{
@@ -67,4 +72,16 @@ public class LoanWritter implements WritterXML<Loan>{
             e.printStackTrace();
         }
     }
+
+    public static void main(String[] args) throws InvalidAttributeValueException {
+        Loan loan = new Loan(BigDecimal.valueOf(1000), BigDecimal.valueOf(0.5), UUID.randomUUID() , LocalDate.now(), BigDecimal.valueOf(1000));
+        LoanWritter writter = new LoanWritter();
+
+        try {
+            writter.writeToXML(loan, "app/src/main/java/sigmabank/utils/xml_test/loan.xml");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

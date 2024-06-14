@@ -3,6 +3,9 @@ package sigmabank.utils.writters;
 import java.io.File;
 import java.io.IOException;
 
+// import java.time.LocalDate;
+// import javax.management.InvalidAttributeValueException;
+
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.transform.Transformer;
@@ -77,4 +80,19 @@ public class ClientPersonalWritter implements WritterXML<ClientPersonal>{
             e.printStackTrace();
         }
     }
+
+    /* 
+    public static void main(String[] args) throws InvalidAttributeValueException {
+        ClientPersonal client = new ClientPersonal("Gustavo Muito Lindo Esteche", LocalDate.parse("2021-01-01") ,"46212002922");
+        client.setEmail( "allahuakabar@gyaat.com");
+        client.setPhoneNumber("234572879");
+
+        ClientPersonalWritter writter = new ClientPersonalWritter();
+        try {
+            writter.writeToXML(client, "app/src/main/java/sigmabank/utils/xml_test/clientPersonal.xml");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    */
 }
