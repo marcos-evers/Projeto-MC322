@@ -27,6 +27,14 @@ public class Loan {
         this.amount = value;
     }
 
+    public Loan(BigDecimal value, BigDecimal fee, UUID clientUUID, LocalDate startDay, BigDecimal amount){
+        this.value = value;
+        this.fee = fee;
+        this.clientUUID = clientUUID;
+        this.startDay = startDay;
+        this.amount = amount;
+    }
+
     public BigDecimal getValue(){
         return this.value;
     }
