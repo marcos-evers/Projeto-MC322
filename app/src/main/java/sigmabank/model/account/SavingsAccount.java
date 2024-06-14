@@ -1,14 +1,16 @@
 package sigmabank.model.account;
 
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlElement;
-
 import java.util.UUID;
+
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+
+import sigmabank.model.investment.Investment;
 
 
 @XmlRootElement
 public class SavingsAccount extends Account {
-    @XmlElement private Object savingInvestment;    
+    @XmlElement private Investment savingInvestment;    
 
     public SavingsAccount(UUID clientUUID) {
         super(clientUUID);
