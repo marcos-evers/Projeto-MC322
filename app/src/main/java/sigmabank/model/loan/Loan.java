@@ -19,12 +19,12 @@ public class Loan {
         this.amount = null;
     }
 
-    public Loan(BigDecimal value, BigDecimal fee, UUID clientUUID, Date startDay, BigDecimal amount){
+    public Loan(BigDecimal value, BigDecimal fee, UUID clientUUID, Date startDay){
         this.value = value;
         this.fee = fee;
         this.clientUUID = clientUUID;
         this.startDay = startDay;
-        this.amount = amount;
+        this.amount = value;
     }
 
     public BigDecimal getValue(){
@@ -49,16 +49,12 @@ public class Loan {
 
     /**
      * Pay a portion of the loan.
-     * @param valuePay the value to be paid.
+     * @param valuePay
      */
-    public void pagarParteEmprestimo(BigDecimal valuePay){
-        // TODO check if the client has the money to pay the loan
-        BigDecimal zero = BigDecimal.valueOf(0);
-        if(valuePay.compareTo(zero) <= -1){
-            return;
-        }
+    public void payLoan(BigDecimal valuePay){
+        //TODO check if the client has the money to pay the loan
         this.amount = amount.subtract(valuePay);
-        // TODO remember to remove the money from the client account  
+        //TODO remember to remove the money from the client account 
     }
 
     /**
