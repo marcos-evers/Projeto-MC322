@@ -15,10 +15,19 @@ import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
 
+import sigmabank.database.Database;
 import sigmabank.model.register.ClientPersonal;
 import sigmabank.writterXML.WriteToXML;
 
 public class RegisterHttpHandler implements HttpHandler {
+    private final Database db;
+
+    public RegisterHttpHandler(Database db) {
+        super();
+
+        this.db = db;
+    }
+
     @Override
     public void handle(HttpExchange exchange) throws IOException {
         if ("POST".equalsIgnoreCase(exchange.getRequestMethod())) {
@@ -54,6 +63,9 @@ public class RegisterHttpHandler implements HttpHandler {
 
             // TODO DB still need some attention
             WriteToXML.writeToXML(client, "src/main/resources/sigmabank/database/registerDB.xml");
+            db.addEntry("ClientPersonal", client);
+
+            System.out.println(db);
 
             String response = "Registration Successful: " + client.toString();
             exchange.sendResponseHeaders(200, response.getBytes().length);

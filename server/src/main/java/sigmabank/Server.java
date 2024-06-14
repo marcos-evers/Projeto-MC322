@@ -10,13 +10,20 @@ import java.net.InetSocketAddress;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-
+import sigmabank.database.Database;
 import sigmabank.httphandler.RegisterHttpHandler;
+
 public class Server {
     private static int port = 8000;
     private static HttpServer server;
+    private static Database db;
 
     public static void main(String[] args) throws IOException {
+        db = new Database()
+            .addTable("ClientPersonal")
+            .addTable("Investment")
+            .addTable("Loan");
+
         server = HttpServer.create(new InetSocketAddress(port), 0);
         server.createContext("/", new HttpHandler() {
             @Override
@@ -31,7 +38,7 @@ public class Server {
             }
         });
 
-        server.createContext("/register", new RegisterHttpHandler());
+        server.createContext("/register", new RegisterHttpHandler(db));
 
         server.setExecutor(null); // creates a default executor
         System.out.println("[MSG] Server started on port " + port);
