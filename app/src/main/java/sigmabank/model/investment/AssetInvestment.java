@@ -37,18 +37,26 @@ public class AssetInvestment extends Investment implements InvestmentOperations 
     
 
     @Override
-    public void retrieveInvestment(BigDecimal amount){
-        // TODO: method implementation made the request to the database to check if the retrieval is valid and then execute it
-        this.investedValue = this.investedValue.subtract(amount);
+    public BigDecimal retrieveInvestment(BigDecimal amount){
+        if(amount.compareTo(this.value) > 0){
+            return BigDecimal.valueOf(0);
+        }
+
+        if(amount.compareTo(this.value) == 0){
+            return BigDecimal.valueOf(0);
+        }
+
         this.assetQuantity = this.assetQuantity.subtract(amount.divide(this.assetValue));
         this.value = this.assetQuantity.multiply(this.assetValue);
+        this.retrievedValue = this.retrievedValue.add(amount);
+
+        return amount;
     }
 
     @Override
-    public void investMore(BigDecimal addedValue){
-        // TODO: method implementation made the request to the database to check if the investmore  is valid and then execute it
-        this.investedValue = this.investedValue.add(addedValue);
-        this.assetQuantity = this.assetQuantity.add(addedValue.divide(this.assetValue));
+    public void investMore(BigDecimal additionalValue){
+        this.investedValue = this.investedValue.add(additionalValue);
+        this.assetQuantity = this.assetQuantity.add(additionalValue.divide(this.assetValue));
         this.value = this.assetQuantity.multiply(this.assetValue);
     }
 }

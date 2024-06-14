@@ -11,7 +11,7 @@ public interface InvestmentOperations {
      * Retrieve a portion or all of the investment.
      * 
      */
-    public void retrieveInvestment(BigDecimal amount);
+    public BigDecimal retrieveInvestment(BigDecimal amount);
 
     /**
      * Invest more money into the investment.

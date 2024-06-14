@@ -11,6 +11,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class Investment {
     @XmlElement protected BigDecimal investedValue;
     @XmlElement protected BigDecimal value;
+    @XmlElement protected BigDecimal retrievedValue;
     @XmlElement protected final UUID clientUUID;
     @XmlElement protected final LocalDate startDate;
     
@@ -20,6 +21,7 @@ public class Investment {
         this.clientUUID = clientUUID;
         this.startDate = startDate;
         this.value = this.investedValue;
+        this.retrievedValue = BigDecimal.valueOf(0);
     }
 
     public BigDecimal getInvestedValue(){
@@ -28,6 +30,10 @@ public class Investment {
 
     public BigDecimal getValue(){
         return value;
+    }
+
+    public BigDecimal getRetrievedValue(){
+        return retrievedValue;
     }
 
     public UUID getClientUUID(){
@@ -47,6 +53,6 @@ public class Investment {
     }
     
     public BigDecimal calculateProfit(){
-        return value.subtract(investedValue);
+        return this.value.subtract(this.investedValue).add(this.retrievedValue);
     }
 }

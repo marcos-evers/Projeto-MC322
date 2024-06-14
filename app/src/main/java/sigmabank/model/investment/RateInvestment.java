@@ -10,10 +10,12 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class RateInvestment extends Investment implements InvestmentOperations{
     @XmlElement private BigDecimal rate;
+    @XmlElement private BigDecimal addedValue;
 
     public RateInvestment(BigDecimal investedvalue, UUID clientUUID, LocalDate startDate, BigDecimal rate) {
         super(investedvalue, clientUUID, startDate);
         this.rate = rate;
+        this.addedValue = BigDecimal.valueOf(0);
     }
 
     public BigDecimal getRate() {
@@ -24,20 +26,36 @@ public class RateInvestment extends Investment implements InvestmentOperations{
         this.rate = rate;
     }
 
+    /**
+     * Updates the value of the investment based on the rate, also, adds the added value to the investment value.
+     */
     public void updateValue() {
         BigDecimal one = BigDecimal.valueOf(1);
         BigDecimal sum = this.rate.add(one);
         BigDecimal newValue = this.value.multiply(sum);
-        this.value = newValue;
+        this.value = newValue.add(this.addedValue);
+        this.addedValue = BigDecimal.valueOf(0);
     }
 
     @Override
-    public void retrieveInvestment(BigDecimal amount){
-        // TODO: method implementation made the request to the database to check if the retrieval is valid and then execute it
+    public BigDecimal retrieveInvestment(BigDecimal amount){
+        if(amount.compareTo(this.value) > 0){
+            return BigDecimal.valueOf(0);
+        }
+
+        if(amount.compareTo(this.value) == 0){
+            return BigDecimal.valueOf(0);
+        }
+
+        this.value = this.value.subtract(amount);
+        this.retrievedValue = this.retrievedValue.add(amount);
+
+        return amount;
     }
 
     @Override
     public void investMore(BigDecimal amount){
-        // TODO: method implementation made the request to the database to check if the investmore  is valid and then execute it
+        this.investedValue = this.investedValue.add(amount);
+        this.addedValue = this.addedValue.add(amount);
     }
 }
