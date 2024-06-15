@@ -17,9 +17,17 @@ repositories {
     mavenCentral()
 }
 
+sourceSets {
+    main {
+        resources {
+            srcDirs = ['src/main/resources']
+        }
+    }
+}
+
 javafx {
     version = "22.0.1"
-    modules = [ 'javafx.controls' ]
+    modules = [ 'javafx.controls', 'javafx.fxml' ]
 }
 
 dependencies {

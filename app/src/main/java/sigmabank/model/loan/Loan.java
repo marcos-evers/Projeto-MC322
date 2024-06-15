@@ -1,14 +1,14 @@
 package sigmabank.model.loan;
 
 import java.math.BigDecimal;
-import java.sql.Date;
+import java.time.LocalDate;
 import java.util.UUID;
 
 public class Loan {
     private final BigDecimal value;
     private final BigDecimal fee;
     private final UUID clientUUID;
-    private final Date startDay;
+    private final LocalDate startDay;
     private BigDecimal amount;
 
     public Loan(){
@@ -19,7 +19,15 @@ public class Loan {
         this.amount = null;
     }
 
-    public Loan(BigDecimal value, BigDecimal fee, UUID clientUUID, Date startDay, BigDecimal amount){
+    public Loan(BigDecimal value, BigDecimal fee, UUID clientUUID, LocalDate startDay){
+        this.value = value;
+        this.fee = fee;
+        this.clientUUID = clientUUID;
+        this.startDay = startDay;
+        this.amount = value;
+    }
+
+    public Loan(BigDecimal value, BigDecimal fee, UUID clientUUID, LocalDate startDay, BigDecimal amount){
         this.value = value;
         this.fee = fee;
         this.clientUUID = clientUUID;
@@ -39,7 +47,7 @@ public class Loan {
         return this.clientUUID;
     }
 
-    public Date getStartDay(){
+    public LocalDate getStartDay(){
         return this.startDay;
     }
     
@@ -47,28 +55,45 @@ public class Loan {
         return this.amount;
     }
 
-    public void pagarParteEmprestimo(BigDecimal valuePay){
-        
+    /**
+     * Pay a portion of the loan.
+     * @param valuePay
+     */
+    public void payLoan(BigDecimal valuePay){
+        //TODO check if the client has the money to pay the loan
+        this.amount = amount.subtract(valuePay);
+        //TODO remember to remove the money from the client account 
     }
 
-    public void calcularAmount(){
-        //A cada virada de mes recalcular o amount de acordo com o juros
+    /**
+     * Calculates the amount of the total loan and updates the amount attribute.
+     * The formula used to calculate the amount is: amount = amount * (1 + fee)
+     */
+    public void calculateAmount(){
         BigDecimal one = BigDecimal.valueOf(1);
         BigDecimal sum = this.fee.add(one);
         BigDecimal newAmount = this.amount.multiply(sum);
         this.amount = newAmount;
     }
 
-    public BigDecimal simularPagamento(int numMonth){
-        //Formula é valorParcela = (amount * fee) / (1- ((1 + fee)^(-n)))
+
+    /**
+     * Simulates the payment of the loan for a given number of months.
+     * The formula used to calculate the payment is: valueParcel = (amount * fee) / (1- ((1 + fee)^(-n)))
+     * 
+     * @param numMonth the number of months to simulate the payment.
+     * @return the value of the payment.
+     * @throws IllegalArgumentException if the number of months is less than 1.
+     */
+    public BigDecimal simulatePayment(int numMonth){
         BigDecimal one = BigDecimal.valueOf(1);
-        BigDecimal valorParcela = null;
         BigDecimal amountFee = this.amount.multiply(this.fee);
         BigDecimal sumFee = one.add(this.fee);
         BigDecimal sumFeeN = sumFee.pow(numMonth);
         BigDecimal sumFeeNDiv = one.divide(sumFeeN);
         BigDecimal feeSub = one.subtract(sumFeeNDiv);
-        valorParcela = amountFee.divide(feeSub);
-        return valorParcela;
+        BigDecimal valueParcel = amountFee.divide(feeSub);
+
+        return valueParcel;
     }
 }

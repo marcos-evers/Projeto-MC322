@@ -4,27 +4,22 @@ import java.time.LocalDate;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import sigmabank.model.register.ClientPersonal;
 import sigmabank.net.PostClientPersonal;
+import java.io.IOException;
 
-/* Saving for later use 
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
-import sigmabank.model.register.Register;
-*/
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 
 public class App extends Application {
     @Override
-    public void start(Stage stage) {
-        String javaVersion = System.getProperty("java.version");
-        String javafxVersion = System.getProperty("javafx.version");
-        Label l = new Label("Hello, JavaFX " + javafxVersion + ", running on Java " + javaVersion + ".");
-        Scene scene = new Scene(new StackPane(l), 640, 480);
-        stage.setScene(scene);
+    public void start(Stage stage) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/sigmabank/fxml/register.fxml"));
+        Parent root = loader.load();
+
+        stage.setTitle("FXML test");
+        stage.setScene(new Scene(root));
         stage.show();
     }
 
