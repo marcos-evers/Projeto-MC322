@@ -42,10 +42,6 @@ public class AssetInvestment extends Investment implements InvestmentOperations 
             return BigDecimal.valueOf(0);
         }
 
-        if(amount.compareTo(this.value) == 0){
-            return BigDecimal.valueOf(0);
-        }
-
         this.assetQuantity = this.assetQuantity.subtract(amount.divide(this.assetValue));
         this.value = this.assetQuantity.multiply(this.assetValue);
         this.retrievedValue = this.retrievedValue.add(amount);
