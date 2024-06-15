@@ -1,6 +1,14 @@
 package sigmabank.utils;
 
 public class DocumentValidator {
+
+    /**
+     * Validates a CPF number.
+     * Conditions to be valid: CPF must have 11 digits, the first and the second verifying digit must be valid.
+     * 
+     * @param cpf the CPF number to be validated as a String.
+     * @return true if the CPF number is valid, false otherwise.
+     */
     public static boolean isValidCPF(String cpf) {
         cpf = cpf.replaceAll("\\D", ""); // remove all non-digit characters
 
@@ -46,6 +54,13 @@ public class DocumentValidator {
         return verifyingDigit2 == digits[10];
     }
 
+    /**
+     * Validates a CNPJ number.
+     * Conditions to be valid: CNPJ must have 14 digits, the first and the second verifying digit must be valid.
+     * 
+     * @param cnpj the CNPJ number to be validated as a String.
+     * @return true if the CNPJ number is valid, false otherwise.
+     */
     public static boolean isValidCNPJ(String cnpj) {
         cnpj = cnpj.replaceAll("\\D", ""); // remove all non-digit characters
     
