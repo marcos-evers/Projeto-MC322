@@ -56,6 +56,7 @@ public class RegisterHttpHandler implements HttpHandler {
             client.setAddress(params.get("address"));
 
             Database.getInstance().addEntry("ClientPersonal", client);
+            Database.getInstance().saveToXML("");
 
             String response = "Registration Successful: " + client.toString();
             exchange.sendResponseHeaders(200, response.getBytes().length);

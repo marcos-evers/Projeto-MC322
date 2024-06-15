@@ -21,6 +21,7 @@ public class PostClientPersonal {
             +  "dob=" + client.getDateOfBirth() + "&"
             +  "cpf=" + client.getCpf() + "&"
             +  "phoneNumber=" + client.getPhoneNumber() + "&"
+            +  "address=" + client.getAddress() + "&"
             +  "email=" + client.getEmail();
     }
 

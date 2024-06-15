@@ -24,12 +24,13 @@ public class App extends Application {
     }
 
     public static void main(String[] args) throws Exception {
-        launch();
+        // launch();
 
         PostClientPersonal pcp = new PostClientPersonal("http://localhost:8000/register");
         ClientPersonal cp = new ClientPersonal("marcos", LocalDate.of(2005, 2, 21), "12312312312");
         cp.setEmail("marcos@paulo.evers");
         cp.setPhoneNumber("85912341234");
+        cp.setAddress("Rua 123, 123, 00123-123");
         System.out.println("Response Code: " + pcp.send(cp));
     }
 }

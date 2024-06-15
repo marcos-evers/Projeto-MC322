@@ -18,6 +18,11 @@ public class ClientPersonal extends Register {
     private List<CreditCard> creditCards;
     private List<DebitCard> debitCards;
 
+    public ClientPersonal() {
+        super();
+        this.cpf = "00000000000";
+    };
+
     public ClientPersonal(String name, LocalDate dateOfBirth, String cpf) {
         super(name, dateOfBirth);
         this.cpf = cpf;
