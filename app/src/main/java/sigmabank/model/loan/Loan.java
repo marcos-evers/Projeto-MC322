@@ -13,7 +13,9 @@ public class Loan {
     @XmlElement private final BigDecimal fee;
     @XmlElement private final UUID clientUUID;
     @XmlElement private final LocalDate startDay;
+    @XmlElement private LocalDate lastUpdateDate;
     @XmlElement private BigDecimal amount;
+    
 
     public Loan(){
         this.value = null;
@@ -60,6 +62,15 @@ public class Loan {
     }
 
     /**
+     * Check if the loan needs to be updated.
+     * @return true if the loan needs to be updated, false otherwise.
+     */
+    private Boolean checkUpdateDate(){
+        LocalDate currentDate = LocalDate.now();
+        return currentDate.isAfter(this.lastUpdateDate.plusMonths(1));
+    }
+
+    /**
      * Pay a portion of the loan.
      * @param valuePay
      */
@@ -73,7 +84,12 @@ public class Loan {
      * Calculates the amount of the total loan and updates the amount attribute.
      * The formula used to calculate the amount is: amount = amount * (1 + fee)
      */
-    public void calculateAmount(){
+    public void updateAmount(){
+        if(!this.checkUpdateDate()){
+            return;
+        }
+        this.lastUpdateDate = LocalDate.now();
+
         BigDecimal one = BigDecimal.valueOf(1);
         BigDecimal sum = this.fee.add(one);
         BigDecimal newAmount = this.amount.multiply(sum);
