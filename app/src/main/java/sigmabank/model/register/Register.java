@@ -5,12 +5,10 @@ import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import javax.management.InvalidAttributeValueException;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import sigmabank.utils.HashPassword;
-
 
 @XmlRootElement
 public class Register {
@@ -32,7 +30,6 @@ public class Register {
     }
 
     public Register(String name, LocalDate dateOfBirth) {
-        // TODO add validation to dateOfBirth
         this.uuid = UUID.randomUUID();
         this.name = name;
         this.dateOfBirth = dateOfBirth;
@@ -42,49 +39,51 @@ public class Register {
      * Sets the email attribute of the Register.
      *
      * @param email The phone number to set.
-     * @throws InvalidAttributeValueException if the provided email does not match the expected format.
+     * @throws IllegalArgumentException if the provided email does not match the expected format.
+     * @info The used regex is ^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$
      */
-    public void setEmail(String email) throws InvalidAttributeValueException {
+    public void setEmail(String email) throws IllegalArgumentException {
         Pattern pattern = Pattern.compile("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$");
         Matcher matcher = pattern.matcher(email);
 
         if (matcher.find())
             this.email = email;
         else
-            throw new InvalidAttributeValueException(email + " is not a email");
+            throw new IllegalArgumentException(email + " is not a email");
     }
 
     /**
      * Sets the phone number attribute of the Register.
      *
      * @param phoneNumber The phone number to set.
-     * @throws InvalidAttributeValueException if the provided phone number does not match the expected format.
+     * @throws IllegalArgumentException if the provided phone number does not match the expected format.
+     * @info The used regex is ^\\+?[0-9()-]*$"
      */
-    public void setPhoneNumber(String phoneNumber) throws InvalidAttributeValueException {
-        // TODO fix regex
+    public void setPhoneNumber(String phoneNumber) throws IllegalArgumentException {
         Pattern pattern = Pattern.compile("^\\+?[0-9()-]*$");
         Matcher matcher = pattern.matcher(phoneNumber);
         
         if (matcher.find())
             this.phoneNumber = phoneNumber;
         else
-            throw new InvalidAttributeValueException(phoneNumber + " is not a phone number");
+            throw new IllegalArgumentException(phoneNumber + " is not a phone number");
     }
 
     /**
      * Sets the address attribute of the Register.
      *
      * @param address The phone number to set.
-     * @throws InvalidAttributeValueException if the provided address does not match the expected format.
+     * @throws IllegalArgumentException if the provided address does not match the expected format.
+     * @info The used regex is ^(Rua|Avenida) [a-zA-Z0-9 ]+, [0-9]+, [0-9]{5}-[0-9]{3}
      */
-    public void setAddress(String address) throws InvalidAttributeValueException {
+    public void setAddress(String address) throws IllegalArgumentException {
         Pattern pattern = Pattern.compile("^(Rua|Avenida) [a-zA-Z0-9 ]+, [0-9]+, [0-9]{5}-[0-9]{3}");
         Matcher matcher = pattern.matcher(address);
 
         if (matcher.find())
             this.address = address;
         else
-            throw new InvalidAttributeValueException(address + " is not a address");
+            throw new IllegalArgumentException(address + " is not a address");
     }
 
     public void setRegisterPassword(String password) {

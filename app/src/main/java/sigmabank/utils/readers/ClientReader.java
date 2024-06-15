@@ -11,12 +11,12 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
-import sigmabank.model.register.ClientPersonal;
+import sigmabank.model.register.Client;
 
-public class ClientPersonalReader implements ReaderXML<ClientPersonal>{
+public class ClientReader implements ReaderXML<Client>{
     @Override
-    public ArrayList<ClientPersonal> readFromXML(String path) {
-        ArrayList<ClientPersonal> clients = new ArrayList<>();
+    public ArrayList<Client> readFromXML(String path) {
+        ArrayList<Client> clients = new ArrayList<>();
 
         try {
             File file = new File(path);
@@ -25,7 +25,7 @@ public class ClientPersonalReader implements ReaderXML<ClientPersonal>{
             Document doc = dBuilder.parse(file);
             doc.getDocumentElement().normalize();
 
-            NodeList nodeList = doc.getElementsByTagName("ClientPersonal");
+            NodeList nodeList = doc.getElementsByTagName("Client");
 
             for (int i = 0; i < nodeList.getLength(); i++) {
                 Element clientElement = (Element) nodeList.item(i);
@@ -36,7 +36,7 @@ public class ClientPersonalReader implements ReaderXML<ClientPersonal>{
                 
                 String cpf = clientElement.getElementsByTagName("cpf").item(0).getTextContent();
 
-                ClientPersonal client = new ClientPersonal(name, LocalDate.parse(dateOfBirth), cpf);
+                Client client = new Client(name, LocalDate.parse(dateOfBirth), cpf);
                 clients.add(client);
             }
 
@@ -49,19 +49,10 @@ public class ClientPersonalReader implements ReaderXML<ClientPersonal>{
     }
 
     @Override
-    public ClientPersonal readFromXML(String pathToXML, String identifier){
+    public Client readFromXML(String pathToXML, String identifier){
         // TODO implementation
         return null;
     }
 
-    
-    public static void main(String[] args) {
-        ClientPersonalReader reader = new ClientPersonalReader();
-        ArrayList<ClientPersonal> clients = reader.readFromXML("app/src/main/java/sigmabank/utils/xml_test/clientPersonal.xml");
-        System.out.println(clients.size());
-        for (ClientPersonal client : clients) {
-            System.out.println(client);
-        }
-    }
     
 }

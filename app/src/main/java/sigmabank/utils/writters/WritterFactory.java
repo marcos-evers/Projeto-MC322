@@ -3,9 +3,7 @@ package sigmabank.utils.writters;
 public class WritterFactory {
 
     public enum WritterType {
-        CLIENT_PERSONAL,
-        CLIENT_ENTERPRISE,
-        ACCOUNT,
+        CLIENT,
         LOAN
     }
 
@@ -17,14 +15,8 @@ public class WritterFactory {
      */
     public static WritterXML<?> createWritter(WritterType writterType) {
         switch (writterType) {
-            case CLIENT_PERSONAL -> {
-                return new ClientPersonalWritter();
-            }
-            case CLIENT_ENTERPRISE -> {
-                return new ClientEnterpriseWritter();
-            }
-            case ACCOUNT -> {
-                return new AccountWritter();
+            case CLIENT-> {
+                return new ClientWritter();
             }
             case LOAN -> {
                 return new LoanWritter();
