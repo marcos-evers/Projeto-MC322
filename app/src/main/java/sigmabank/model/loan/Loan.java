@@ -4,12 +4,16 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.UUID;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement
 public class Loan {
-    private final BigDecimal value;
-    private final BigDecimal fee;
-    private final UUID clientUUID;
-    private final LocalDate startDay;
-    private BigDecimal amount;
+    @XmlElement private final BigDecimal value;
+    @XmlElement private final BigDecimal fee;
+    @XmlElement private final UUID clientUUID;
+    @XmlElement private final LocalDate startDay;
+    @XmlElement private BigDecimal amount;
 
     public Loan(){
         this.value = null;
