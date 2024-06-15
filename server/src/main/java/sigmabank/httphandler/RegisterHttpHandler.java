@@ -15,19 +15,12 @@ import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.management.InvalidAttributeValueException;
+
 import sigmabank.database.Database;
 import sigmabank.model.register.ClientPersonal;
-import sigmabank.writterXML.WriteToXML;
 
 public class RegisterHttpHandler implements HttpHandler {
-    private final Database db;
-
-    public RegisterHttpHandler(Database db) {
-        super();
-
-        this.db = db;
-    }
-
     @Override
     public void handle(HttpExchange exchange) throws IOException {
         if ("POST".equalsIgnoreCase(exchange.getRequestMethod())) {
@@ -47,25 +40,22 @@ public class RegisterHttpHandler implements HttpHandler {
         InputStreamReader isr = new InputStreamReader(exchange.getRequestBody(), StandardCharsets.UTF_8);
         BufferedReader br = new BufferedReader(isr);
         String query = br.readLine();
-        Map<String, String> parsedQuery = parseQuery(query);
+        Map<String, String> params = parseParams(query);
 
-        System.out.println("[MSG] Recived Query: " + query);
+        System.out.println("[MSG] Recived data: " + query);
 
-        try {
+        try { 
             ClientPersonal client = new ClientPersonal(
-                parsedQuery.get("name"),
-                LocalDate.parse(parsedQuery.get("dob")),
-                parsedQuery.get("cpf")
+                params.get("name"),
+                LocalDate.parse(params.get("dob")),
+                params.get("cpf")
             );
-            
-            client.setEmail(parsedQuery.get("email"));
-            client.setPhoneNumber(parsedQuery.get("phoneNumber"));
+        
+            client.setEmail(params.get("email"));
+            client.setPhoneNumber(params.get("phoneNumber"));
+            client.setAddress(params.get("address"));
 
-            // TODO DB still need some attention
-            WriteToXML.writeToXML(client, "src/main/resources/sigmabank/database/registerDB.xml");
-            db.addEntry("ClientPersonal", client);
-
-            System.out.println(db);
+            Database.getInstance().addEntry("ClientPersonal", client);
 
             String response = "Registration Successful: " + client.toString();
             exchange.sendResponseHeaders(200, response.getBytes().length);
@@ -89,7 +79,7 @@ public class RegisterHttpHandler implements HttpHandler {
         }
     }
 
-    private Map<String, String> parseQuery(String query) throws UnsupportedEncodingException {
+    private Map<String, String> parseParams(String query) throws UnsupportedEncodingException {
         Map<String, String> result = new HashMap<>();
         for (String param : query.split("&")) {
             String[] entry = param.split("=");

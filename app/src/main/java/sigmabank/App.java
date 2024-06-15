@@ -24,7 +24,7 @@ public class App extends Application {
     }
 
     public static void main(String[] args) throws Exception {
-        // launch();
+        launch();
 
         PostClientPersonal pcp = new PostClientPersonal("http://localhost:8000/register");
         ClientPersonal cp = new ClientPersonal("marcos", LocalDate.of(2005, 2, 21), "12312312312");

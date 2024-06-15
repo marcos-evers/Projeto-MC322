@@ -7,7 +7,16 @@ import java.util.HashMap;
 import java.util.function.Predicate;
 
 public class Database {
+    private static Database instance;
     private Map<String, List<Object>> tables = new HashMap<>();
+
+    private Database() {}
+
+    public static Database getInstance() {
+        if (instance == null)
+            instance = new Database();
+        return instance;
+    }
 
     public Database addTable(String label) {
         tables.put(label, new ArrayList<>());
