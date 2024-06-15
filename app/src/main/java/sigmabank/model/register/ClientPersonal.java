@@ -9,6 +9,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import sigmabank.model.card.CreditCard;
 import sigmabank.model.card.DebitCard;
+import sigmabank.utils.DocumentValidator;
 
 @XmlRootElement
 public class ClientPersonal extends Register {
@@ -19,8 +20,15 @@ public class ClientPersonal extends Register {
 
     public ClientPersonal(String name, LocalDate dateOfBirth, String cpf) {
         super(name, dateOfBirth);
-        this.cpf = cpf;
 
+        if (!DocumentValidator.isValidCPF(cpf)) {
+            throw new IllegalArgumentException("Invalid CPF: " + cpf);
+        }
+        if (!isAdult(dateOfBirth)) {
+            throw new IllegalArgumentException("Invalid date of birth: " + dateOfBirth);
+        }
+        
+        this.cpf = cpf;
         creditCards = new ArrayList<>();
         debitCards = new ArrayList<>();
     }
@@ -83,5 +91,10 @@ public class ClientPersonal extends Register {
 
     public List<DebitCard> getDebitCards() {
         return this.debitCards;
+    }
+
+    private boolean isAdult(LocalDate dateOfBirth) {
+        LocalDate eighteenYearsAgo = LocalDate.now().minusYears(18);
+        return dateOfBirth.isBefore(eighteenYearsAgo);
     }
 }

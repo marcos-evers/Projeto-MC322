@@ -9,6 +9,7 @@ import javax.xml.bind.annotation.XmlElement;
 
 import sigmabank.model.card.CreditCard;
 import sigmabank.model.card.DebitCard;
+import sigmabank.utils.DocumentValidator;
 
 @XmlRootElement
 public class ClientEnterprise extends Register {
@@ -19,6 +20,11 @@ public class ClientEnterprise extends Register {
 
     public ClientEnterprise(String name, LocalDate dateOfBirth, String cnpj) {
         super(name, dateOfBirth);
+
+        if(!DocumentValidator.isValidCNPJ(cnpj)){
+            throw new IllegalArgumentException("Invalid CNPJ " + cnpj);
+        }
+
         this.cnpj = cnpj;
 
         creditCards = new ArrayList<>();
