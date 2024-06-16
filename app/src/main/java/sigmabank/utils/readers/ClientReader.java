@@ -25,7 +25,7 @@ public class ClientReader implements ReaderXML<Client> {
             Document doc = dBuilder.parse(file);
             doc.getDocumentElement().normalize();
 
-            NodeList nodeList = doc.getElementsByTagName("ClientPersonal");
+            NodeList nodeList = doc.getElementsByTagName("Client");
 
             for (int i = 0; i < nodeList.getLength(); i++) {
                 Element clientElement = (Element) nodeList.item(i);
@@ -107,4 +107,5 @@ public class ClientReader implements ReaderXML<Client> {
         }
     }
     */
+    
 }
