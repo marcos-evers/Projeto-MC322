@@ -18,8 +18,8 @@ public class Client extends Register {
     private List<Investment> investments;
     private List<Loan> loans;
 
-    public Client(String name, LocalDate dateOfBirth, String cpf) {
-        super(name, dateOfBirth);
+    public Client(String name, LocalDate dateOfBirth, String cpf, String passwordHash) {
+        super(name, dateOfBirth, passwordHash);
 
         if (!DocumentValidator.isValidCPF(cpf)) {
             throw new IllegalArgumentException("Invalid CPF: " + cpf);

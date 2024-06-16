@@ -22,7 +22,8 @@ public class PostClient {
             +  "cpf=" + client.getCpf() + "&"
             +  "phoneNumber=" + client.getPhoneNumber() + "&"
             +  "address=" + client.getAddress() + "&"
-            +  "email=" + client.getEmail();
+            +  "email=" + client.getEmail() + "&"
+            +  "password=" + client.getPasswordHash();
     }
 
     public int send(Client client) throws Exception {

@@ -17,7 +17,7 @@ public class Register {
     @XmlElement private final UUID uuid;
     @XmlElement private final String name;
     @XmlElement private final LocalDate dateOfBirth;
-    @XmlElement private String registerPasswordHash;
+    @XmlElement private String passwordHash;
 
     // Contact Data
     private String email;
@@ -30,10 +30,11 @@ public class Register {
         this.dateOfBirth = null;
     }
 
-    public Register(String name, LocalDate dateOfBirth) {
+    public Register(String name, LocalDate dateOfBirth, String passwordHash) {
         this.uuid = UUID.randomUUID();
         this.name = name;
         this.dateOfBirth = dateOfBirth;
+        this.passwordHash = passwordHash;
     }
 
     /**
@@ -88,7 +89,7 @@ public class Register {
     }
 
     public void setRegisterPassword(String password) {
-        this.registerPasswordHash = HashPassword.hashPassword(uuid, password);
+        this.passwordHash = HashPassword.hashPassword(uuid, password);
     }
 
     public UUID getUuid() {
@@ -115,7 +116,11 @@ public class Register {
         return this.phoneNumber;
     }
 
+    public String getPasswordHash() {
+        return this.passwordHash;
+    }
+
     public boolean validatePassword(String password){
-        return HashPassword.hashPassword(uuid, password).equals(this.registerPasswordHash);
+        return HashPassword.hashPassword(uuid, password).equals(this.passwordHash);
     }
 }

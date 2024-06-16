@@ -14,14 +14,28 @@ public class Server {
 
     public static void main(String[] args) throws IOException {
         Database.getInstance()
-            .addTable("ClientPersonal")
-            .addTable("ClientEnterprise")
-            .addTable("Investment")
-            .addTable("Loan");
+            .addTable("Clients")
+            .addTable("ClientsToApproval")
+            .addTable("Investments")
+            .addTable("Loans");
 
         server = HttpServer.create(new InetSocketAddress(port), 0);
 
-        server.createContext("/register", new RegisterHttpHandler());
+        // POST - Add a new client to approval
+        // GET - Given CPF and password return the respective client
+        server.createContext("/client", new RegisterHttpHandler());
+        
+        // POST - Informs that a client was approved or not
+        // GET - Return the clients to be approved
+        server.createContext("/client/toapproval");
+
+        // POST - Create a new investment in the server
+        // GET - Return the investments of a client
+        server.createContext("/investment");
+
+        // POST - Create a new loan in the server
+        // GET - Return the loans of a client
+        server.createContext("/loan");
 
         server.setExecutor(null);
 

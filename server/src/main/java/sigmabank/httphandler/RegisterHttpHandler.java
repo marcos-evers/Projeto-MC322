@@ -46,14 +46,15 @@ public class RegisterHttpHandler implements HttpHandler {
             Client client = new Client(
                 params.get("name"),
                 LocalDate.parse(params.get("dob")),
-                params.get("cpf")
+                params.get("cpf"),
+                params.get("password")
             );
         
             client.setEmail(params.get("email"));
             client.setPhoneNumber(params.get("phoneNumber"));
             client.setAddress(params.get("address"));
 
-            Database.getInstance().addEntry("ClientPersonal", client);
+            Database.getInstance().addEntry("Clients", client);
             Database.getInstance().saveToXML("");
 
             String response = "Registration Successful: " + client.toString();
