@@ -2,11 +2,12 @@ package sigmabank.utils.writters;
 
 import java.io.File;
 import java.io.IOException;
+/* 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.UUID;
-
 import javax.management.InvalidAttributeValueException;
+*/
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.transform.Transformer;
@@ -19,22 +20,22 @@ import org.w3c.dom.Element;
 
 import sigmabank.model.loan.Loan;
 
- 
 public class LoanWritter implements WritterXML<Loan>{
     @Override
     public void writeToXML(Loan loan, String filename) throws IOException{
         try {
-            File xmlFile = new File(filename);
+            File xmlFile = new File(filename); // Using the pathToXML variable correctly
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             Document doc;
 
-            if (xmlFile.exists()) {
+            // Check if file exists and has content
+            if (xmlFile.exists() && xmlFile.length() != 0) {
                 doc = dBuilder.parse(xmlFile);
                 doc.getDocumentElement().normalize();
             } else {
                 doc = dBuilder.newDocument();
-                Element rootElement = doc.createElement("Loans");
+                Element rootElement = doc.createElement("Clients");
                 doc.appendChild(rootElement);
             }
 
@@ -58,6 +59,10 @@ public class LoanWritter implements WritterXML<Loan>{
             startDay.appendChild(doc.createTextNode(loan.getStartDay().toString()));
             loanElement.appendChild(startDay);
 
+            Element lastUpdatedDate = doc.createElement("lastUpdatedDate");
+            lastUpdatedDate.appendChild(doc.createTextNode(loan.getLastUpdateDate().toString()));
+            loanElement.appendChild(lastUpdatedDate);
+
             Element amount = doc.createElement("amount");
             amount.appendChild(doc.createTextNode(loan.getAmount().toString()));
             loanElement.appendChild(amount);
@@ -72,16 +77,18 @@ public class LoanWritter implements WritterXML<Loan>{
             e.printStackTrace();
         }
     }
-
+    
+    /* 
     public static void main(String[] args) throws InvalidAttributeValueException {
-        Loan loan = new Loan(BigDecimal.valueOf(1000), BigDecimal.valueOf(0.5), UUID.randomUUID() , LocalDate.now());
+        Loan loan = new Loan(BigDecimal.valueOf(1000), BigDecimal.valueOf(0.5), UUID.randomUUID() ,LocalDate.now(), BigDecimal.valueOf(1024),LocalDate.now());
         LoanWritter writter = new LoanWritter();
-
+    
         try {
-            writter.writeToXML(loan, "app/src/main/java/sigmabank/utils/xml_test/loan.xml");
+            writter.writeToXML(loan, "app/src/main/java/sigmabank/utils/xml_test/loanXML.xml");
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+    */
 
 }
