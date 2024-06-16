@@ -17,7 +17,7 @@ public class Register {
     @XmlElement private final UUID uuid;
     @XmlElement private final String name;
     @XmlElement private final LocalDate dateOfBirth;
-    @XmlElement private String passwordHash;
+    @XmlElement private final String passwordHash;
 
     // Contact Data
     private String email;
@@ -28,6 +28,7 @@ public class Register {
         this.uuid = UUID.randomUUID();
         this.name = null;
         this.dateOfBirth = null;
+        this.passwordHash = null;
     }
 
     public Register(String name, LocalDate dateOfBirth, String passwordHash) {
@@ -88,10 +89,6 @@ public class Register {
             throw new IllegalArgumentException(address + " is not a address");
     }
 
-    public void setRegisterPassword(String password) {
-        this.passwordHash = HashPassword.hashPassword(uuid, password);
-    }
-
     public UUID getUuid() {
         return this.uuid;
     }
@@ -118,9 +115,5 @@ public class Register {
 
     public String getPasswordHash() {
         return this.passwordHash;
-    }
-
-    public boolean validatePassword(String password){
-        return HashPassword.hashPassword(uuid, password).equals(this.passwordHash);
     }
 }

@@ -27,7 +27,7 @@ import java.util.List;
 import sigmabank.database.Database;
 import sigmabank.model.register.Client;
 
-public class RegisterHttpHandler implements HttpHandler {
+public class ApprovalHttpHandler implements HttpHandler {
     @Override
     public void handle(HttpExchange exchange) throws IOException {
         if ("POST".equalsIgnoreCase(exchange.getRequestMethod())) {
@@ -44,72 +44,30 @@ public class RegisterHttpHandler implements HttpHandler {
     }
 
     private void handlePOSTMethod(HttpExchange exchange) throws IOException {
-        InputStreamReader isr = new InputStreamReader(exchange.getRequestBody(), StandardCharsets.UTF_8);
-        BufferedReader br = new BufferedReader(isr);
-        String query = br.readLine();
-        Map<String, String> params = parseParams(query);
-
-        System.out.println("[MSG] Recived data: " + query);
-
-        try { 
-            Client client = new Client(
-                params.get("name"),
-                LocalDate.parse(params.get("dob")),
-                params.get("cpf"),
-                params.get("password")
-            );
-        
-            client.setEmail(params.get("email"));
-            client.setPhoneNumber(params.get("phoneNumber"));
-            client.setAddress(params.get("address"));
-
-            Database.getInstance().addEntry("ClientsToApproval", client);
-            Database.getInstance().saveToXML("");
-
-            String response = "Registration Successful: " + client.toString();
-            exchange.sendResponseHeaders(200, response.getBytes().length);
-            try (OutputStream os = exchange.getResponseBody()) {
-                os.write(response.getBytes());
-            }
-        } catch(Exception e) {
-            String response = "Registration Unsuccessful: " + e.getMessage();
-            exchange.sendResponseHeaders(200, response.getBytes().length);
-            try (OutputStream os = exchange.getResponseBody()) {
-                os.write(response.getBytes());
-            }
+        String response = "Not implemented yet";
+        exchange.sendResponseHeaders(405, response.getBytes().length);
+        try (OutputStream os = exchange.getResponseBody()) {
+            os.write(response.getBytes());
         }
     }
 
     private void handleGETMethod(HttpExchange exchange) throws IOException {
-        String query = exchange.getRequestURI().toString().substring("/client?".length());
-        Map<String, String> params = parseParams(query);
-
-        String userCPF = params.get("cpf");
-        String userPasswordHash = params.get("password");
-
-        List<Object> clients = Database.getInstance().query("Clients",
+        List<Object> clients = Database.getInstance().query("ClientsToApproval",
             (Object obj) -> {
-                Client client = (Client) obj;
-                return client.getCpf().equals(userCPF)
-                    && client.getPasswordHash().equals(userPasswordHash);
+                return true;
         });
-
-        if (clients.size() != 1) {
-            String response = "Client not found";
-            exchange.sendResponseHeaders(404, response.getBytes().length);
-            try (OutputStream os = exchange.getResponseBody()) {
-                os.write(response.getBytes());
-            }
-            return;
-        }
 
         try {
             StringWriter sw = new StringWriter();
             JAXBContext jaxbcontext = JAXBContext.newInstance(Client.class);
             Marshaller marshaller = jaxbcontext.createMarshaller();
-            marshaller.marshal(clients.get(0), sw);
+            marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, false);
+            marshaller.setProperty(Marshaller.JAXB_FRAGMENT, true);
 
-            String response = sw.toString();
+            for (Object client: clients)
+                marshaller.marshal(client, sw);
+
+            String response = "<ClientsToApproval>" + sw.toString() + "</ClientsToApproval>";
             exchange.sendResponseHeaders(200, response.getBytes().length);
             try (OutputStream os = exchange.getResponseBody()) {
                 os.write(response.getBytes());

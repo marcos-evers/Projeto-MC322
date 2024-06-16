@@ -41,6 +41,16 @@ public class Database {
         tables.get(label).add(entry);
     }
 
+    public void deleteEntries(String label, Predicate<Object> func) {
+        List<Object> remain = new ArrayList<>();
+        for (Object obj: tables.get(label)) {
+            if (!func.test(obj)) {
+                remain.add(obj);
+            }
+        }
+        this.tables.put(label, remain);
+    }
+
     /**
      * Query for all entries in given table such that func evaluates to true
      *

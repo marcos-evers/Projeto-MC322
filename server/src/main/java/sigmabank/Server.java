@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.net.InetSocketAddress;
 
 import sigmabank.database.Database;
+import sigmabank.httphandler.ApprovalHttpHandler;
 import sigmabank.httphandler.RegisterHttpHandler;
 
 public class Server {
@@ -27,7 +28,7 @@ public class Server {
         
         // POST - Informs that a client was approved or not
         // GET - Return the clients to be approved
-        server.createContext("/client/toapproval");
+        server.createContext("/client/toapproval", new ApprovalHttpHandler());
 
         // POST - Create a new investment in the server
         // GET - Return the investments of a client
