@@ -36,7 +36,9 @@ public class ClientReader implements ReaderXML<Client>{
                 
                 String cpf = clientElement.getElementsByTagName("cpf").item(0).getTextContent();
 
-                Client client = new Client(name, LocalDate.parse(dateOfBirth), cpf);
+                String passwordHash = clientElement.getElementsByTagName("passwordHash").item(0).getTextContent();
+
+                Client client = new Client(name, LocalDate.parse(dateOfBirth), cpf, passwordHash);
                 clients.add(client);
             }
 

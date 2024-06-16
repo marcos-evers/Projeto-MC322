@@ -8,12 +8,21 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
+import java.io.StringWriter;
+
 import java.net.URLDecoder;
+
 import java.nio.charset.StandardCharsets;
 
 import java.time.LocalDate;
+
 import java.util.HashMap;
 import java.util.Map;
+
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.Marshaller;
+
+import java.util.List;
 
 import sigmabank.database.Database;
 import sigmabank.model.register.Client;
@@ -72,10 +81,45 @@ public class RegisterHttpHandler implements HttpHandler {
     }
 
     private void handleGETMethod(HttpExchange exchange) throws IOException {
-        String response = "Get is not implemented yet";
-        exchange.sendResponseHeaders(405, response.getBytes().length);
-        try (OutputStream os = exchange.getResponseBody()) {
-            os.write(response.getBytes());
+        String query = exchange.getRequestURI().toString().substring("/client?".length());
+        Map<String, String> params = parseParams(query);
+
+        String userCPF = params.get("cpf");
+        String userPasswordHash = params.get("password");
+
+        List<Object> clients = Database.getInstance().query("Clients",
+            (Object obj) -> {
+                Client client = (Client) obj;
+                return client.getCpf().equals(userCPF)
+                    && client.getPasswordHash().equals(userPasswordHash);
+        });
+
+        if (clients.size() != 1) {
+            String response = "Client not found";
+            exchange.sendResponseHeaders(404, response.getBytes().length);
+            try (OutputStream os = exchange.getResponseBody()) {
+                os.write(response.getBytes());
+            }
+            return;
+        }
+
+        try {
+            StringWriter sw = new StringWriter();
+            JAXBContext jaxbcontext = JAXBContext.newInstance(Client.class);
+            Marshaller marshaller = jaxbcontext.createMarshaller();
+            marshaller.marshal(clients.get(0), sw);
+
+            String response = sw.toString();
+            exchange.sendResponseHeaders(200, response.getBytes().length);
+            try (OutputStream os = exchange.getResponseBody()) {
+                os.write(response.getBytes());
+            }
+        } catch(Exception e) {
+            String response = "Something went wrong: " + e.getMessage();
+            exchange.sendResponseHeaders(400, response.getBytes().length);
+            try (OutputStream os = exchange.getResponseBody()) {
+                os.write(response.getBytes());
+            }
         }
     }
 
