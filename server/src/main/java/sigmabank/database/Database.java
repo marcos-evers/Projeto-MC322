@@ -12,8 +12,7 @@ import javax.xml.bind.Marshaller;
 
 import sigmabank.model.investment.Investment;
 import sigmabank.model.loan.Loan;
-import sigmabank.model.register.ClientEnterprise;
-import sigmabank.model.register.ClientPersonal;
+import sigmabank.model.register.Client;
 
 public class Database {
     private static Database instance;
@@ -60,7 +59,7 @@ public class Database {
 
     public void saveToXML(String path) {
         try {
-            JAXBContext jaxbctx = JAXBContext.newInstance(ClientPersonal.class);
+            JAXBContext jaxbctx = JAXBContext.newInstance(Client.class);
             Marshaller marshaller = jaxbctx.createMarshaller();
 
             marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, false);

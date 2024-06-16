@@ -7,16 +7,16 @@ import java.net.HttpURLConnection;
 import java.net.URI;
 import java.net.URL;
 
-import sigmabank.model.register.ClientPersonal;
+import sigmabank.model.register.Client;
 
-public class PostClientPersonal {
+public class PostClient {
     private final URL url;
 
-    public PostClientPersonal(String uri) throws Exception {
+    public PostClient(String uri) throws Exception {
         url = new URI(uri).toURL();
     }
 
-    private String buildPostData(ClientPersonal client) {
+    private String buildPostData(Client client) {
         return "name=" + client.getName() + "&"
             +  "dob=" + client.getDateOfBirth() + "&"
             +  "cpf=" + client.getCpf() + "&"
@@ -25,7 +25,7 @@ public class PostClientPersonal {
             +  "email=" + client.getEmail();
     }
 
-    public int send(ClientPersonal client) throws Exception {
+    public int send(Client client) throws Exception {
         HttpURLConnection connection = (HttpURLConnection) url.openConnection(); 
 
         connection.setRequestMethod("POST");

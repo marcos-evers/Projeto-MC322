@@ -15,10 +15,8 @@ import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.management.InvalidAttributeValueException;
-
 import sigmabank.database.Database;
-import sigmabank.model.register.ClientPersonal;
+import sigmabank.model.register.Client;
 
 public class RegisterHttpHandler implements HttpHandler {
     @Override
@@ -45,7 +43,7 @@ public class RegisterHttpHandler implements HttpHandler {
         System.out.println("[MSG] Recived data: " + query);
 
         try { 
-            ClientPersonal client = new ClientPersonal(
+            Client client = new Client(
                 params.get("name"),
                 LocalDate.parse(params.get("dob")),
                 params.get("cpf")
