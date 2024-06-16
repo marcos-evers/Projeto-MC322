@@ -43,7 +43,7 @@ public class ClientWritter implements WritterXML<Client>{
             Element root = doc.getDocumentElement();
 
             // Client element
-            Element clientElement = doc.createElement("ClientPersonal");
+            Element clientElement = doc.createElement("Client");
             root.appendChild(clientElement);
 
             // Name element
