@@ -13,7 +13,7 @@ import org.w3c.dom.NodeList;
 
 import sigmabank.model.register.Client;
 
-public class ClientReader implements ReaderXML<Client>{
+public class ClientReader implements ReaderXML<Client> {
     @Override
     public ArrayList<Client> readFromXML(String path) {
         ArrayList<Client> clients = new ArrayList<>();
@@ -25,18 +25,25 @@ public class ClientReader implements ReaderXML<Client>{
             Document doc = dBuilder.parse(file);
             doc.getDocumentElement().normalize();
 
-            NodeList nodeList = doc.getElementsByTagName("Client");
+            NodeList nodeList = doc.getElementsByTagName("ClientPersonal");
 
             for (int i = 0; i < nodeList.getLength(); i++) {
                 Element clientElement = (Element) nodeList.item(i);
 
                 String name = clientElement.getElementsByTagName("name").item(0).getTextContent();
-
                 String dateOfBirth = clientElement.getElementsByTagName("dateOfBirth").item(0).getTextContent();
-                
                 String cpf = clientElement.getElementsByTagName("cpf").item(0).getTextContent();
+                String registerPasswordHash = clientElement.getElementsByTagName("registerPasswordHash").item(0).getTextContent();
+                String address = clientElement.getElementsByTagName("address").item(0).getTextContent();
+                String email = clientElement.getElementsByTagName("email").item(0).getTextContent();
+                String phoneNumber = clientElement.getElementsByTagName("phoneNumber").item(0).getTextContent();
 
                 Client client = new Client(name, LocalDate.parse(dateOfBirth), cpf);
+                client.setRegisterPasswordHash(registerPasswordHash);
+                client.setEmail(email);
+                client.setPhoneNumber(phoneNumber);
+                client.setAddress(address);
+
                 clients.add(client);
             }
 
@@ -49,10 +56,19 @@ public class ClientReader implements ReaderXML<Client>{
     }
 
     @Override
-    public Client readFromXML(String pathToXML, String identifier){
+    public ArrayList<Client> readFromXML(String pathToXML, String identifier) {
         // TODO implementation
         return null;
     }
 
-    
+    /* 
+    public static void main(String[] args) {
+        ClientReader reader = new ClientReader();
+        ArrayList<Client> clients = reader.readFromXML("app/src/main/java/sigmabank/utils/xml_test/clientPersonal.xml");
+        System.out.println(clients.size());
+        for (Client client : clients) {
+            System.out.println(client);
+        }
+    }
+    */
 }

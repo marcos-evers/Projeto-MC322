@@ -21,5 +21,5 @@ public interface ReaderXML<T> {
      * @return the object read from XML.
      * @throws IOException if an I/O error occurs.
      */
-    public T readFromXML(String pathToXML, String identifier);
+    public ArrayList<T> readFromXML(String pathToXML, String identifier);
 }

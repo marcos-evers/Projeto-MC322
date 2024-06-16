@@ -35,9 +35,10 @@ public class LoanReader implements ReaderXML<Loan> {
                 BigDecimal fee = new BigDecimal(loanElement.getElementsByTagName("fee").item(0).getTextContent());
                 UUID clientUUID = UUID.fromString(loanElement.getElementsByTagName("clientUUID").item(0).getTextContent());
                 LocalDate startDay = LocalDate.parse(loanElement.getElementsByTagName("startDay").item(0).getTextContent());
+                LocalDate lastUpdateDate = LocalDate.parse(loanElement.getElementsByTagName("lastUpdateDate").item(0).getTextContent());
                 BigDecimal amount = new BigDecimal(loanElement.getElementsByTagName("amount").item(0).getTextContent());
-
-                Loan loan = new Loan(value, fee, clientUUID, startDay, amount);
+                
+                Loan loan = new Loan(value, fee, clientUUID, startDay, amount, lastUpdateDate);
                 loans.add(loan);
             }
 
@@ -50,7 +51,7 @@ public class LoanReader implements ReaderXML<Loan> {
     }
 
     @Override
-    public Loan readFromXML(String pathToXML, String identifier){
+    public ArrayList<Loan> readFromXML(String pathToXML, String identifier){
         // TODO implementation
         return null;
     }
