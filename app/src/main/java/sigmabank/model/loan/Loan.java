@@ -25,13 +25,13 @@ public class Loan {
         this.lastUpdateDate = LocalDate.now();
     }
 
-    public Loan(BigDecimal value, BigDecimal fee, UUID clientUUID, LocalDate startDay, BigDecimal amount){
+    public Loan(BigDecimal value, BigDecimal fee, UUID clientUUID, LocalDate startDay, BigDecimal amount, LocalDate lastUpdateDate){
         this.value = value;
         this.fee = fee;
         this.clientUUID = clientUUID;
         this.startDay = startDay;
         this.amount = amount;
-        this.lastUpdateDate = LocalDate.now();
+        this.lastUpdateDate = lastUpdateDate;
     }
 
     public BigDecimal getValue(){
@@ -52,6 +52,10 @@ public class Loan {
     
     public BigDecimal getAmount(){
         return this.amount;
+    }
+
+    public LocalDate getLastUpdateDate(){
+        return this.lastUpdateDate;
     }
 
     /**

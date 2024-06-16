@@ -18,6 +18,14 @@ public class AssetInvestment extends Investment implements InvestmentOperations 
         this.assetQuantity = this.investedValue.divide(this.assetValue);
     }
 
+    public AssetInvestment(BigDecimal investedValue, BigDecimal value, BigDecimal retrievedValue, UUID clientUUID, LocalDate startDate, BigDecimal assetValue, BigDecimal assetQuantity) {
+        super(investedValue, clientUUID, startDate);
+        this.value = value;
+        this.retrievedValue = retrievedValue;
+        this.assetValue = assetValue;
+        this.assetQuantity = assetQuantity;
+    }
+
     public BigDecimal getAssetQuantity() {
         return assetQuantity;
     }

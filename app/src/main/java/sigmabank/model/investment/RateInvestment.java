@@ -25,12 +25,30 @@ public class RateInvestment extends Investment implements InvestmentOperations{
         this.lastUpdateDate = LocalDate.now();	
     }
 
+    public RateInvestment(BigDecimal investedValue, BigDecimal value, BigDecimal retrievedValue, UUID clientUUID, LocalDate startDate, BigDecimal rate, BigDecimal addedValue, ROIFrequencyType frequencyType, LocalDate lastUpdateDate) {
+        super(investedValue, clientUUID, startDate);
+        this.value = value;
+        this.retrievedValue = retrievedValue;
+        this.rate = rate;
+        this.addedValue = addedValue;
+        this.frequencyType = frequencyType;
+        this.lastUpdateDate = lastUpdateDate;
+    }
+
     public BigDecimal getRate() {
         return rate;
     }
 
     public ROIFrequencyType getFrequencyType() {
         return frequencyType;
+    }
+
+    public LocalDate getLastUpdateDate() {
+        return lastUpdateDate;
+    }
+
+    public BigDecimal getAddedValue() {
+        return addedValue;
     }
 
     public void setRate(BigDecimal rate) {
