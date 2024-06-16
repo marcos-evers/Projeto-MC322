@@ -3,9 +3,6 @@ package sigmabank.utils.writters;
 import java.io.File;
 import java.io.IOException;
 
-// import java.time.LocalDate;
-// import javax.management.InvalidAttributeValueException;
-
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.transform.Transformer;
@@ -16,11 +13,11 @@ import javax.xml.transform.stream.StreamResult;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-import sigmabank.model.register.ClientPersonal;
+import sigmabank.model.register.Client;
 
-public class ClientPersonalWritter implements WritterXML<ClientPersonal>{
+public class ClientWritter implements WritterXML<Client> {
     @Override
-    public void writeToXML(ClientPersonal client, String pathToXML) throws IOException {
+    public void writeToXML(Client client, String pathToXML) throws IOException {
         try {       
             File xmlFile = new File(pathToXML); // Using the pathToXML variable correctly
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
@@ -41,7 +38,7 @@ public class ClientPersonalWritter implements WritterXML<ClientPersonal>{
             Element root = doc.getDocumentElement();
 
             // Client element
-            Element clientElement = doc.createElement("ClientPersonal");
+            Element clientElement = doc.createElement("Client");
             root.appendChild(clientElement);
 
             // Name element
@@ -80,19 +77,4 @@ public class ClientPersonalWritter implements WritterXML<ClientPersonal>{
             e.printStackTrace();
         }
     }
-
-    /* 
-    public static void main(String[] args) throws InvalidAttributeValueException {
-        ClientPersonal client = new ClientPersonal("Gustavo Muito Lindo Esteche", LocalDate.parse("2021-01-01") ,"46212002922");
-        client.setEmail( "allahuakabar@gyaat.com");
-        client.setPhoneNumber("234572879");
-
-        ClientPersonalWritter writter = new ClientPersonalWritter();
-        try {
-            writter.writeToXML(client, "app/src/main/java/sigmabank/utils/xml_test/clientPersonal.xml");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-    */
 }
