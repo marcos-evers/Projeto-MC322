@@ -32,8 +32,13 @@ public class Register {
     }
 
     public Register(String name, LocalDate dateOfBirth) {
-        // TODO add validation to dateOfBirth
         this.uuid = UUID.randomUUID();
+        this.name = name;
+        this.dateOfBirth = dateOfBirth;
+    }
+
+    public Register(String name, LocalDate dateOfBirth, UUID uuid) {
+        this.uuid = uuid;
         this.name = name;
         this.dateOfBirth = dateOfBirth;
     }
@@ -95,7 +100,7 @@ public class Register {
         this.registerPasswordHash = passwordHash;
     }
 
-    public UUID getUuid() {
+    public UUID getUUID() {
         return this.uuid;
     }
 
