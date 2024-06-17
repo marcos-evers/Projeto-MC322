@@ -2,12 +2,12 @@ package sigmabank.utils.writters;
 
 import java.io.File;
 import java.io.IOException;
-/* 
-import java.math.BigDecimal;
-import java.time.LocalDate;
-import java.util.UUID;
-import javax.management.InvalidAttributeValueException;
-*/
+ 
+//import java.math.BigDecimal;
+//import java.time.LocalDate;
+//import java.util.UUID;
+//import javax.management.InvalidAttributeValueException;
+
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.transform.Transformer;
@@ -35,7 +35,7 @@ public class LoanWritter implements WritterXML<Loan>{
                 doc.getDocumentElement().normalize();
             } else {
                 doc = dBuilder.newDocument();
-                Element rootElement = doc.createElement("Clients");
+                Element rootElement = doc.createElement("Loans");
                 doc.appendChild(rootElement);
             }
 
@@ -54,6 +54,10 @@ public class LoanWritter implements WritterXML<Loan>{
             Element clientUUID = doc.createElement("clientUUID");
             clientUUID.appendChild(doc.createTextNode(loan.getClientUUID().toString()));
             loanElement.appendChild(clientUUID);
+
+            Element loanUUID = doc.createElement("loanUUID");
+            loanUUID.appendChild(doc.createTextNode(loan.getLoanUUID().toString()));
+            loanElement.appendChild(loanUUID);
 
             Element startDay = doc.createElement("startDay");
             startDay.appendChild(doc.createTextNode(loan.getStartDay().toString()));
@@ -80,9 +84,9 @@ public class LoanWritter implements WritterXML<Loan>{
     
     /* 
     public static void main(String[] args) throws InvalidAttributeValueException {
-        Loan loan = new Loan(BigDecimal.valueOf(1000), BigDecimal.valueOf(0.5), UUID.randomUUID() ,LocalDate.now(), BigDecimal.valueOf(1024),LocalDate.now());
-        LoanWritter writter = new LoanWritter();
-    
+        Loan loan = new Loan(BigDecimal.valueOf(1000), BigDecimal.valueOf(0.5), UUID.randomUUID() , UUID.randomUUID(), LocalDate.now(), BigDecimal.valueOf(1024),LocalDate.now());
+        WritterXML<Loan> writter =  WritterFactory.createWritter(WritterFactory.WritterType.LOAN);
+
         try {
             writter.writeToXML(loan, "app/src/main/java/sigmabank/utils/xml_test/loanXML.xml");
         } catch (IOException e) {
@@ -90,5 +94,7 @@ public class LoanWritter implements WritterXML<Loan>{
         }
     }
     */
+    
+    
 
 }

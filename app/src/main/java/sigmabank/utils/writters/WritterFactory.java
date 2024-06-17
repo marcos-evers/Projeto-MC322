@@ -4,24 +4,32 @@ public class WritterFactory {
 
     public enum WritterType {
         CLIENT,
-        LOAN
+        LOAN,
+        ASSETINVESTMENT,
+        RATEINVESTMENT,
+        ACCOUNT
     }
 
     /**
-     * Create an instance of WritterXML based on the WritterType.
-     * 
-     * @param writterType the type of writter to create.
-     * @return a new instance of WritterXML.
+     * Create an instance of a specific writer based on the WritterType.
+     *
+     * @param writterType the type of writer to create.
+     * @return a new instance of WritterXML for the specified type.
+     * @throws IllegalArgumentException if an invalid writer type is provided.
      */
-    public static WritterXML<?> createWritter(WritterType writterType) {
+    @SuppressWarnings("unchecked")
+    public static <T> WritterXML<T> createWritter(WritterType writterType) {
         switch (writterType) {
-            case CLIENT-> {
-                return new ClientWritter();
-            }
-            case LOAN -> {
-                return new LoanWritter();
-            }
-            default -> throw new IllegalArgumentException("Invalid writter type.");
+            case CLIENT:
+                return (WritterXML<T>) new ClientWritter();
+            case LOAN:
+                return (WritterXML<T>) new LoanWritter();
+            case ASSETINVESTMENT:
+                return (WritterXML<T>) new AssetInvestmentWritter();
+            case RATEINVESTMENT:
+                return (WritterXML<T>) new RateInvestmentWritter();
+            default:
+                throw new IllegalArgumentException("Invalid writter type.");
         }
     }
 }

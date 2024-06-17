@@ -1,9 +1,10 @@
 package sigmabank.utils.writters;
 
 import java.io.File;
-// import java.math.BigDecimal;
-// import java.time.LocalDate;
-// import java.util.UUID;
+
+//import java.math.BigDecimal;
+//import java.time.LocalDate;
+//import java.util.UUID;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -15,7 +16,8 @@ import javax.xml.transform.stream.StreamResult;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-// import sigmabank.model.investment.ROIFrequencyType;
+//import sigmabank.model.investment.ROIFrequencyType;
+//import sigmabank.model.investment.RateInvestEnum;
 import sigmabank.model.investment.RateInvestment;
 
 public class RateInvestmentWritter implements WritterXML<RateInvestment> {
@@ -44,6 +46,12 @@ public class RateInvestmentWritter implements WritterXML<RateInvestment> {
             // RateInvestment element
             Element investmentElement = doc.createElement("RateInvestment");
             root.appendChild(investmentElement);
+
+            // Name element
+            Element name = doc.createElement("name");
+            name.appendChild(doc.createTextNode(investment.getName()));
+            investmentElement.appendChild(name);
+
 
             // InvestedValue element
             Element investedValue = doc.createElement("investedValue");
@@ -90,6 +98,11 @@ public class RateInvestmentWritter implements WritterXML<RateInvestment> {
             lastUpdateDate.appendChild(doc.createTextNode(investment.getLastUpdateDate().toString()));
             investmentElement.appendChild(lastUpdateDate);
 
+            // RateINvestEnum element
+            Element rateType = doc.createElement("rateType");
+            rateType.appendChild(doc.createTextNode(investment.getRateType().toString()));
+            investmentElement.appendChild(rateType);
+
             // Save XML content
             TransformerFactory transformerFactory = TransformerFactory.newInstance();
             Transformer transformer = transformerFactory.newTransformer();
@@ -105,14 +118,16 @@ public class RateInvestmentWritter implements WritterXML<RateInvestment> {
     /* 
     public static void main(String[] args) {
         RateInvestment investment = new RateInvestment(
+                "RateInvestmentTest",
                 new BigDecimal("1000.00"),
                 UUID.randomUUID(),
                 LocalDate.parse("2023-01-01"),
                 new BigDecimal("0.05"),
-                ROIFrequencyType.MONTHLY
+                ROIFrequencyType.MONTHLY,
+                RateInvestEnum.CDB
         );
 
-        RateInvestmentWritter writter = new RateInvestmentWritter();
+        WritterXML<RateInvestment> writter = WritterFactory.createWritter(WritterFactory.WritterType.RATEINVESTMENT);
         try {
             writter.writeToXML(investment, "app/src/main/java/sigmabank/utils/xml_test/rateInvestment.xml");
         } catch (Exception e) {
