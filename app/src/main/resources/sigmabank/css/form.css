@@ -1,0 +1,21 @@
+AnchorPane {
+    -fx-background-color: white;
+    -fx-font-family: 'Segoe UI';
+}
+
+TextField {
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
+    -fx-font-size: 16;
+
+    height: 48;
+}
+
+TextField::placeholder {
+    -fx-font-size: 16;
+    -fx-text-fill: #828282;
+}
+
+Button {
+    -fx-font-size: 16;
+}
