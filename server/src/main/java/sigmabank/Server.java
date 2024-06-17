@@ -8,6 +8,7 @@ import java.net.InetSocketAddress;
 import sigmabank.database.Database;
 import sigmabank.httphandler.ApprovalHttpHandler;
 import sigmabank.httphandler.RegisterHttpHandler;
+import sigmabank.model.register.Client;
 
 public class Server {
     private static int port = 8000;
@@ -15,10 +16,9 @@ public class Server {
 
     public static void main(String[] args) throws IOException {
         Database.getInstance()
-            .addTable("Clients")
-            .addTable("ClientsToApproval")
-            .addTable("Investments")
-            .addTable("Loans");
+            .addTable("Clients", Client.class)
+            .addTable("ClientsToApproval", Client.class)
+            .loadFromXML();
 
         server = HttpServer.create(new InetSocketAddress(port), 0);
 

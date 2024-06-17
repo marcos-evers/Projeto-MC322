@@ -1,6 +1,9 @@
 package sigmabank.database;
 
+import java.io.File;
+import java.io.FileWriter;
 import java.io.StringWriter;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -9,6 +12,13 @@ import java.util.function.Predicate;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
+import javax.xml.bind.Unmarshaller;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.NodeList;
 
 import sigmabank.model.investment.Investment;
 import sigmabank.model.loan.Loan;
@@ -16,9 +26,16 @@ import sigmabank.model.register.Client;
 
 public class Database {
     private static Database instance;
-    private Map<String, List<Object>> tables = new HashMap<>();
+    private static final int MAX_UNSAVED_OPERATIONS = 10;
+    private static final String DB_PATH = "src/main/resources/database";
 
-    private Database() {}
+    private Map<String, List<Object>> tables = new HashMap<>();
+    private Map<String, Class<?>> tableClasses = new HashMap<>();
+
+    private int unsavedOperations;
+
+    private Database() {
+    }
 
     public static Database getInstance() {
         if (instance == null)
@@ -26,8 +43,9 @@ public class Database {
         return instance;
     }
 
-    public Database addTable(String label) {
+    public Database addTable(String label, Class<?> tableClass) {
         tables.put(label, new ArrayList<>());
+        tableClasses.put(label, tableClass);
         return this;
     }
 
@@ -39,6 +57,12 @@ public class Database {
      */
     public void addEntry(String label, Object entry) {
         tables.get(label).add(entry);
+
+        this.unsavedOperations++;
+        if (this.unsavedOperations > MAX_UNSAVED_OPERATIONS) {
+            this.saveToXML(DB_PATH);
+            this.unsavedOperations = 0;
+        }
     }
 
     public List<Object> deleteEntries(String label, Predicate<Object> func) {
@@ -52,6 +76,13 @@ public class Database {
             }
         }
         this.tables.put(label, remain);
+
+        this.unsavedOperations += deleted.size();
+        if (this.unsavedOperations > MAX_UNSAVED_OPERATIONS) {
+            this.saveToXML(DB_PATH);
+            this.unsavedOperations = 0;
+        }
+
         return deleted;
     }
 
@@ -81,16 +112,48 @@ public class Database {
 
             for (String key: tables.keySet()) {
                 List<Object> table = tables.get(key);
-                StringWriter result = new StringWriter();
+                StringWriter sw = new StringWriter();
+                FileWriter fw = new FileWriter(path + "/" + key + ".xml");
 
-                result.write("<" + key + ">");
-                for (Object obj: table) {
-                    marshaller.marshal(obj, result);
+                System.out.println(path + "/" + key + ".xml");
+
+                for (Object obj: table)
+                    marshaller.marshal(obj, sw);
+
+                fw.write("<" + key + ">");
+                fw.write(sw.toString());
+                fw.write("</" + key + ">");
+
+                fw.close();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();   
+        }
+    }
+
+    public void saveToXML() {
+        saveToXML(DB_PATH);
+    }
+
+    public void loadFromXML(String path) {
+        try {
+            JAXBContext jaxbctx = JAXBContext.newInstance(Client.class);
+            Unmarshaller unmarshaller = jaxbctx.createUnmarshaller();
+
+            for (String key: tables.keySet()) {
+                List<Object> table = tables.get(key);
+                String className = tableClasses.get(key).getName().toLowerCase();
+                DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+                DocumentBuilder db = dbf.newDocumentBuilder();
+                Document doc = db.parse(new File(path + "/" + key + ".xml"));
+                doc.getDocumentElement().normalize();
+
+                NodeList nodeList = doc.getElementsByTagName(className);
+                for (int i = 0; i < nodeList.getLength(); i++) {
+                    Object obj = unmarshaller.unmarshal(nodeList.item(i));
+
+                    table.add(obj);
                 }
-                result.write("</" + key + ">");
-
-                // TODO proper save to file
-                System.out.println(result.toString());
             }
         } catch (Exception e) {
             e.printStackTrace();   
@@ -98,7 +161,7 @@ public class Database {
     }
 
     public void loadFromXML() {
-        // TODO implement
+        loadFromXML(DB_PATH);
     }
 
     @Override
