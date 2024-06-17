@@ -15,24 +15,27 @@ public class RateInvestment extends Investment implements InvestmentOperations{
     @XmlElement private BigDecimal addedValue;
     @XmlElement private final ROIFrequencyType frequencyType;
     @XmlElement private LocalDate lastUpdateDate;
+    @XmlElement private RateInvestEnum rateType;
 
 
-    public RateInvestment(BigDecimal investedvalue, UUID clientUUID, LocalDate startDate, BigDecimal rate, ROIFrequencyType frequencyType) {
-        super(investedvalue, clientUUID, startDate);
+    public RateInvestment(String name, BigDecimal investedvalue, UUID clientUUID, LocalDate startDate, BigDecimal rate, ROIFrequencyType frequencyType, RateInvestEnum rateType) {
+        super(name, investedvalue, clientUUID, startDate);
         this.rate = rate;
         this.addedValue = BigDecimal.valueOf(0);
         this.frequencyType = frequencyType;
         this.lastUpdateDate = LocalDate.now();	
+        this.rateType = rateType;
     }
 
-    public RateInvestment(BigDecimal investedValue, BigDecimal value, BigDecimal retrievedValue, UUID clientUUID, LocalDate startDate, BigDecimal rate, BigDecimal addedValue, ROIFrequencyType frequencyType, LocalDate lastUpdateDate) {
-        super(investedValue, clientUUID, startDate);
+    public RateInvestment(String name, BigDecimal investedValue, BigDecimal value, BigDecimal retrievedValue, UUID clientUUID, LocalDate startDate, BigDecimal rate, BigDecimal addedValue, ROIFrequencyType frequencyType, LocalDate lastUpdateDate, RateInvestEnum rateType) {
+        super(name, investedValue, clientUUID, startDate);
         this.value = value;
         this.retrievedValue = retrievedValue;
         this.rate = rate;
         this.addedValue = addedValue;
         this.frequencyType = frequencyType;
         this.lastUpdateDate = lastUpdateDate;
+        this.rateType = rateType;
     }
 
     public BigDecimal getRate() {
@@ -49,6 +52,10 @@ public class RateInvestment extends Investment implements InvestmentOperations{
 
     public BigDecimal getAddedValue() {
         return addedValue;
+    }
+
+    public RateInvestEnum getRateType() {
+        return rateType;
     }
 
     public void setRate(BigDecimal rate) {
