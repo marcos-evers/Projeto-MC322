@@ -13,6 +13,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
+import sigmabank.model.investment.AssetInvestEnum;
 import sigmabank.model.investment.AssetInvestment;
 
 
@@ -33,6 +34,7 @@ public class AssetInvestmentReader implements ReaderXML<AssetInvestment>{
             for (int i = 0; i < nodeList.getLength(); i++) {
                 Element investmentElement = (Element) nodeList.item(i);
 
+                String name = investmentElement.getElementsByTagName("name").item(0).getTextContent();
                 BigDecimal investedValue = new BigDecimal(investmentElement.getElementsByTagName("investedValue").item(0).getTextContent());
                 BigDecimal value = new BigDecimal(investmentElement.getElementsByTagName("value").item(0).getTextContent());
                 BigDecimal retrievedValue = new BigDecimal(investmentElement.getElementsByTagName("retrievedValue").item(0).getTextContent());
@@ -40,9 +42,10 @@ public class AssetInvestmentReader implements ReaderXML<AssetInvestment>{
                 LocalDate startDate = LocalDate.parse(investmentElement.getElementsByTagName("startDate").item(0).getTextContent());
                 BigDecimal assetValue = new BigDecimal(investmentElement.getElementsByTagName("assetValue").item(0).getTextContent());
                 BigDecimal assetQuantity = new BigDecimal(investmentElement.getElementsByTagName("assetQuantity").item(0).getTextContent());
-                
+                AssetInvestEnum assetType = AssetInvestEnum.valueOf(investmentElement.getElementsByTagName("assetType").item(0).getTextContent());
+
                 UUID clientUUID = UUID.fromString(clientUUIDStr);
-                AssetInvestment investment = new AssetInvestment(investedValue, value, retrievedValue, clientUUID, startDate, assetValue, assetQuantity);
+                AssetInvestment investment = new AssetInvestment(name, investedValue, value, retrievedValue, clientUUID, startDate, assetValue, assetQuantity, assetType);
 
                 investments.add(investment);
             }
@@ -71,6 +74,7 @@ public class AssetInvestmentReader implements ReaderXML<AssetInvestment>{
             for (int i = 0; i < nodeList.getLength(); i++) {
                 Element investmentElement = (Element) nodeList.item(i);
 
+                String name = investmentElement.getElementsByTagName("name").item(0).getTextContent();
                 BigDecimal investedValue = new BigDecimal(investmentElement.getElementsByTagName("investedValue").item(0).getTextContent());
                 BigDecimal value = new BigDecimal(investmentElement.getElementsByTagName("value").item(0).getTextContent());
                 BigDecimal retrievedValue = new BigDecimal(investmentElement.getElementsByTagName("retrievedValue").item(0).getTextContent());
@@ -79,9 +83,10 @@ public class AssetInvestmentReader implements ReaderXML<AssetInvestment>{
                 BigDecimal assetValue = new BigDecimal(investmentElement.getElementsByTagName("assetValue").item(0).getTextContent());
                 BigDecimal assetQuantity = new BigDecimal(investmentElement.getElementsByTagName("assetQuantity").item(0).getTextContent());
                 UUID clientUUID = UUID.fromString(clientUUIDStr);
+                AssetInvestEnum assetType = AssetInvestEnum.valueOf(investmentElement.getElementsByTagName("assetType").item(0).getTextContent());
 
                 if(clientUUID.toString().equals(identifier)){
-                    AssetInvestment investment = new AssetInvestment(investedValue, value, retrievedValue, clientUUID, startDate, assetValue, assetQuantity);
+                    AssetInvestment investment = new AssetInvestment(name, investedValue, value, retrievedValue, clientUUID, startDate, assetValue, assetQuantity, assetType);
                     investments.add(investment);
                 }
             }
@@ -94,9 +99,19 @@ public class AssetInvestmentReader implements ReaderXML<AssetInvestment>{
         return investments;
     }
 
+    public AssetInvestment queryInvestment(String pathToXML, String identifier, AssetInvestEnum assetType){
+        ArrayList<AssetInvestment> investments = readFromXML(pathToXML, identifier);
+        for (AssetInvestment investment : investments) {
+            if(investment.getAssetType().equals(assetType)){
+                return investment;
+            }
+        }
+        return null;
+    }
+
     /* 
     public static void main(String[] args) {
-        AssetInvestmentReader reader = new AssetInvestmentReader();
+        ReaderXML<AssetInvestment> reader = ReaderFactory.createReader(ReaderFactory.ReaderType.ASSETINVESTMENT);
         ArrayList<AssetInvestment> investments = reader.readFromXML("app/src/main/java/sigmabank/utils/xml_test/assetInvestment.xml");
         System.out.println(investments.size());
         for (AssetInvestment investment : investments) {
