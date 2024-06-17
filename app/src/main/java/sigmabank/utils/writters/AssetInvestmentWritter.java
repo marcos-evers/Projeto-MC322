@@ -3,9 +3,9 @@ package sigmabank.utils.writters;
 import java.io.File;
 import java.io.IOException;
 
-// import java.math.BigDecimal;
-// import java.time.LocalDate;
-// import java.util.UUID;
+//import java.math.BigDecimal;
+//import java.time.LocalDate;
+//import java.util.UUID;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -17,7 +17,9 @@ import javax.xml.transform.stream.StreamResult;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+//import sigmabank.model.investment.AssetInvestEnum;
 import sigmabank.model.investment.AssetInvestment;
+
 
 public class AssetInvestmentWritter implements WritterXML<AssetInvestment>{
     @Override
@@ -44,6 +46,11 @@ public class AssetInvestmentWritter implements WritterXML<AssetInvestment>{
             // AssetInvestment element
             Element investmentElement = doc.createElement("AssetInvestment");
             root.appendChild(investmentElement);
+
+            // Name element
+            Element name = doc.createElement("name");
+            name.appendChild(doc.createTextNode(investment.getName()));
+            investmentElement.appendChild(name);
 
             // InvestedValue element
             Element investedValue = doc.createElement("investedValue");
@@ -80,6 +87,11 @@ public class AssetInvestmentWritter implements WritterXML<AssetInvestment>{
             assetQuantity.appendChild(doc.createTextNode(investment.getAssetQuantity().toString()));
             investmentElement.appendChild(assetQuantity);
 
+            // AssetType element
+            Element assetType = doc.createElement("assetType");
+            assetType.appendChild(doc.createTextNode(investment.getAssetType().toString()));
+            investmentElement.appendChild(assetType);
+
             // Save XML content
             TransformerFactory transformerFactory = TransformerFactory.newInstance();
             Transformer transformer = transformerFactory.newTransformer();
@@ -95,13 +107,15 @@ public class AssetInvestmentWritter implements WritterXML<AssetInvestment>{
     /* 
     public static void main(String[] args) {
         AssetInvestment investment = new AssetInvestment(
+                "Test Asset Investment",
                 new BigDecimal("1000.00"),
                 UUID.randomUUID(),
                 LocalDate.parse("2023-01-01"),
-                new BigDecimal("50.00")
+                new BigDecimal("50.00"),
+                AssetInvestEnum.BITCOIN
         );
 
-        AssetInvestmentWritter writter = new AssetInvestmentWritter();
+        WritterXML<AssetInvestment> writter = WritterFactory.createWritter(WritterFactory.WritterType.ASSETINVESTMENT);
         try {
             writter.writeToXML(investment, "app/src/main/java/sigmabank/utils/xml_test/assetInvestment.xml");
         } catch (IOException e) {
@@ -109,4 +123,5 @@ public class AssetInvestmentWritter implements WritterXML<AssetInvestment>{
         }
     }
     */
+    
 }

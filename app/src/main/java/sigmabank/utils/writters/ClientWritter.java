@@ -3,8 +3,10 @@ package sigmabank.utils.writters;
 import java.io.File;
 import java.io.IOException;
 
-// import java.time.LocalDate;
-// import javax.management.InvalidAttributeValueException;
+//import java.time.LocalDate;
+//import javax.management.InvalidAttributeValueException;
+//import sigmabank.model.register.InvalidBirthDateException;
+//import sigmabank.model.register.InvalidCPFException;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -17,6 +19,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import sigmabank.model.register.Client;
+
 
 public class ClientWritter implements WritterXML<Client>{
     @Override
@@ -43,6 +46,11 @@ public class ClientWritter implements WritterXML<Client>{
             // Client element
             Element clientElement = doc.createElement("Client");
             root.appendChild(clientElement);
+
+            // ID element
+            Element uuid = doc.createElement("uuid");
+            uuid.appendChild(doc.createTextNode(client.getUUID().toString()));
+            clientElement.appendChild(uuid);
 
             // Name element
             Element name = doc.createElement("name");
@@ -91,14 +99,14 @@ public class ClientWritter implements WritterXML<Client>{
     }
 
     /* 
-    public static void main(String[] args) throws InvalidAttributeValueException {
+    public static void main(String[] args) throws InvalidAttributeValueException, InvalidCPFException, InvalidBirthDateException {
         Client client = new Client("Gustavo Muito Lindo Esteche", LocalDate.parse("2000-01-01") ,"62131421346");
         client.setEmail( "allahuakabar@gyaat.com");
         client.setPhoneNumber("234572879");
         client.setAddress("Rua dos Bobos, 0, 12345-678");
         client.setRegisterPassword("123456");
 
-        ClientWritter writter = new ClientWritter();
+        WritterXML<Client> writter = WritterFactory.createWritter(WritterFactory.WritterType.CLIENT);
         try {
             writter.writeToXML(client, "app/src/main/java/sigmabank/utils/xml_test/clientPersonal.xml");
         } catch (IOException e) {
@@ -106,6 +114,4 @@ public class ClientWritter implements WritterXML<Client>{
         }
     }
     */
-    
-    
 }

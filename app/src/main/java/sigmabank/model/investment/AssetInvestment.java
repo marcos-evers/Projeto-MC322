@@ -11,19 +11,22 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class AssetInvestment extends Investment implements InvestmentOperations {
     @XmlElement private BigDecimal assetValue;
     @XmlElement private BigDecimal assetQuantity;
+    @XmlElement private AssetInvestEnum assetType;
 
-    public AssetInvestment(BigDecimal investedvalue, UUID clientUUID, LocalDate startDate, BigDecimal assetValue) {
-        super(investedvalue, clientUUID, startDate);
+    public AssetInvestment(String name, BigDecimal investedvalue, UUID clientUUID, LocalDate startDate, BigDecimal assetValue, AssetInvestEnum assetType) {
+        super(name, investedvalue, clientUUID, startDate);
         this.assetValue = assetValue;
         this.assetQuantity = this.investedValue.divide(this.assetValue);
+        this.assetType = assetType;
     }
 
-    public AssetInvestment(BigDecimal investedValue, BigDecimal value, BigDecimal retrievedValue, UUID clientUUID, LocalDate startDate, BigDecimal assetValue, BigDecimal assetQuantity) {
-        super(investedValue, clientUUID, startDate);
+    public AssetInvestment(String name, BigDecimal investedValue, BigDecimal value, BigDecimal retrievedValue, UUID clientUUID, LocalDate startDate, BigDecimal assetValue, BigDecimal assetQuantity, AssetInvestEnum assetType) {
+        super(name, investedValue, clientUUID, startDate);
         this.value = value;
         this.retrievedValue = retrievedValue;
         this.assetValue = assetValue;
         this.assetQuantity = assetQuantity;
+        this.assetType = assetType;
     }
 
     public BigDecimal getAssetQuantity() {
@@ -32,6 +35,10 @@ public class AssetInvestment extends Investment implements InvestmentOperations 
 
     public BigDecimal getAssetValue() {
         return assetValue;
+    }
+
+    public AssetInvestEnum getAssetType() {
+        return assetType;
     }
 
     public void setAssetQuantity(BigDecimal assetQuantity) {

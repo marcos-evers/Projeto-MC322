@@ -12,6 +12,7 @@ public class Loan {
     @XmlElement private final BigDecimal value;
     @XmlElement private final BigDecimal fee;
     @XmlElement private final UUID clientUUID;
+    @XmlElement private UUID loanUUID;
     @XmlElement private final LocalDate startDay;
     @XmlElement private LocalDate lastUpdateDate;
     @XmlElement private BigDecimal amount;
@@ -20,15 +21,17 @@ public class Loan {
         this.value = value;
         this.fee = fee;
         this.clientUUID = clientUUID;
+        this.loanUUID = UUID.randomUUID();
         this.startDay = startDay;
         this.amount = value;
         this.lastUpdateDate = LocalDate.now();
     }
 
-    public Loan(BigDecimal value, BigDecimal fee, UUID clientUUID, LocalDate startDay, BigDecimal amount, LocalDate lastUpdateDate){
+    public Loan(BigDecimal value, BigDecimal fee, UUID clientUUID, UUID loanUUID, LocalDate startDay, BigDecimal amount, LocalDate lastUpdateDate){
         this.value = value;
         this.fee = fee;
         this.clientUUID = clientUUID;
+        this.loanUUID = loanUUID;
         this.startDay = startDay;
         this.amount = amount;
         this.lastUpdateDate = lastUpdateDate;
@@ -52,6 +55,10 @@ public class Loan {
     
     public BigDecimal getAmount(){
         return this.amount;
+    }
+
+    public UUID getLoanUUID(){
+        return this.loanUUID;
     }
 
     public LocalDate getLastUpdateDate(){

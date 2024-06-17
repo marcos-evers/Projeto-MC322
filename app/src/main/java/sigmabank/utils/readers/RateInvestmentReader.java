@@ -14,6 +14,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
 import sigmabank.model.investment.ROIFrequencyType;
+import sigmabank.model.investment.RateInvestEnum;
 import sigmabank.model.investment.RateInvestment;
 
 public class RateInvestmentReader implements ReaderXML<RateInvestment> {
@@ -33,6 +34,7 @@ public class RateInvestmentReader implements ReaderXML<RateInvestment> {
             for (int i = 0; i < nodeList.getLength(); i++) {
                 Element investmentElement = (Element) nodeList.item(i);
 
+                String name = investmentElement.getElementsByTagName("name").item(0).getTextContent();
                 BigDecimal investedValue = new BigDecimal(investmentElement.getElementsByTagName("investedValue").item(0).getTextContent());
                 BigDecimal value = new BigDecimal(investmentElement.getElementsByTagName("value").item(0).getTextContent());
                 BigDecimal retrievedValue = new BigDecimal(investmentElement.getElementsByTagName("retrievedValue").item(0).getTextContent());
@@ -42,10 +44,11 @@ public class RateInvestmentReader implements ReaderXML<RateInvestment> {
                 BigDecimal addedValue = new BigDecimal(investmentElement.getElementsByTagName("addedValue").item(0).getTextContent());
                 String frequencyTypeStr = investmentElement.getElementsByTagName("frequencyType").item(0).getTextContent();
                 LocalDate lastUpdateDate = LocalDate.parse(investmentElement.getElementsByTagName("lastUpdateDate").item(0).getTextContent());
-                
+                RateInvestEnum rateType = RateInvestEnum.valueOf(investmentElement.getElementsByTagName("rateType").item(0).getTextContent());
+
                 UUID clientUUID = UUID.fromString(clientUUIDStr);
                 ROIFrequencyType frequencyType = ROIFrequencyType.valueOf(frequencyTypeStr);
-                RateInvestment investment = new RateInvestment(investedValue, value, retrievedValue, clientUUID, startDate, rate, addedValue, frequencyType, lastUpdateDate);
+                RateInvestment investment = new RateInvestment(name, investedValue, value, retrievedValue, clientUUID, startDate, rate, addedValue, frequencyType, lastUpdateDate, rateType);
 
                 investments.add(investment);
             }
@@ -73,6 +76,7 @@ public class RateInvestmentReader implements ReaderXML<RateInvestment> {
             for (int i = 0; i < nodeList.getLength(); i++) {
                 Element investmentElement = (Element) nodeList.item(i);
 
+                String name = investmentElement.getElementsByTagName("name").item(0).getTextContent();
                 BigDecimal investedValue = new BigDecimal(investmentElement.getElementsByTagName("investedValue").item(0).getTextContent());
                 BigDecimal value = new BigDecimal(investmentElement.getElementsByTagName("value").item(0).getTextContent());
                 BigDecimal retrievedValue = new BigDecimal(investmentElement.getElementsByTagName("retrievedValue").item(0).getTextContent());
@@ -82,12 +86,13 @@ public class RateInvestmentReader implements ReaderXML<RateInvestment> {
                 BigDecimal addedValue = new BigDecimal(investmentElement.getElementsByTagName("addedValue").item(0).getTextContent());
                 String frequencyTypeStr = investmentElement.getElementsByTagName("frequencyType").item(0).getTextContent();
                 LocalDate lastUpdateDate = LocalDate.parse(investmentElement.getElementsByTagName("lastUpdateDate").item(0).getTextContent());
-                
+                RateInvestEnum rateType = RateInvestEnum.valueOf(investmentElement.getElementsByTagName("rateType").item(0).getTextContent());
+
                 UUID clientUUID = UUID.fromString(clientUUIDStr);
                 ROIFrequencyType frequencyType = ROIFrequencyType.valueOf(frequencyTypeStr);
                 
                 if(clientUUID.toString().equals(identifier)){
-                    RateInvestment investment = new RateInvestment(investedValue, value, retrievedValue, clientUUID, startDate, rate, addedValue, frequencyType, lastUpdateDate);
+                    RateInvestment investment = new RateInvestment(name, investedValue, value, retrievedValue, clientUUID, startDate, rate, addedValue, frequencyType, lastUpdateDate, rateType);
                     investments.add(investment);
                 }
             }
@@ -99,10 +104,20 @@ public class RateInvestmentReader implements ReaderXML<RateInvestment> {
 
         return investments;
     }
+
+    public RateInvestment queryInvestment(String pathToXML, String identifier, RateInvestEnum rateType){
+        ArrayList<RateInvestment> investments = readFromXML(pathToXML, identifier);
+        for (RateInvestment investment : investments) {
+            if(investment.getRateType().equals(rateType)){
+                return investment;
+            }
+        }
+        return null;
+    }
     
     /* 
     public static void main(String[] args) {
-        RateInvestmentReader reader = new RateInvestmentReader();
+        ReaderXML<RateInvestment> reader = ReaderFactory.createReader(ReaderFactory.ReaderType.RATEINVESTMENT);
         ArrayList<RateInvestment> investments = reader.readFromXML("app/src/main/java/sigmabank/utils/xml_test/rateInvestment.xml");
         System.out.println(investments.size());
         for (RateInvestment investment : investments) {
@@ -110,4 +125,5 @@ public class RateInvestmentReader implements ReaderXML<RateInvestment> {
         }
     }
     */
+    
 }

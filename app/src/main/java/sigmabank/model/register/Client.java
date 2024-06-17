@@ -3,6 +3,7 @@ package sigmabank.model.register;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -11,6 +12,7 @@ import sigmabank.model.investment.Investment;
 import sigmabank.model.loan.Loan;
 import sigmabank.utils.DocumentValidator;
 
+
 @XmlRootElement
 public class Client extends Register {
     @XmlElement private final String cpf;
@@ -18,20 +20,37 @@ public class Client extends Register {
     private List<Investment> investments;
     private List<Loan> loans;
 
-    public Client(String name, LocalDate dateOfBirth, String cpf) {
+    public Client(String name, LocalDate dateOfBirth, String cpf) throws InvalidCPFException, InvalidBirthDateException {
         super(name, dateOfBirth);
 
         if (!DocumentValidator.isValidCPF(cpf)) {
-            throw new IllegalArgumentException("Invalid CPF: " + cpf);
+            throw new InvalidCPFException("CPF inválido " + cpf);
         }
         if (!isAdult(dateOfBirth)) {
-            throw new IllegalArgumentException("Invalid date of birth: " + dateOfBirth);
+            throw new InvalidBirthDateException("A data de nascimento não é válida " + dateOfBirth);
         }
         
         this.cpf = cpf;
         this.investments = new ArrayList<>();
         this.loans = new ArrayList<>();
     }
+
+    public Client(String name, LocalDate dateOfBirth, String cpf, UUID uuid) throws InvalidCPFException, InvalidBirthDateException {
+        super(name, dateOfBirth, uuid);
+
+        if (!DocumentValidator.isValidCPF(cpf)) {
+            throw new InvalidCPFException("CPF inválido " + cpf);
+        }
+        if (!isAdult(dateOfBirth)) {
+            throw new InvalidBirthDateException("A data de nascimento não é válida " + dateOfBirth);
+        }
+        
+        this.cpf = cpf;
+        this.investments = new ArrayList<>();
+        this.loans = new ArrayList<>();
+    }
+
+
 
     /**
      * Adds a new investment to the client.

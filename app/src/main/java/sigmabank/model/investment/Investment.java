@@ -9,6 +9,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
 public class Investment {
+    @XmlElement protected String name;
     @XmlElement protected BigDecimal investedValue;
     @XmlElement protected BigDecimal value;
     @XmlElement protected BigDecimal retrievedValue;
@@ -16,12 +17,17 @@ public class Investment {
     @XmlElement protected final LocalDate startDate;
     
 
-    public Investment(BigDecimal investedValue, UUID clientUUID, LocalDate startDate){
+    public Investment(String name, BigDecimal investedValue, UUID clientUUID, LocalDate startDate){
+        this.name = name;
         this.investedValue = investedValue;
         this.clientUUID = clientUUID;
         this.startDate = startDate;
         this.value = this.investedValue;
         this.retrievedValue = BigDecimal.valueOf(0);
+    }
+
+    public String getName(){
+        return name;
     }
 
     public BigDecimal getInvestedValue(){
