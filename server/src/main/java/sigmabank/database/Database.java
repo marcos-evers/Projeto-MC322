@@ -41,14 +41,18 @@ public class Database {
         tables.get(label).add(entry);
     }
 
-    public void deleteEntries(String label, Predicate<Object> func) {
+    public List<Object> deleteEntries(String label, Predicate<Object> func) {
         List<Object> remain = new ArrayList<>();
+        List<Object> deleted = new ArrayList<>();
         for (Object obj: tables.get(label)) {
-            if (!func.test(obj)) {
+            if (func.test(obj)) {
+                deleted.add(obj);
+            } else { 
                 remain.add(obj);
             }
         }
         this.tables.put(label, remain);
+        return deleted;
     }
 
     /**

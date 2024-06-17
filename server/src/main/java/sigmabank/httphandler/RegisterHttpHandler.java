@@ -84,14 +84,14 @@ public class RegisterHttpHandler implements HttpHandler {
         String query = exchange.getRequestURI().toString().substring("/client?".length());
         Map<String, String> params = parseParams(query);
 
-        String userCPF = params.get("cpf");
-        String userPasswordHash = params.get("password");
+        String clientCPF = params.get("cpf");
+        String clientPasswordHash = params.get("password");
 
         List<Object> clients = Database.getInstance().query("Clients",
             (Object obj) -> {
                 Client client = (Client) obj;
-                return client.getCpf().equals(userCPF)
-                    && client.getPasswordHash().equals(userPasswordHash);
+                return client.getCpf().equals(clientCPF)
+                    && client.getPasswordHash().equals(clientPasswordHash);
         });
 
         if (clients.size() != 1) {

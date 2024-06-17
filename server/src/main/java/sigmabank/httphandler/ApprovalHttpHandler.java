@@ -44,10 +44,34 @@ public class ApprovalHttpHandler implements HttpHandler {
     }
 
     private void handlePOSTMethod(HttpExchange exchange) throws IOException {
-        String response = "Not implemented yet";
-        exchange.sendResponseHeaders(405, response.getBytes().length);
-        try (OutputStream os = exchange.getResponseBody()) {
-            os.write(response.getBytes());
+        InputStreamReader isr = new InputStreamReader(exchange.getRequestBody(), StandardCharsets.UTF_8);
+        BufferedReader br = new BufferedReader(isr);
+        String query = br.readLine();
+        Map<String, String> params = parseParams(query);
+
+        String clientCPF = params.get("cpf");
+        boolean isapproved = params.get("isapproved").equals("true");
+
+        List<Object> clients = Database.getInstance().deleteEntries("ClientsToApproval",
+            (Object obj) -> {
+                Client client = (Client) obj;
+                return client.getCpf().equals(clientCPF);
+        });
+
+        if (clients.size() != 1 || !isapproved) {
+            String response = "Nothing to do";
+            exchange.sendResponseHeaders(200, response.getBytes().length);
+            try (OutputStream os = exchange.getResponseBody()) {
+                os.write(response.getBytes());
+            }
+        } else {
+            Client client = (Client) clients.get(0);
+            Database.getInstance().addEntry("Clients", client);
+            String response = "Client Approved";
+            exchange.sendResponseHeaders(200, response.getBytes().length);
+            try (OutputStream os = exchange.getResponseBody()) {
+                os.write(response.getBytes());
+            }
         }
     }
 
@@ -61,6 +85,7 @@ public class ApprovalHttpHandler implements HttpHandler {
             StringWriter sw = new StringWriter();
             JAXBContext jaxbcontext = JAXBContext.newInstance(Client.class);
             Marshaller marshaller = jaxbcontext.createMarshaller();
+
             marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, false);
             marshaller.setProperty(Marshaller.JAXB_FRAGMENT, true);
 
