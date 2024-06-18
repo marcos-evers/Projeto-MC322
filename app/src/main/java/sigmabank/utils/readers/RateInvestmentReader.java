@@ -4,6 +4,7 @@ import java.io.File;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -19,8 +20,8 @@ import sigmabank.model.investment.RateInvestment;
 
 public class RateInvestmentReader implements ReaderXML<RateInvestment> {
     @Override
-    public ArrayList<RateInvestment> readFromXML(String pathToXML) {
-        ArrayList<RateInvestment> investments = new ArrayList<>();
+    public List<RateInvestment> readFromXML(String pathToXML) {
+        List<RateInvestment> investments = new ArrayList<>();
 
         try {
             File file = new File(pathToXML);
@@ -61,8 +62,8 @@ public class RateInvestmentReader implements ReaderXML<RateInvestment> {
         return investments;
     }
 
-    public ArrayList<RateInvestment> readFromXML(String pathToXML, String identifier){
-        ArrayList<RateInvestment> investments = new ArrayList<>();
+    public List<RateInvestment> readFromXML(String pathToXML, String identifier){
+        List<RateInvestment> investments = new ArrayList<>();
 
         try {
             File file = new File(pathToXML);
@@ -106,7 +107,7 @@ public class RateInvestmentReader implements ReaderXML<RateInvestment> {
     }
 
     public RateInvestment queryInvestment(String pathToXML, String identifier, RateInvestEnum rateType){
-        ArrayList<RateInvestment> investments = readFromXML(pathToXML, identifier);
+        List<RateInvestment> investments = readFromXML(pathToXML, identifier);
         for (RateInvestment investment : investments) {
             if(investment.getRateType().equals(rateType)){
                 return investment;
@@ -118,7 +119,7 @@ public class RateInvestmentReader implements ReaderXML<RateInvestment> {
     /* 
     public static void main(String[] args) {
         ReaderXML<RateInvestment> reader = ReaderFactory.createReader(ReaderFactory.ReaderType.RATEINVESTMENT);
-        ArrayList<RateInvestment> investments = reader.readFromXML("app/src/main/java/sigmabank/utils/xml_test/rateInvestment.xml");
+        List<RateInvestment> investments = reader.readFromXML("app/src/main/java/sigmabank/utils/xml_test/rateInvestment.xml");
         System.out.println(investments.size());
         for (RateInvestment investment : investments) {
             System.out.println(investment);

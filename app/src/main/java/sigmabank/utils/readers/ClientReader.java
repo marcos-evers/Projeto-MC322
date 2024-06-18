@@ -3,7 +3,7 @@ package sigmabank.utils.readers;
 import java.io.File;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.UUID;
+import java.util.List;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -16,8 +16,8 @@ import sigmabank.model.register.Client;
 
 public class ClientReader implements ReaderXML<Client> {
     @Override
-    public ArrayList<Client> readFromXML(String path) {
-        ArrayList<Client> clients = new ArrayList<>();
+    public List<Client> readFromXML(String path) {
+        List<Client> clients = new ArrayList<>();
 
         try {
             File file = new File(path);
@@ -56,7 +56,7 @@ public class ClientReader implements ReaderXML<Client> {
     }
 
     @Override
-    public ArrayList<Client> readFromXML(String pathToXML, String identifier) {
+    public List<Client> readFromXML(String pathToXML, String identifier) {
         return null;
     }
 }

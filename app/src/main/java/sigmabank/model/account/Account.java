@@ -5,13 +5,12 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.management.InvalidAttributeValueException;
 import javax.xml.bind.annotation.XmlElement;
-
-import sigmabank.utils.HashPassword;
 
 @XmlRootElement
 public class Account {
@@ -20,7 +19,7 @@ public class Account {
     @XmlElement protected final UUID clientUUID;
     @XmlElement protected final LocalDate creationDate;
     @XmlElement protected BigDecimal balance;
-    @XmlElement protected final ArrayList<Object> statement; 
+    @XmlElement protected final List<Object> statement; 
 
     public Account(UUID clientUUID){
         this.uuid = UUID.randomUUID();
@@ -46,7 +45,7 @@ public class Account {
         return balance;
     }
 
-    public ArrayList<Object> getStatement() {
+    public List<Object> getStatement() {
         return statement;
     }
 

@@ -4,6 +4,7 @@ import java.io.File;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -19,8 +20,8 @@ import sigmabank.model.investment.AssetInvestment;
 
 public class AssetInvestmentReader implements ReaderXML<AssetInvestment>{
     @Override
-    public ArrayList<AssetInvestment> readFromXML(String pathToXML) {
-        ArrayList<AssetInvestment> investments = new ArrayList<>();
+    public List<AssetInvestment> readFromXML(String pathToXML) {
+        List<AssetInvestment> investments = new ArrayList<>();
 
         try {
             File file = new File(pathToXML);
@@ -59,8 +60,8 @@ public class AssetInvestmentReader implements ReaderXML<AssetInvestment>{
     }
 
     @Override
-    public ArrayList<AssetInvestment> readFromXML(String pathToXML, String identifier){
-        ArrayList<AssetInvestment> investments = new ArrayList<>();
+    public List<AssetInvestment> readFromXML(String pathToXML, String identifier){
+        List<AssetInvestment> investments = new ArrayList<>();
 
         try {
             File file = new File(pathToXML);
@@ -100,7 +101,7 @@ public class AssetInvestmentReader implements ReaderXML<AssetInvestment>{
     }
 
     public AssetInvestment queryInvestment(String pathToXML, String identifier, AssetInvestEnum assetType){
-        ArrayList<AssetInvestment> investments = readFromXML(pathToXML, identifier);
+        List<AssetInvestment> investments = readFromXML(pathToXML, identifier);
         for (AssetInvestment investment : investments) {
             if(investment.getAssetType().equals(assetType)){
                 return investment;

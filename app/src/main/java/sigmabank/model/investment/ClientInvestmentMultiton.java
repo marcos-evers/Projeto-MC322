@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -71,7 +72,7 @@ public class ClientInvestmentMultiton {
      */
     private void LoadRateInvestments(String pathToXML) {
         ReaderXML<RateInvestment> reader = ReaderFactory.createReader(RateInvestment.class);
-        ArrayList<RateInvestment> rateInvestmentsArray = reader.readFromXML(pathToXML);
+        List<RateInvestment> rateInvestmentsArray = reader.readFromXML(pathToXML);
 
         for (RateInvestment rateInvestment : rateInvestmentsArray) {
             rateInvestments.putIfAbsent(rateInvestment.getClientUUID(), new HashMap<>());
@@ -113,7 +114,7 @@ public class ClientInvestmentMultiton {
      */
     private void LoadAssetInvestments(String pathToXML) {
         ReaderXML<AssetInvestment> reader = ReaderFactory.createReader(AssetInvestment.class);
-        ArrayList<AssetInvestment> assetInvestmentsArray = reader.readFromXML(pathToXML);
+        List<AssetInvestment> assetInvestmentsArray = reader.readFromXML(pathToXML);
 
         for (AssetInvestment assetInvestment : assetInvestmentsArray) {
             assetInvestments.putIfAbsent(assetInvestment.getClientUUID(), new HashMap<>());
@@ -136,18 +137,4 @@ public class ClientInvestmentMultiton {
         LoadRateInvestments(pathToRateInvestments);
         LoadAssetInvestments(pathToAssetInvestments);
     }
-
-    /*  Testing 
-    public static void main(String args[]) {
-        ClientInvestmentMultiton clientInvestmentMultiton = ClientInvestmentMultiton.getInstance();
-        UUID clientUUID = UUID.randomUUID();
-        RateInvestment rateInvestment = clientInvestmentMultiton.getRateInvestment(clientUUID, RateInvestEnum.POUPANCA, BigDecimal.valueOf(1000), LocalDate.now());
-        AssetInvestment assetInvestment = clientInvestmentMultiton.getAssetInvestment(clientUUID, AssetInvestEnum.BITCOIN, BigDecimal.valueOf(1000), LocalDate.now());
-        AssetInvestment assetInvestment1 = clientInvestmentMultiton.getAssetInvestment(clientUUID, AssetInvestEnum.BITCOIN, BigDecimal.valueOf(10), LocalDate.now());
-        System.out.println(rateInvestment.getName());
-        System.out.println(assetInvestment.getName());
-        System.out.println(assetInvestment.getValue());
-        System.out.println(assetInvestment1.getValue());
-    }
-    */
 }

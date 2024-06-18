@@ -1,0 +1,29 @@
+AnchorPane {
+    -fx-background-color: #ffffff;
+    -fx-font-family: 'Segoe UI';
+}
+
+ScrollPane {
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+
+    -fx-background-color: #ffffff;
+
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+}
+
+ScrollPane VBox {
+    -fx-background-color: #ffffff;
+}
+
+.black {
+    fx-background-color: #000000;
+    fx-border-radius: 8;
+    fx-background-radius: 8;
+    fx-text-fill: #ffffff;
+    fx-font-family: 'Segoe UI';
+    fx-font-weight: bold;
+    fx-border-color: #00000000;
+}
+

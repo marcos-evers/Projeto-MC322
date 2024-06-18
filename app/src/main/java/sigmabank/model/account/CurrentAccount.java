@@ -1,6 +1,7 @@
 package sigmabank.model.account;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 import javax.xml.bind.annotation.XmlElement;
@@ -11,8 +12,8 @@ import sigmabank.model.loan.Loan;
 
 @XmlRootElement
 public class CurrentAccount extends Account {
-    @XmlElement private final ArrayList<Investment> investments;
-    @XmlElement private final ArrayList<Loan> loans;
+    @XmlElement private final List<Investment> investments;
+    @XmlElement private final List<Loan> loans;
     
     public CurrentAccount(UUID clientUUID) {
         super(clientUUID);
@@ -20,11 +21,11 @@ public class CurrentAccount extends Account {
         this.loans = new ArrayList<>();
     }
     
-    public ArrayList<Investment> getInvestments() {
+    public List<Investment> getInvestments() {
         return investments;
     }
 
-    public ArrayList<Loan> getLoans() {
+    public List<Loan> getLoans() {
         return loans;
     }
 
