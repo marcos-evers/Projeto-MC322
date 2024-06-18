@@ -4,6 +4,7 @@ import java.io.File;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -17,8 +18,8 @@ import sigmabank.model.loan.Loan;
 
 public class LoanReader implements ReaderXML<Loan> {
     @Override
-    public ArrayList<Loan> readFromXML(String path) {
-        ArrayList<Loan> loans = new ArrayList<>();
+    public List<Loan> readFromXML(String path) {
+        List<Loan> loans = new ArrayList<>();
         try {
             File file = new File(path);
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
@@ -52,8 +53,8 @@ public class LoanReader implements ReaderXML<Loan> {
     }
 
     @Override
-    public ArrayList<Loan> readFromXML(String pathToXML, String identifier){
-        ArrayList<Loan> loans = new ArrayList<>();
+    public List<Loan> readFromXML(String pathToXML, String identifier){
+        List<Loan> loans = new ArrayList<>();
         try {
             File file = new File(pathToXML);
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
@@ -88,7 +89,7 @@ public class LoanReader implements ReaderXML<Loan> {
     }
 
     public Loan queryLoan(String pathToXML, String identifier, String loanUUID){
-        ArrayList<Loan> loans = readFromXML(pathToXML, identifier);
+        List<Loan> loans = readFromXML(pathToXML, identifier);
         for (Loan loan : loans) {
             if(loan.getLoanUUID().toString().equals(loanUUID)){
                 return loan;
@@ -100,7 +101,7 @@ public class LoanReader implements ReaderXML<Loan> {
     /* 
     public static void main(String[] args) {
         ReaderXML<Loan> reader = ReaderFactory.createReader(ReaderFactory.ReaderType.LOAN);
-        ArrayList<Loan> loans = reader.readFromXML("app/src/main/java/sigmabank/utils/xml_test/loanXML.xml");
+        List<Loan> loans = reader.readFromXML("app/src/main/java/sigmabank/utils/xml_test/loanXML.xml");
         System.out.println(loans.size());
         for (Loan loan : loans) {
             System.out.println(loan);

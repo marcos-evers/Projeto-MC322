@@ -1,6 +1,6 @@
 package sigmabank.utils.readers;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public interface ReaderXML<T> {
     /**
@@ -11,7 +11,7 @@ public interface ReaderXML<T> {
      * @return the object read from XML.
      * @throws IOException if an I/O error occurs.
      */
-    public ArrayList<T> readFromXML(String pathToXML);
+    public List<T> readFromXML(String pathToXML);
 
     /**
      * Read an object from an XML file at the specified path using the given identifier.
@@ -21,5 +21,5 @@ public interface ReaderXML<T> {
      * @return the object read from XML.
      * @throws IOException if an I/O error occurs.
      */
-    public ArrayList<T> readFromXML(String pathToXML, String identifier);
+    public List<T> readFromXML(String pathToXML, String identifier);
 }

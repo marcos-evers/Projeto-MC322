@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 import javax.xml.bind.annotation.XmlRootElement;
@@ -20,7 +21,7 @@ public class Account {
     @XmlElement protected final UUID clientUUID;
     @XmlElement protected final LocalDate creationDate;
     @XmlElement protected BigDecimal balance;
-    @XmlElement protected final ArrayList<Object> statement; 
+    @XmlElement protected final List<Object> statement; 
     @XmlElement protected String accountPasswordHash;
 
     public Account(UUID clientUUID){
@@ -47,7 +48,7 @@ public class Account {
         return balance;
     }
 
-    public ArrayList<Object> getStatement() {
+    public List<Object> getStatement() {
         return statement;
     }
 
