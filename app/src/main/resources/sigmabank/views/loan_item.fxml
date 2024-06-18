@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="94.0" prefWidth="471.0" stylesheets="@../css/loan.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label layoutX="14.0" layoutY="31.0" prefHeight="33.0" prefWidth="172.0" text="${startDay}" />
+      <Text layoutX="292.0" layoutY="56.0" strokeType="OUTSIDE" strokeWidth="0.0" text="${'R$ ' + montant}" textAlignment="RIGHT" wrappingWidth="165.6171875" />
+   </children>
+   <effect>
+      <DropShadow offsetX="1.57" offsetY="1.57">
+         <color>
+            <Color opacity="0.5038167834281921" />
+         </color>
+      </DropShadow>
+   </effect>
+</AnchorPane>
