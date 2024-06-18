@@ -38,9 +38,10 @@ public class ClientReader implements ReaderXML<Client> {
                 String address = clientElement.getElementsByTagName("address").item(0).getTextContent();
                 String email = clientElement.getElementsByTagName("email").item(0).getTextContent();
                 String phoneNumber = clientElement.getElementsByTagName("phoneNumber").item(0).getTextContent();
+                String passwordHash = clientElement.getElementsByTagName("passwordHash").item(0).getTextContent();
 
-                Client client = new Client(name, LocalDate.parse(dateOfBirth), cpf);
-                client.setRegisterPasswordHash(registerPasswordHash);
+                Client client = new Client(name, LocalDate.parse(dateOfBirth), cpf, passwordHash);
+                client.setPasswordHash(registerPasswordHash);
                 client.setEmail(email);
                 client.setPhoneNumber(phoneNumber);
                 client.setAddress(address);

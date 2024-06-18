@@ -20,8 +20,13 @@ public class Client extends Register {
     private List<Investment> investments;
     private List<Loan> loans;
 
-    public Client(String name, LocalDate dateOfBirth, String cpf) throws InvalidCPFException, InvalidBirthDateException {
-        super(name, dateOfBirth);
+    public Client() {
+        super();
+        this.cpf = "00000000000";
+    }
+
+    public Client(String name, LocalDate dateOfBirth, String cpf, String passwordHash) throws InvalidCPFException, InvalidBirthDateException {
+        super(name, dateOfBirth, passwordHash);
 
         if (!DocumentValidator.isValidCPF(cpf)) {
             throw new InvalidCPFException("CPF inválido " + cpf);

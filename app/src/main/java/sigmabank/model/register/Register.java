@@ -1,9 +1,10 @@
 package sigmabank.model.register;
 
 import java.time.LocalDate;
-import java.util.UUID;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.UUID;
 
 import javax.management.InvalidAttributeValueException;
 import javax.xml.bind.annotation.XmlElement;
@@ -18,7 +19,7 @@ public class Register {
     @XmlElement private final UUID uuid;
     @XmlElement private final String name;
     @XmlElement private final LocalDate dateOfBirth;
-    @XmlElement private String registerPasswordHash;
+    @XmlElement private final String passwordHash;
 
     // Contact Data
     private String email;
@@ -29,12 +30,14 @@ public class Register {
         this.uuid = UUID.randomUUID();
         this.name = null;
         this.dateOfBirth = null;
+        this.passwordHash = null;
     }
 
-    public Register(String name, LocalDate dateOfBirth) {
+    public Register(String name, LocalDate dateOfBirth, String passwordHash) {
         this.uuid = UUID.randomUUID();
         this.name = name;
         this.dateOfBirth = dateOfBirth;
+        this.passwordHash = passwordHash;
     }
 
     public Register(String name, LocalDate dateOfBirth, UUID uuid) {
@@ -92,12 +95,12 @@ public class Register {
             throw new InvalidAttributeValueException(address + " is not a address");
     }
 
-    public void setRegisterPassword(String password) {
-        this.registerPasswordHash = HashPassword.hashPassword(uuid, password);
+    public void setPassword(String password) {
+        this.passwordHash = HashPassword.hashPassword(uuid.toString(), password);
     }
 
-    public void setRegisterPasswordHash(String passwordHash) {
-        this.registerPasswordHash = passwordHash;
+    public void setPasswordHash(String passwordHash) {
+        this.passwordHash = passwordHash;
     }
 
     public UUID getUUID() {
@@ -124,11 +127,16 @@ public class Register {
         return this.phoneNumber;
     }
 
+<<<<<<< HEAD
     public String getRegisterPasswordHash() {
         return this.registerPasswordHash;
     }
 
     public boolean validatePassword(String password){
         return HashPassword.hashPassword(uuid, password).equals(this.registerPasswordHash);
+=======
+    public String getPasswordHash() {
+        return this.passwordHash;
+>>>>>>> server
     }
 }

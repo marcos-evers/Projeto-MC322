@@ -7,7 +7,7 @@ public class Admin extends Register {
     @XmlElement private final String cpf;
 
     public Admin(String name, LocalDate dateOfBirth, String cpf) {
-        super(name, dateOfBirth);
+        super(name, dateOfBirth, "placehoulder");
         this.cpf = cpf;
     }
 
