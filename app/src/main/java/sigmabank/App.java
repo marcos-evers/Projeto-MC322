@@ -1,6 +1,6 @@
 package sigmabank;
 
-import sigmabank.controllers.Controller;
+import sigmabank.controllers.BaseController;
 
 import java.io.IOException;
 
@@ -15,7 +15,8 @@ public class App extends Application {
     public void start(Stage stage) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/sigmabank/views/login.fxml"));
         Parent root = (Parent) loader.load();
-        ((Controller) loader.getController()).setStage(stage);
+        ((BaseController) loader.getController()).setStage(stage);
+        stage.getIcons().add(new Image("/sigmabank/images/logo.png"));
         stage.setScene(new Scene(root));
         stage.show();
     }

@@ -1,16 +1,18 @@
 package sigmabank.controllers;
 
-import java.net.URL;
-import java.util.ResourceBundle;
+import java.io.IOException;
+
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.TextField;
 
-public class LoginController extends Controller {
+public class LoginController extends BaseController {
     @FXML private TextField username;
     @FXML private TextField password;
-    @FXML private Button submit;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
