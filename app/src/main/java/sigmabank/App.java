@@ -8,11 +8,15 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 public class App extends Application {
     @Override
     public void start(Stage stage) throws IOException {
+        stage.setResizable(false);
+        stage.initStyle(StageStyle.UNDECORATED);
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/sigmabank/views/login.fxml"));
         Parent root = (Parent) loader.load();
         ((BaseController) loader.getController()).setStage(stage);

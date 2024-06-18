@@ -14,20 +14,27 @@ public class LoginController extends BaseController {
     @FXML private TextField username;
     @FXML private TextField password;
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        stage.setTitle("Login");
-    }
+    public void trySubmit(ActionEvent e) throws IOException {
+        // if everything goes right:
+        
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/sigmabank/views/client_page.fxml"));
 
-    public void trySubmit(ActionEvent e) {
-        System.out.println("tentou submitar");
+        Parent root = (Parent) loader.load();
+
+        ClientPageController controller = (ClientPageController) loader.getController();
+        controller.initData(username.getText());
+        controller.setStage(this.stage);
+
+        this.stage.setScene(new Scene(root));
+        this.stage.setTitle("Home");
+        this.stage.show();
     }
     
-    public void register(ActionEvent e) {        
-        System.out.println("tentou register");
+    public void register(ActionEvent e) throws IOException {
+        BaseController.loadView("register", "Criar conta", this);
     }
     
     public void leave(ActionEvent e) {
-        System.out.println("tentou sair");
+        Platform.exit();
     }
 }
