@@ -55,8 +55,6 @@ public class Client extends Register {
         this.loans = new ArrayList<>();
     }
 
-
-
     /**
      * Adds a new investment to the client.
      *

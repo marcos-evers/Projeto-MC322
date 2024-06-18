@@ -23,6 +23,8 @@ import org.w3c.dom.NodeList;
 import sigmabank.model.investment.Investment;
 import sigmabank.model.loan.Loan;
 import sigmabank.model.register.Client;
+import sigmabank.utils.writters.WritterFactory;
+import sigmabank.utils.writters.WritterXML;
 
 public class Database {
     private static Database instance;
@@ -104,27 +106,14 @@ public class Database {
 
     public void saveToXML(String path) {
         try {
-            JAXBContext jaxbctx = JAXBContext.newInstance(Client.class);
-            Marshaller marshaller = jaxbctx.createMarshaller();
 
-            marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, false);
-            marshaller.setProperty(Marshaller.JAXB_FRAGMENT, true);
+            for (String label: tables.keySet()) {
+                List<Object> table = tables.get(label);
+                Class<?> tableClass = tableClasses.get(label);
+                WritterXML<Client> wx = WritterFactory.createWritter(tableClass);
+                String filepath = path + "/" + label + ".xml";
 
-            for (String key: tables.keySet()) {
-                List<Object> table = tables.get(key);
-                StringWriter sw = new StringWriter();
-                FileWriter fw = new FileWriter(path + "/" + key + ".xml");
-
-                System.out.println(path + "/" + key + ".xml");
-
-                for (Object obj: table)
-                    marshaller.marshal(obj, sw);
-
-                fw.write("<" + key + ">");
-                fw.write(sw.toString());
-                fw.write("</" + key + ">");
-
-                fw.close();
+                wx.writeToXML(label, table, filepath);
             }
         } catch (Exception e) {
             e.printStackTrace();   

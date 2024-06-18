@@ -127,16 +127,7 @@ public class Register {
         return this.phoneNumber;
     }
 
-<<<<<<< HEAD
-    public String getRegisterPasswordHash() {
-        return this.registerPasswordHash;
-    }
-
-    public boolean validatePassword(String password){
-        return HashPassword.hashPassword(uuid, password).equals(this.registerPasswordHash);
-=======
     public String getPasswordHash() {
         return this.passwordHash;
->>>>>>> server
     }
 }

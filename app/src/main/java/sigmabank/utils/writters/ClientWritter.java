@@ -2,11 +2,7 @@ package sigmabank.utils.writters;
 
 import java.io.File;
 import java.io.IOException;
-
-//import java.time.LocalDate;
-//import javax.management.InvalidAttributeValueException;
-//import sigmabank.model.register.InvalidBirthDateException;
-//import sigmabank.model.register.InvalidCPFException;
+import java.util.List;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -22,69 +18,67 @@ import sigmabank.model.register.Client;
 
 
 public class ClientWritter implements WritterXML<Client>{
+    private Element createElementFromClient(Document doc, Client client) {
+        // Client element
+        Element clientElement = doc.createElement("Client");
+
+        // ID element
+        Element uuid = doc.createElement("uuid");
+        uuid.appendChild(doc.createTextNode(client.getUUID().toString()));
+        clientElement.appendChild(uuid);
+
+        // Name element
+        Element name = doc.createElement("name");
+        name.appendChild(doc.createTextNode(client.getName()));
+        clientElement.appendChild(name);
+
+        // CPF element
+        Element cpf = doc.createElement("cpf");
+        cpf.appendChild(doc.createTextNode(client.getCpf())); 
+        clientElement.appendChild(cpf);
+
+        // DateOfBirth element
+        Element dateOfBirth = doc.createElement("dateOfBirth");
+        dateOfBirth.appendChild(doc.createTextNode(client.getDateOfBirth().toString())); 
+        clientElement.appendChild(dateOfBirth);
+
+        Element registerPasswordHash = doc.createElement("passwordHash");
+        registerPasswordHash.appendChild(doc.createTextNode(client.getPasswordHash()));
+        clientElement.appendChild(registerPasswordHash);
+
+        // Address element  
+        Element address = doc.createElement("address");
+        address.appendChild(doc.createTextNode(client.getAddress()));
+        clientElement.appendChild(address);
+
+        // Email element
+        Element email = doc.createElement("email");
+        email.appendChild(doc.createTextNode(client.getEmail())); 
+        clientElement.appendChild(email);
+
+        // PhoneNumber element
+        Element phoneNumber = doc.createElement("phoneNumber");
+        phoneNumber.appendChild(doc.createTextNode(client.getPhoneNumber())); 
+        clientElement.appendChild(phoneNumber);
+
+        return clientElement;
+    }
+
     @Override
-    public void writeToXML(Client client, String pathToXML) throws IOException {
+    public void writeToXML(String label, List<Object> clients, String pathToXML) throws IOException {
         try {       
             File xmlFile = new File(pathToXML); // Using the pathToXML variable correctly
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             Document doc;
 
-            // Check if file exists and has content
-            if (xmlFile.exists() && xmlFile.length() != 0) {
-                doc = dBuilder.parse(xmlFile);
-                doc.getDocumentElement().normalize();
-            } else {
-                doc = dBuilder.newDocument();
-                Element rootElement = doc.createElement("Clients");
-                doc.appendChild(rootElement);
-            }
+            doc = dBuilder.newDocument();
 
-            // Root element
-            Element root = doc.getDocumentElement();
+            Element root= doc.createElement(label);
+            doc.appendChild(root);
 
-            // Client element
-            Element clientElement = doc.createElement("Client");
-            root.appendChild(clientElement);
-
-            // ID element
-            Element uuid = doc.createElement("uuid");
-            uuid.appendChild(doc.createTextNode(client.getUUID().toString()));
-            clientElement.appendChild(uuid);
-
-            // Name element
-            Element name = doc.createElement("name");
-            name.appendChild(doc.createTextNode(client.getName()));
-            clientElement.appendChild(name);
-
-            // CPF element
-            Element cpf = doc.createElement("cpf");
-            cpf.appendChild(doc.createTextNode(client.getCpf())); 
-            clientElement.appendChild(cpf);
-
-            // DateOfBirth element
-            Element dateOfBirth = doc.createElement("dateOfBirth");
-            dateOfBirth.appendChild(doc.createTextNode(client.getDateOfBirth().toString())); 
-            clientElement.appendChild(dateOfBirth);
-
-            Element registerPasswordHash = doc.createElement("registerPasswordHash");
-            registerPasswordHash.appendChild(doc.createTextNode(client.getRegisterPasswordHash()));
-            clientElement.appendChild(registerPasswordHash);
-
-            // Address element  
-            Element address = doc.createElement("address");
-            address.appendChild(doc.createTextNode(client.getAddress()));
-            clientElement.appendChild(address);
-
-            // Email element
-            Element email = doc.createElement("email");
-            email.appendChild(doc.createTextNode(client.getEmail())); 
-            clientElement.appendChild(email);
-
-            // PhoneNumber element
-            Element phoneNumber = doc.createElement("phoneNumber");
-            phoneNumber.appendChild(doc.createTextNode(client.getPhoneNumber())); 
-            clientElement.appendChild(phoneNumber);
+            for (Object client: clients)
+                root.appendChild(createElementFromClient(doc, (Client) client));
 
             // Save XML content
             TransformerFactory transformerFactory = TransformerFactory.newInstance();
@@ -97,21 +91,4 @@ public class ClientWritter implements WritterXML<Client>{
             e.printStackTrace();
         }
     }
-
-    /* 
-    public static void main(String[] args) throws InvalidAttributeValueException, InvalidCPFException, InvalidBirthDateException {
-        Client client = new Client("Gustavo Muito Lindo Esteche", LocalDate.parse("2000-01-01") ,"62131421346");
-        client.setEmail( "allahuakabar@gyaat.com");
-        client.setPhoneNumber("234572879");
-        client.setAddress("Rua dos Bobos, 0, 12345-678");
-        client.setRegisterPassword("123456");
-
-        WritterXML<Client> writter = WritterFactory.createWritter(WritterFactory.WritterType.CLIENT);
-        try {
-            writter.writeToXML(client, "app/src/main/java/sigmabank/utils/xml_test/clientPersonal.xml");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-    */
 }

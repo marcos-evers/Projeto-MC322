@@ -1,35 +1,28 @@
 package sigmabank.utils.writters;
 
+import sigmabank.model.investment.AssetInvestment;
+import sigmabank.model.investment.RateInvestment;
+import sigmabank.model.loan.Loan;
+import sigmabank.model.register.Client;
+
 public class WritterFactory {
-
-    public enum WritterType {
-        CLIENT,
-        LOAN,
-        ASSETINVESTMENT,
-        RATEINVESTMENT,
-        ACCOUNT
-    }
-
     /**
-     * Create an instance of a specific writer based on the WritterType.
+     * Create an instance of a specific writer based on the WriterType.
      *
-     * @param writterType the type of writer to create.
-     * @return a new instance of WritterXML for the specified type.
+     * @param objClass the class of writer to create.
+     * @return a new instance of WriterXML for the specified class.
      * @throws IllegalArgumentException if an invalid writer type is provided.
      */
     @SuppressWarnings("unchecked")
-    public static <T> WritterXML<T> createWritter(WritterType writterType) {
-        switch (writterType) {
-            case CLIENT:
-                return (WritterXML<T>) new ClientWritter();
-            case LOAN:
-                return (WritterXML<T>) new LoanWritter();
-            case ASSETINVESTMENT:
-                return (WritterXML<T>) new AssetInvestmentWritter();
-            case RATEINVESTMENT:
-                return (WritterXML<T>) new RateInvestmentWritter();
-            default:
-                throw new IllegalArgumentException("Invalid writter type.");
-        }
+    public static <T> WritterXML<T> createWritter(Class<?> objClass) {
+        if (objClass.equals(Client.class))
+            return (WritterXML<T>) new ClientWritter();
+        if (objClass.equals(Loan.class))
+            return (WritterXML<T>) new LoanWritter();
+        if (objClass.equals(AssetInvestment.class))
+            return (WritterXML<T>) new AssetInvestmentWritter();
+        if (objClass.equals(RateInvestment.class))
+            return (WritterXML<T>) new RateInvestmentWritter();
+        throw new IllegalArgumentException("");
     }
 }
