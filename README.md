@@ -13,7 +13,10 @@ Our project aims to model a system that emulates a virtual bank, made with Java.
 
 ```shell
 gradle :app:run  # to run the app
-gradle :app:test # to run unit the app tests
+gradle :app:test # to run the app unit tests
+
+gradle :server:run  # to run the server
+gradle :server:test # to run the server unit tests
 ```
 
 ## Functionalities

@@ -109,15 +109,4 @@ public class AssetInvestmentReader implements ReaderXML<AssetInvestment>{
         }
         return null;
     }
-
-    /* 
-    public static void main(String[] args) {
-        ReaderXML<AssetInvestment> reader = ReaderFactory.createReader(ReaderFactory.ReaderType.ASSETINVESTMENT);
-        List<AssetInvestment> investments = reader.readFromXML("app/src/main/java/sigmabank/utils/xml_test/assetInvestment.xml");
-        System.out.println(investments.size());
-        for (AssetInvestment investment : investments) {
-            System.out.println(investment);
-        }
-    }  
-    */  
 }

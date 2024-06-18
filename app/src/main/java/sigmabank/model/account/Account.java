@@ -12,8 +12,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.management.InvalidAttributeValueException;
 import javax.xml.bind.annotation.XmlElement;
 
-import sigmabank.utils.HashPassword;
-
 @XmlRootElement
 public class Account {
     // TODO: substitute the type Object on statement by Operations/Transaction
@@ -22,7 +20,6 @@ public class Account {
     @XmlElement protected final LocalDate creationDate;
     @XmlElement protected BigDecimal balance;
     @XmlElement protected final List<Object> statement; 
-    @XmlElement protected String accountPasswordHash;
 
     public Account(UUID clientUUID){
         this.uuid = UUID.randomUUID();
@@ -56,10 +53,6 @@ public class Account {
         this.balance = balance;
     }
 
-    public void setAccountPasswordHash(String password) {
-        this.accountPasswordHash = HashPassword.hashPassword(clientUUID, password);
-    }
-
     /**
      * Adding a transfer to the statement of this bank account after the transfer process is over 
      * 
@@ -91,9 +84,5 @@ public class Account {
         //String realPassword = HashPassword.hashPassword(this.clientUUID, password);
 
         // TODO: Check if the client seller's account exists
-    }
-
-    public boolean validatePassword(String password){
-        return HashPassword.hashPassword(clientUUID, password).equals(this.accountPasswordHash);
     }
 }
