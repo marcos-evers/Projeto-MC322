@@ -6,3 +6,4 @@ server/bin
 app/.settings
 server/.settings
 server/src/main/resources/sigmabank/database
+gradle.properties
