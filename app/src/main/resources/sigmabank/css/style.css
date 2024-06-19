@@ -3,27 +3,31 @@ AnchorPane {
     -fx-font-family: 'Segoe UI';
 }
 
-ScrollPane {
-    -fx-border-radius: 8;
-    -fx-background-radius: 8;
-
-    -fx-background-color: #ffffff;
-
+ScrollPane, ScrollPane > .viewport {
+    -fx-background: #ffffff;
     -fx-border-radius: 8;
     -fx-background-radius: 8;
 }
 
-ScrollPane VBox {
+ScrollPane VBox > .viewport {
     -fx-background-color: #ffffff;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
 }
 
-.black {
-    fx-background-color: #000000;
-    fx-border-radius: 8;
-    fx-background-radius: 8;
-    fx-text-fill: #ffffff;
-    fx-font-family: 'Segoe UI';
-    fx-font-weight: bold;
-    fx-border-color: #00000000;
+Button {
+    -fx-cursor: hand !important;
 }
 
+VBox AnchorPane {
+    -fx-font-family: 'Segoe UI';
+    -fx-font-weight: 600; /* that's semibold */
+}
+
+VBox AnchorPane Label {
+    -fx-text-fill: #000000;
+}
+
+VBox AnchorPane Text {
+    -fx-text-fill: #828282;
+}
