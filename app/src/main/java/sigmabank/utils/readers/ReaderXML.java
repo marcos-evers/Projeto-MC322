@@ -11,7 +11,7 @@ public interface ReaderXML<T> {
      * @return the object read from XML.
      * @throws IOException if an I/O error occurs.
      */
-    public List<T> readFromXML(String pathToXML);
+    public List<Object> readFromXML(String pathToXML);
 
     /**
      * Read an object from an XML file at the specified path using the given identifier.

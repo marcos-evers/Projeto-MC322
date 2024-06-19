@@ -20,8 +20,8 @@ import sigmabank.model.investment.AssetInvestment;
 
 public class AssetInvestmentReader implements ReaderXML<AssetInvestment>{
     @Override
-    public List<AssetInvestment> readFromXML(String pathToXML) {
-        List<AssetInvestment> investments = new ArrayList<>();
+    public List<Object> readFromXML(String pathToXML) {
+        List<Object> investments = new ArrayList<>();
 
         try {
             File file = new File(pathToXML);
@@ -48,7 +48,7 @@ public class AssetInvestmentReader implements ReaderXML<AssetInvestment>{
                 UUID clientUUID = UUID.fromString(clientUUIDStr);
                 AssetInvestment investment = new AssetInvestment(name, investedValue, value, retrievedValue, clientUUID, startDate, assetValue, assetQuantity, assetType);
 
-                investments.add(investment);
+                investments.add((Object) investment);
             }
 
         } catch (Exception e) {

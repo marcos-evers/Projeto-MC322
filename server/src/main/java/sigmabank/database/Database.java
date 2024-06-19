@@ -1,8 +1,6 @@
 package sigmabank.database;
 
 import java.io.File;
-import java.io.FileWriter;
-import java.io.StringWriter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +9,6 @@ import java.util.HashMap;
 import java.util.function.Predicate;
 
 import javax.xml.bind.JAXBContext;
-import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -23,6 +20,8 @@ import org.w3c.dom.NodeList;
 import sigmabank.model.investment.Investment;
 import sigmabank.model.loan.Loan;
 import sigmabank.model.register.Client;
+import sigmabank.utils.readers.ReaderFactory;
+import sigmabank.utils.readers.ReaderXML;
 import sigmabank.utils.writters.WritterFactory;
 import sigmabank.utils.writters.WritterXML;
 
@@ -106,11 +105,10 @@ public class Database {
 
     public void saveToXML(String path) {
         try {
-
             for (String label: tables.keySet()) {
                 List<Object> table = tables.get(label);
                 Class<?> tableClass = tableClasses.get(label);
-                WritterXML<Client> wx = WritterFactory.createWritter(tableClass);
+                WritterXML<?> wx = WritterFactory.createWritter(tableClass);
                 String filepath = path + "/" + label + ".xml";
 
                 wx.writeToXML(label, table, filepath);
@@ -126,23 +124,13 @@ public class Database {
 
     public void loadFromXML(String path) {
         try {
-            JAXBContext jaxbctx = JAXBContext.newInstance(Client.class);
-            Unmarshaller unmarshaller = jaxbctx.createUnmarshaller();
-
             for (String key: tables.keySet()) {
-                List<Object> table = tables.get(key);
-                String className = tableClasses.get(key).getName().toLowerCase();
-                DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-                DocumentBuilder db = dbf.newDocumentBuilder();
-                Document doc = db.parse(new File(path + "/" + key + ".xml"));
-                doc.getDocumentElement().normalize();
+                Class<?> tableClass = tableClasses.get(key);
+                ReaderXML<?> reader = ReaderFactory.createReader(tableClass);
+                String filepath = path + "/" + key + ".xml"; 
+                List<Object> objects = reader.readFromXML(filepath);
 
-                NodeList nodeList = doc.getElementsByTagName(className);
-                for (int i = 0; i < nodeList.getLength(); i++) {
-                    Object obj = unmarshaller.unmarshal(nodeList.item(i));
-
-                    table.add(obj);
-                }
+                tables.put(key, objects);
             }
         } catch (Exception e) {
             e.printStackTrace();   

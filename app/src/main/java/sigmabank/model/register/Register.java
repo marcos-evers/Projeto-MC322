@@ -16,7 +16,7 @@ public class Register {
     @XmlElement private final UUID uuid;
     @XmlElement private final String name;
     @XmlElement private final LocalDate dateOfBirth;
-    @XmlElement private final String passwordHash;
+    private String passwordHash;
 
     // Contact Data
     private String email;

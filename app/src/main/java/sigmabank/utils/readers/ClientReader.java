@@ -16,8 +16,8 @@ import sigmabank.model.register.Client;
 
 public class ClientReader implements ReaderXML<Client> {
     @Override
-    public List<Client> readFromXML(String path) {
-        List<Client> clients = new ArrayList<>();
+    public List<Object> readFromXML(String path) {
+        List<Object> clients = new ArrayList<>();
 
         try {
             File file = new File(path);
@@ -45,7 +45,7 @@ public class ClientReader implements ReaderXML<Client> {
                 client.setPhoneNumber(phoneNumber);
                 client.setAddress(address);
 
-                clients.add(client);
+                clients.add((Object) client);
             }
         } catch (Exception e) {
             System.err.println("Error reading the file: " + e.getMessage());

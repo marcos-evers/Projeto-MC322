@@ -18,8 +18,9 @@ import sigmabank.model.loan.Loan;
 
 public class LoanReader implements ReaderXML<Loan> {
     @Override
-    public List<Loan> readFromXML(String path) {
-        List<Loan> loans = new ArrayList<>();
+    public List<Object> readFromXML(String path) {
+        List<Object> loans = new ArrayList<>();
+
         try {
             File file = new File(path);
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
@@ -41,9 +42,8 @@ public class LoanReader implements ReaderXML<Loan> {
                 BigDecimal amount = new BigDecimal(loanElement.getElementsByTagName("amount").item(0).getTextContent());
                 
                 Loan loan = new Loan(value, fee, clientUUID, loanUUID,startDay, amount, lastUpdateDate);
-                loans.add(loan);
+                loans.add((Object) loan);
             }
-
         } catch (Exception e) {
             System.err.println("Error reading the XML file: " + e.getMessage());
             e.printStackTrace();
