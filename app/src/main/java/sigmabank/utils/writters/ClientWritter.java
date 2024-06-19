@@ -74,7 +74,7 @@ public class ClientWritter implements WritterXML<Client>{
 
             doc = dBuilder.newDocument();
 
-            Element root= doc.createElement(label);
+            Element root = doc.createElement(label);
             doc.appendChild(root);
 
             for (Object client: clients)
@@ -86,7 +86,6 @@ public class ClientWritter implements WritterXML<Client>{
             DOMSource source = new DOMSource(doc);
             StreamResult result = new StreamResult(xmlFile);
             transformer.transform(source, result);
-
         } catch (Exception e) {
             e.printStackTrace();
         }

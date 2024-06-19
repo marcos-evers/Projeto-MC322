@@ -1,8 +1,6 @@
 package sigmabank.controllers;
 
 import java.io.IOException;
-import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 import javafx.application.Platform;
@@ -11,7 +9,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.Alert.AlertType;
 import sigmabank.model.register.Client;
 import sigmabank.model.register.InvalidBirthDateException;
@@ -30,8 +27,53 @@ public class RegisterController extends BaseController<Client> {
     @FXML private TextField password;
     @FXML private TextField confirmPassword;
 
+    private void showErrorAlert(String message) {
+        Alert alert = new Alert(AlertType.ERROR);
+        alert.setTitle("Erro");
+        alert.setHeaderText("Ocorreu um erro no cadastro:");
+        alert.setContentText(message);
+
+        alert.showAndWait();
+    }
+
+    private boolean checkPasswords() {
+        if (password.getText().equals(confirmPassword.getText())) {
+            return true;
+        }
+
+        this.showErrorAlert("As senhas não conferem");
+        return false;
+    }
+
     public void trySubmit(ActionEvent e) throws IOException {
-        System.out.println("trySubmit");
+        if (!this.checkPasswords()) {
+            return;
+        }
+                
+        // String path = "/server/src/main/resources/database/Clients.xml";
+
+        // ClientReader reader = new ClientReader();
+        // ClientWritter writer = new ClientWritter();
+        
+        // List<Client> clients = reader.readFromXML(path);
+        
+        // Client client;
+        // try {
+        //     client = new Client(
+        //         name.getText(),
+        //         dateOfBirth.getValue(),
+        //         cpf.getText(),
+        //         HashPassword.hashPassword(cpf.getText(), password.getText())
+        //     );
+        // } catch (InvalidBirthDateException|InvalidCPFException err) {
+        //     this.showErrorAlert(err.getMessage());
+        //     return;
+        // }
+
+        // clients.add(client);
+
+        // // TODO na verdade deveria ser um write pra tabela de clientes pra confirmar
+        // writer.writeToXML("clients", (List<Object>)(Object) clients, path);
 
         this.login(e);
     }

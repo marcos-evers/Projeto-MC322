@@ -25,6 +25,11 @@ public class Client extends Register {
         this.cpf = "00000000000";
     }
 
+    public Client(String cpf) {
+        super();
+        this.cpf = cpf;
+    }
+
     public Client(String name, LocalDate dateOfBirth, String cpf, String passwordHash) throws InvalidCPFException, InvalidBirthDateException {
         super(name, dateOfBirth, passwordHash);
 

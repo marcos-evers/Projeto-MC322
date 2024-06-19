@@ -51,7 +51,7 @@ public class LoanWritter implements WritterXML<Loan> {
     }
 
     @Override
-    public void writeToXML(String label, List<Object> loans, String filename) throws IOException{
+    public void writeToXML(String label, List<Object> loans, String filename) throws IOException {
         try {
             File xmlFile = new File(filename); // Using the pathToXML variable correctly
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();

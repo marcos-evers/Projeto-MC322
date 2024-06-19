@@ -27,7 +27,7 @@ public class Loan {
         this.lastUpdateDate = LocalDate.now();
     }
 
-    public Loan(BigDecimal value, BigDecimal fee, UUID clientUUID, UUID loanUUID, LocalDate startDay, BigDecimal amount, LocalDate lastUpdateDate){
+    public Loan(BigDecimal value, BigDecimal fee, UUID clientUUID, UUID loanUUID, LocalDate startDay, BigDecimal amount, LocalDate lastUpdateDate) {
         this.value = value;
         this.fee = fee;
         this.clientUUID = clientUUID;
