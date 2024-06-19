@@ -21,11 +21,12 @@ public class ClientPageController extends BaseController<Client> {
     @Override
     public void initData(Client client) throws IOException {
         // ClientReader clientReader = new ClientReader();
-        // Client client = clientReader.queryClient("./", cpf);
+        // Client client = null;clientReader.queryClient("/server/src/main/resources/database/Clients.xml", cpf);
 
-        greeting.setText("Olá, " + cpf + "!");
+        // TODO replace cpf with client's queried name
+        greeting.setText("Olá, " + client.getCpf() + "!");
+
         // greeting.setText("Olá, " + client.getName().split(" ")[0] + "!");
-
         // LoanReader loanReader = new LoanReader();
         // List<Loan> loans = loanReader.readFromXML("./", client.getUUID().toString());
         // FXMLLoader loanLoader;
@@ -41,13 +42,23 @@ public class ClientPageController extends BaseController<Client> {
 
         // AssetInvestmentReader assetInvestmentReader = new AssetInvestmentReader();
         // RateInvestmentReader rateInvestmentReader = new RateInvestmentReader();
-
-        // List<Investment> investments = assetInvestmentReader.readFromXML("./", client.getUUID().toString());
-
+        // List<Investment> investments = (List<Investment>)(Object)assetInvestmentReader.readFromXML("/server/src/main/resources/database/AssetInvestment.xml", client.getUUID().toString());
         // FXMLLoader investmentLoader;
         // BigDecimal investmentTotal = BigDecimal.ZERO;
-        // for (Loan invesment : invesments) {}
-
+        // for (Investment investment : investments) {
+        //     investmentTotal = investmentTotal.add(investment.getRetrievedValue());
+        //     investmentLoader = new FXMLLoader(getClass().getResource(""));
+        // }
+        loansTotal.setText("Seus empréstimos somam R$ " + "13000.0");
+        investmentsTotal.setText("Seus investimentos já renderam R$ " + 31.5);
+    }
+    
+    public void newInvestment(ActionEvent e) {
+        System.out.println("New investment");
+    }
+    
+    public void requestLoan(ActionEvent e) {
+        System.out.println("Request loan");
     }
 
     public void leave(ActionEvent e) {

@@ -8,8 +8,8 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="94.0" prefWidth="471.0" stylesheets="@../css/item.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Text layoutX="285.0" layoutY="55.0" strokeType="OUTSIDE" strokeWidth="0.0" text="13/01/1984" textAlignment="RIGHT" wrappingWidth="165.6171875" />
-      <Label layoutX="21.0" layoutY="31.0" prefHeight="33.0" prefWidth="215.0" text="R$ 1.234,56" />
+      <Text layoutX="285.0" layoutY="55.0" strokeType="OUTSIDE" strokeWidth="0.0" text="R$ 1.234,56" textAlignment="RIGHT" wrappingWidth="165.6171875" />
+      <Label layoutX="21.0" layoutY="31.0" prefHeight="33.0" prefWidth="301.0" text="Nome da ação" />
    </children>
    <effect>
       <DropShadow offsetX="1.57" offsetY="1.57">

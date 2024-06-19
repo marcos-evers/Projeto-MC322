@@ -21,7 +21,7 @@
                   <Image url="@../images/letters_wo_tagline.png" />
                </image>
             </ImageView>
-         <Text fx:id="greeting" layoutX="553.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 16; -fx-font-weight: bold;" text="a" textAlignment="RIGHT" wrappingWidth="413.13671875" />
+         <Text fx:id="greeting" layoutX="553.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 16; -fx-font-weight: bold;" text="Olá, !" textAlignment="RIGHT" wrappingWidth="413.13671875" />
          <Button layoutX="1009.0" layoutY="13.0" mnemonicParsing="false" onAction="#leave" stylesheets="@../css/clickable_link.css" text="Sair" underline="true" />
          </children>
          <effect>
@@ -32,9 +32,9 @@
          <font>
             <Font name="Segoe UI Semibold" size="72.0" />
          </font></Text>
-      <ScrollPane fx:id="investmentsBox" fitToWidth="true" hbarPolicy="NEVER" layoutX="60.0" layoutY="232.0" pannable="true" prefHeight="428.0" prefWidth="473.0" style="-fx-background-color: #ffffff;" vbarPolicy="NEVER">
+      <ScrollPane fitToWidth="true" hbarPolicy="NEVER" layoutX="60.0" layoutY="232.0" pannable="true" prefHeight="428.0" prefWidth="473.0" style="-fx-background-color: #ffffff;" vbarPolicy="NEVER">
          <content>
-            <VBox prefHeight="0.0" prefWidth="473.0" style="-fx-background-color: #ffffff;">
+            <VBox fx:id="investmentsBox" prefHeight="0.0" prefWidth="473.0" style="-fx-background-color: #ffffff;">
                <children>
                   <AnchorPane prefHeight="84.0" prefWidth="471.0" style="-fx-background-color: #00000000;">
                      <children>
@@ -48,12 +48,12 @@
                               <Font name="Segoe UI" size="16.0" />
                            </font>
                         </Text>
-                        <Button fx:id="newLoan1" layoutX="392.0" layoutY="39.0" mnemonicParsing="false" styleClass="black" stylesheets="@../css/black_button.css" text="+" textFill="WHITE">
+                        <Button layoutX="398.0" layoutY="36.0" mnemonicParsing="false" onAction="#newInvestment" style="-fx-background-color: #000000; -fx-border-radius: 8; -fx-background-radius: 8;" styleClass="black" stylesheets="@../css/black_button.css" text="+" textFill="WHITE">
                            <font>
-                              <Font name="Segoe UI Bold" size="16.0" />
+                              <Font name="Segoe UI Bold" size="18.0" />
                            </font>
                         </Button>
-                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ffffff00" height="106.0" layoutX="265.0" stroke="WHITE" strokeType="INSIDE" width="84.0" />
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ffffff00" height="96.0" layoutX="265.0" stroke="#ffffff00" strokeType="INSIDE" width="84.0" />
                      </children>
                   </AnchorPane>
                </children></VBox>
@@ -70,24 +70,24 @@
          <content>
             <VBox fx:id="loansBox" prefHeight="0.0" prefWidth="473.0" style="-fx-background-color: #ffffff;">
                <children>
-                  <AnchorPane prefHeight="84.0" prefWidth="471.0" style="-fx-background-color: #00000000;">
+                  <AnchorPane prefHeight="82.0" prefWidth="471.0" style="-fx-background-color: #00000000;">
                      <children>
                         <Text layoutX="14.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Seus empréstimos" wrappingWidth="264.521484375">
                            <font>
                               <Font name="Segoe UI Bold" size="27.0" />
                            </font>
                         </Text>
-                        <Text fx:id="loansTotal" fill="#7b7b7b" layoutX="14.0" layoutY="77.0" strokeType="OUTSIDE" strokeWidth="0.0">
+                        <Text fx:id="loansTotal" fill="#7b7b7b" layoutX="14.0" layoutY="77.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Seus empréstimos somam R$">
                            <font>
                               <Font name="Segoe UI" size="16.0" />
                            </font>
                         </Text>
-                        <Button fx:id="newLoan" layoutX="392.0" layoutY="39.0" mnemonicParsing="false" styleClass="black" stylesheets="@../css/black_button.css" text="+" textFill="WHITE">
+                        <Button layoutX="395.0" layoutY="36.0" mnemonicParsing="false" onAction="#requestLoan" style="-fx-background-color: #000000; -fx-border-radius: 8; -fx-background-radius: 8;" styleClass="black" stylesheets="@../css/black_button.css" text="+" textFill="WHITE">
                            <font>
-                              <Font name="Segoe UI Bold" size="16.0" />
+                              <Font name="Segoe UI Bold" size="18.0" />
                            </font>
                         </Button>
-                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ffffff00" height="106.0" layoutX="265.0" stroke="WHITE" strokeType="INSIDE" width="84.0" />
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ffffff00" height="96.0" layoutX="265.0" stroke="#ffffff00" strokeType="INSIDE" width="84.0" />
                      </children>
                   </AnchorPane>
                </children></VBox>
