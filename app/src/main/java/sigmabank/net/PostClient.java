@@ -1,8 +1,10 @@
 package sigmabank.net;
 
+import java.io.InputStreamReader;
+import java.io.IOException;
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
-import java.io.InputStreamReader;
+
 import java.net.HttpURLConnection;
 import java.net.URI;
 import java.net.URL;
@@ -26,7 +28,7 @@ public class PostClient {
             +  "password=" + client.getPasswordHash();
     }
 
-    public int send(Client client) throws Exception {
+    public int send(Client client) throws IOException {
         HttpURLConnection connection = (HttpURLConnection) url.openConnection(); 
 
         connection.setRequestMethod("POST");

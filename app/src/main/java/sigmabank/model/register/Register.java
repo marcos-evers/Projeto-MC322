@@ -12,14 +12,13 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import sigmabank.utils.HashPassword;
 
-
 @XmlRootElement
 public class Register {
     // Personal Data
     @XmlElement private final UUID uuid;
     @XmlElement private final String name;
     @XmlElement private final LocalDate dateOfBirth;
-    @XmlElement private final String passwordHash;
+    private String passwordHash;
 
     // Contact Data
     private String email;

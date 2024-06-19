@@ -72,9 +72,11 @@ public class ClientInvestmentMultiton {
      */
     private void LoadRateInvestments(String pathToXML) {
         ReaderXML<RateInvestment> reader = ReaderFactory.createReader(RateInvestment.class);
-        List<RateInvestment> rateInvestmentsArray = reader.readFromXML(pathToXML);
+        List<Object> rateInvestmentsArray = reader.readFromXML(pathToXML);
 
-        for (RateInvestment rateInvestment : rateInvestmentsArray) {
+        for (Object rateInvestmentObj : rateInvestmentsArray) {
+            RateInvestment rateInvestment = (RateInvestment) rateInvestmentObj;
+
             rateInvestments.putIfAbsent(rateInvestment.getClientUUID(), new HashMap<>());
             Map<RateInvestEnum, RateInvestment> clientRateInvestments = rateInvestments.get(rateInvestment.getClientUUID());
         
@@ -114,9 +116,10 @@ public class ClientInvestmentMultiton {
      */
     private void LoadAssetInvestments(String pathToXML) {
         ReaderXML<AssetInvestment> reader = ReaderFactory.createReader(AssetInvestment.class);
-        List<AssetInvestment> assetInvestmentsArray = reader.readFromXML(pathToXML);
+        List<Object> assetInvestmentsArray = reader.readFromXML(pathToXML);
 
-        for (AssetInvestment assetInvestment : assetInvestmentsArray) {
+        for (Object object : assetInvestmentsArray) {
+            AssetInvestment assetInvestment = (AssetInvestment) object;
             assetInvestments.putIfAbsent(assetInvestment.getClientUUID(), new HashMap<>());
             Map<AssetInvestEnum, AssetInvestment> clientAssetInvestments = assetInvestments.get(assetInvestment.getClientUUID());
         

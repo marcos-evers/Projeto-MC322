@@ -20,8 +20,8 @@ import sigmabank.model.investment.RateInvestment;
 
 public class RateInvestmentReader implements ReaderXML<RateInvestment> {
     @Override
-    public List<RateInvestment> readFromXML(String pathToXML) {
-        List<RateInvestment> investments = new ArrayList<>();
+    public List<Object> readFromXML(String pathToXML) {
+        List<Object> investments = new ArrayList<>();
 
         try {
             File file = new File(pathToXML);
@@ -51,9 +51,8 @@ public class RateInvestmentReader implements ReaderXML<RateInvestment> {
                 ROIFrequencyType frequencyType = ROIFrequencyType.valueOf(frequencyTypeStr);
                 RateInvestment investment = new RateInvestment(name, investedValue, value, retrievedValue, clientUUID, startDate, rate, addedValue, frequencyType, lastUpdateDate, rateType);
 
-                investments.add(investment);
+                investments.add((Object) investment);
             }
-
         } catch (Exception e) {
             System.err.println("Error reading the file: " + e.getMessage());
             e.printStackTrace();

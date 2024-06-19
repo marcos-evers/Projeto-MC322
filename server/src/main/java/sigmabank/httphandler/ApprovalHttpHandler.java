@@ -81,6 +81,8 @@ public class ApprovalHttpHandler implements HttpHandler {
                 return true;
         });
 
+        System.out.println(clients);
+
         try {
             StringWriter sw = new StringWriter();
             JAXBContext jaxbcontext = JAXBContext.newInstance(Client.class);
