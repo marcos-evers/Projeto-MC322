@@ -79,6 +79,11 @@ public class Client extends Register {
         this.loans.add(loan);
     }
 
+    /**
+     * Sets the password of the client.
+     *
+     * @param password The password string to be set.
+     */
     public void setPassword(String password) {
         String passwordHash = HashPassword.hashPassword(cpf, password);
 
@@ -97,6 +102,12 @@ public class Client extends Register {
         return loans;
     }
 
+    /**
+     * Checks if the client is an adult, more than 18 years old.
+     *
+     * @param dateOfBirth The date of birth of the client.
+     * @return True if the client is an adult, false otherwise.
+     */
     private boolean isAdult(LocalDate dateOfBirth) {
         LocalDate eighteenYearsAgo = LocalDate.now().minusYears(18);
         return dateOfBirth.isBefore(eighteenYearsAgo);
