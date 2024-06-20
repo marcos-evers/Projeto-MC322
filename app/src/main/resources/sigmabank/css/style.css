@@ -31,3 +31,22 @@ VBox AnchorPane Label {
 VBox AnchorPane Text {
     -fx-text-fill: #828282;
 }
+
+AnchorPane AnchorPane {
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+}
+
+AnchorPane Rectangle {
+    -fx-background-color: #ffffff;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+}
+
+HBox Button {
+    -fx-background-color: #ffffff;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+    -fx-font-family: 'Segoe UI';
+    -fx-font-size: 16;
+}

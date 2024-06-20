@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.effect.InnerShadow?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="605.0" prefWidth="442.0" style="-fx-border-radius: 0;" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sigmabank.controllers.InvestmentController">
+   <children>
+      <Text fx:id="investmentName" layoutY="75.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nome do investimento" textAlignment="CENTER" wrappingWidth="442.0">
+         <font>
+            <Font name="Segoe UI Bold" size="28.0" />
+         </font>
+      </Text>
+      <Text fx:id="startDate" fill="#828282" layoutY="99.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Iniciado em 03/05/2020" textAlignment="CENTER" wrappingWidth="442.0">
+         <font>
+            <Font name="Segoe UI" size="16.0" />
+         </font>
+      </Text>
+      <Text layoutX="69.0" layoutY="158.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Valor investido">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Text>
+      <AnchorPane fx:id="test" layoutX="58.0" layoutY="164.0" prefHeight="81.0" prefWidth="326.0">
+         <effect>
+            <InnerShadow blurType="ONE_PASS_BOX" height="60.0" offsetX="3.0" offsetY="3.0" radius="29.5" width="60.0">
+               <color>
+                  <Color opacity="0.30000001192092896" />
+               </color>
+            </InnerShadow>
+         </effect>
+         <children>
+            <Text fx:id="invested" fill="#828282" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" text="R$ 10.500,00" textAlignment="CENTER" wrappingWidth="326.0">
+               <font>
+                  <Font name="Segoe UI Semibold" size="20.0" />
+               </font>
+            </Text>
+         </children>
+      </AnchorPane>
+      <Text layoutX="69.0" layoutY="284.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Valor atual">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Text>
+      <AnchorPane layoutX="58.0" layoutY="290.0" prefHeight="81.0" prefWidth="326.0">
+         <effect>
+            <InnerShadow blurType="ONE_PASS_BOX" height="60.0" offsetX="3.0" offsetY="3.0" radius="29.5" width="60.0">
+               <color>
+                  <Color opacity="0.30000001192092896" />
+               </color>
+            </InnerShadow>
+         </effect>
+         <children>
+            <Text fx:id="value" fill="#828282" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" text="R$ 53.034,56" textAlignment="CENTER" wrappingWidth="326.0">
+               <font>
+                  <Font name="Segoe UI Semibold" size="20.0" />
+               </font>
+            </Text>
+         </children>
+      </AnchorPane>
+      <Text layoutX="69.0" layoutY="410.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Já recuperado">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Text>
+      <AnchorPane layoutX="58.0" layoutY="416.0" prefHeight="81.0" prefWidth="326.0">
+         <effect>
+            <InnerShadow blurType="ONE_PASS_BOX" height="60.0" offsetX="3.0" offsetY="3.0" radius="29.5" width="60.0">
+               <color>
+                  <Color opacity="0.30000001192092896" />
+               </color>
+            </InnerShadow>
+         </effect>
+         <children>
+            <Text fx:id="retrieved" fill="#828282" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" text="R$ 13.034,56" textAlignment="CENTER" wrappingWidth="326.0">
+               <font>
+                  <Font name="Segoe UI Semibold" size="20.0" />
+               </font>
+            </Text>
+         </children>
+      </AnchorPane>
+      <Button layoutX="45.0" layoutY="533.0" mnemonicParsing="false" onAction="#leave" prefHeight="29.0" prefWidth="120.0" stylesheets="@../css/clickable_link.css" text="Sair" underline="true" />
+      <Rectangle fx:id="rect" arcHeight="20.0" arcWidth="20.0" fill="WHITE" height="50.0" layoutX="216.0" layoutY="522.0" onMouseClicked="#investMore" stroke="TRANSPARENT" strokeType="INSIDE" width="168.0">
+         <effect>
+            <DropShadow offsetX="1.57" offsetY="1.57" />
+         </effect>
+      </Rectangle>
+      <Text layoutX="216.0" layoutY="553.0" onMouseClicked="#investMore" strokeType="OUTSIDE" strokeWidth="0.0" text="Investir mais" textAlignment="CENTER" wrappingWidth="119.54736328125">
+         <font>
+            <Font name="Segoe UI Bold" size="16.0" />
+         </font>
+      </Text>
+      <Button layoutX="335.0" layoutY="530.0" mnemonicParsing="false" onAction="#investMore" style="-fx-background-color: #000000; -fx-border-radius: 8; -fx-background-radius: 8;" styleClass="black" stylesheets="@../css/black_button.css" text="+" textFill="WHITE">
+         <font>
+            <Font name="Segoe UI Bold" size="18.0" />
+         </font>
+      </Button>
+   </children>
+   <effect>
+      <DropShadow offsetX="1.57" offsetY="1.57" spread="0.58">
+         <color>
+            <Color opacity="0.5" />
+         </color>
+      </DropShadow>
+   </effect>
+</AnchorPane>
