@@ -15,12 +15,19 @@ import org.w3c.dom.NodeList;
 import sigmabank.model.register.Client;
 
 public class ClientReader implements ReaderXML<Client> {
+
+    /**
+     * Read Client objects from an XML file.
+     * 
+     * @param pathToXML path to the XML file.
+     * @return List<Client>
+     */
     @Override
-    public List<Object> readFromXML(String path) {
+    public List<Object> readFromXML(String pathToXML) {
         List<Object> clients = new ArrayList<>();
 
         try {
-            File file = new File(path);
+            File file = new File(pathToXML);
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             Document doc = dBuilder.parse(file);
@@ -56,8 +63,16 @@ public class ClientReader implements ReaderXML<Client> {
         return clients;
     }
 
+    /**
+     * Read Client objects from an XML file.
+     * 
+     * @param pathToXML path to the XML file.
+     * @param identifier identifier to use for filtering.
+     * @return List<Client>
+     */
     @Override
     public List<Client> readFromXML(String pathToXML, String identifier) {
+        
         return null;
     }
 }

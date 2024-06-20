@@ -19,6 +19,13 @@ import sigmabank.model.investment.AssetInvestment;
 
 
 public class AssetInvestmentReader implements ReaderXML<AssetInvestment>{
+
+    /**
+     * Read AssetInvestment objects from an XML file.
+     * 
+     * @param pathToXML path to the XML file.
+     * @return List<AssetInvestment>
+     */
     @Override
     public List<Object> readFromXML(String pathToXML) {
         List<Object> investments = new ArrayList<>();
@@ -59,6 +66,13 @@ public class AssetInvestmentReader implements ReaderXML<AssetInvestment>{
         return investments;
     }
 
+    /**
+     * Read AssetInvestment objects from an XML file.
+     * 
+     * @param pathToXML
+     * @param identifier
+     * @return List<AssetInvestment>
+     */
     @Override
     public List<AssetInvestment> readFromXML(String pathToXML, String identifier){
         List<AssetInvestment> investments = new ArrayList<>();
@@ -100,6 +114,14 @@ public class AssetInvestmentReader implements ReaderXML<AssetInvestment>{
         return investments;
     }
 
+    /**
+     * Query an AssetInvestment object from an XML file.
+     * 
+     * @param pathToXML path to the XML file.
+     * @param identifier identifier to use for filtering.
+     * @param assetType the type of asset to query.
+     * @return AssetInvestment
+     */
     public AssetInvestment queryInvestment(String pathToXML, String identifier, AssetInvestEnum assetType){
         List<AssetInvestment> investments = readFromXML(pathToXML, identifier);
         for (AssetInvestment investment : investments) {
