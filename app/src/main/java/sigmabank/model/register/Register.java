@@ -10,10 +10,8 @@ import javax.management.InvalidAttributeValueException;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import sigmabank.utils.HashPassword;
-
 @XmlRootElement
-public class Register {
+public abstract class Register {
     // Personal Data
     @XmlElement private final UUID uuid;
     @XmlElement private final String name;
@@ -32,11 +30,10 @@ public class Register {
         this.passwordHash = null;
     }
 
-    public Register(String name, LocalDate dateOfBirth, String passwordHash) {
+    public Register(String name, LocalDate dateOfBirth) {
         this.uuid = UUID.randomUUID();
         this.name = name;
         this.dateOfBirth = dateOfBirth;
-        this.passwordHash = passwordHash;
     }
 
     public Register(String name, LocalDate dateOfBirth, UUID uuid) {
@@ -94,9 +91,7 @@ public class Register {
             throw new InvalidAttributeValueException(address + " is not a address");
     }
 
-    public void setPassword(String password) {
-        this.passwordHash = HashPassword.hashPassword(uuid.toString(), password);
-    }
+    public abstract void setPassword(String password);
 
     public void setPasswordHash(String passwordHash) {
         this.passwordHash = passwordHash;

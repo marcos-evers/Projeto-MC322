@@ -11,6 +11,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import sigmabank.model.investment.Investment;
 import sigmabank.model.loan.Loan;
 import sigmabank.utils.DocumentValidator;
+import sigmabank.utils.HashPassword;
 
 
 @XmlRootElement
@@ -30,8 +31,8 @@ public class Client extends Register {
         this.cpf = cpf;
     }
 
-    public Client(String name, LocalDate dateOfBirth, String cpf, String passwordHash) throws InvalidCPFException, InvalidBirthDateException {
-        super(name, dateOfBirth, passwordHash);
+    public Client(String name, LocalDate dateOfBirth, String cpf) throws InvalidCPFException, InvalidBirthDateException {
+        super(name, dateOfBirth);
 
         if (!DocumentValidator.isValidCPF(cpf)) {
             throw new InvalidCPFException("CPF inválido " + cpf);
@@ -76,6 +77,12 @@ public class Client extends Register {
      */
     public void addLoan(Loan loan) {
         this.loans.add(loan);
+    }
+
+    public void setPassword(String password) {
+        String passwordHash = HashPassword.hashPassword(cpf, password);
+
+        this.setPasswordHash(passwordHash);
     }
 
     public String getCpf() {
