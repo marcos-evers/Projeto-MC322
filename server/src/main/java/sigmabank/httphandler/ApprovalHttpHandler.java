@@ -65,6 +65,7 @@ public class ApprovalHttpHandler implements HttpHandler {
         } else {
             Client client = (Client) clients.get(0);
             Database.getInstance().addEntry("Clients", client);
+            Database.getInstance().saveToXML();
             String response = "Client Approved";
             exchange.sendResponseHeaders(200, response.getBytes().length);
             try (OutputStream os = exchange.getResponseBody()) {
