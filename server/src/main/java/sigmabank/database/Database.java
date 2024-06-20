@@ -1,25 +1,11 @@
 package sigmabank.database;
 
-import java.io.File;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.HashMap;
 import java.util.function.Predicate;
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.Unmarshaller;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-
-import org.w3c.dom.Document;
-import org.w3c.dom.NodeList;
-
-import sigmabank.model.investment.Investment;
-import sigmabank.model.loan.Loan;
-import sigmabank.model.register.Client;
 import sigmabank.utils.readers.ReaderFactory;
 import sigmabank.utils.readers.ReaderXML;
 import sigmabank.utils.writters.WritterFactory;
