@@ -85,7 +85,8 @@ public class Loan {
     }
 
     /**
-     * Calculates the amount of the total loan and updates the amount attribute.
+     * Calculates the amount of the total loan and updates the amount attribute, 
+     * if the date of due is reached.
      * The formula used to calculate the amount is: amount = amount * (1 + fee)
      */
     public void updateAmount(){
@@ -102,7 +103,7 @@ public class Loan {
 
 
     /**
-     * Simulates the payment of the loan for a given number of months.
+     * Simulates the payment of the loan for a given number of months numMonth.
      * The formula used to calculate the payment is: valueParcel = (amount * fee) / (1- ((1 + fee)^(-n)))
      * 
      * @param numMonth the number of months to simulate the payment.
