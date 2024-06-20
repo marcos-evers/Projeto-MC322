@@ -16,7 +16,6 @@ public class Investment {
     @XmlElement protected final UUID clientUUID;
     @XmlElement protected final LocalDate startDate;
     
-
     public Investment(String name, BigDecimal investedValue, UUID clientUUID, LocalDate startDate){
         this.name = name;
         this.investedValue = investedValue;

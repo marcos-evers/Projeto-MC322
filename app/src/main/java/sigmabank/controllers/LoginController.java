@@ -21,9 +21,7 @@ public class LoginController extends BaseController<Client> {
 
         // if everything goes right:
 
-        BaseController
-            .loadView("client_page", "Home", this, null)
-            .initData(new Client(cpf.getText()));
+        BaseController.loadView("client_page", "Home", this, new Client(cpf.getText()));
     }
     
     public void register(ActionEvent e) throws IOException {
@@ -31,7 +29,7 @@ public class LoginController extends BaseController<Client> {
     }
     
     @Override
-    public void initData(Client client) { }
+    public void initData() { }
 
     public void leave(ActionEvent e) {
         Platform.exit();
