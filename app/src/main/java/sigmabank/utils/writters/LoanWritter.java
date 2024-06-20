@@ -17,6 +17,13 @@ import org.w3c.dom.Element;
 import sigmabank.model.loan.Loan;
 
 public class LoanWritter implements WritterXML<Loan> {
+    /**
+     * Create an XML element from a Loan object.
+     * 
+     * @param doc
+     * @param loan
+     * @return Element Loan
+     */
     private Element createElementFromLoan(Document doc, Loan loan) {
         Element loanElement = doc.createElement("Loan");
 
@@ -50,6 +57,14 @@ public class LoanWritter implements WritterXML<Loan> {
         return loanElement;
     }
 
+    /**
+     * Write a list of loans to an XML file.
+     * 
+     * @param label the label to use for the root element.
+     * @param loans the list of loans to write.
+     * @param filename the name of the file to write to.
+     * @throws IOException if an error occurs while writing the file.
+     */
     @Override
     public void writeToXML(String label, List<Object> loans, String filename) throws IOException {
         try {
