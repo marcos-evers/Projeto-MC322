@@ -11,7 +11,13 @@ import org.w3c.dom.NodeList;
 import sigmabank.model.investment.ROIFrequencyType;
 
 public class readerRateInfo {
-
+    /**
+     * Read Infoinvest - RateInvestment objects from an XML source file.
+     * 
+     * @param pathToXML path to the XML file.
+     * @param identifier the identifier of the rate investment to read.
+     * @return InfoInvest
+     */
     public static InfoInvest readRateInvestments(String pathToXML, String identifier) {
         InfoInvest investment = null;
         try {

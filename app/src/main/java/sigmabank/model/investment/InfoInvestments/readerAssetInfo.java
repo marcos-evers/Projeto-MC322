@@ -10,6 +10,13 @@ import org.w3c.dom.NodeList;
 
 public class readerAssetInfo {
 
+    /**
+     * Read Infoinvest - AssetInvestment objects from an XML source file.
+     * 
+     * @param pathToXML path to the XML file.
+     * @param identifier the identifier of the asset investment to read.
+     * @return InfoInvest
+     */
     public static InfoInvest readAssetInvestments(String pathToXML, String identifier) {
         InfoInvest investment = null;
         try {

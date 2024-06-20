@@ -6,6 +6,11 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import sigmabank.model.investment.ROIFrequencyType;
 
+
+/**
+ * Class that represents the information of an investment thats saved on a xml that defines the 
+ * caracteristics of each type of investment
+ */
 @XmlRootElement
 public class InfoInvest {
     @XmlElement private String name;

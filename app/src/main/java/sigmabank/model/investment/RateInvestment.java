@@ -99,6 +99,11 @@ public class RateInvestment extends Investment implements InvestmentOperations{
         this.addedValue = BigDecimal.valueOf(0);
     }
 
+    /**
+     * Method that retrieves a certain amount of money from the investment.
+     * 
+     * @param amount the amount of money to be retrieved.
+     */
     @Override
     public BigDecimal retrieveInvestment(BigDecimal amount){
         if(amount.compareTo(this.value) > 0){
@@ -111,6 +116,12 @@ public class RateInvestment extends Investment implements InvestmentOperations{
         return amount;
     }
 
+    /**
+     * Method that adds a certain amount of money to the investment, It keeps on the added value the amount of money added
+     * and after the update value method is called - ROI is granted- the added value is added to the value of the investment.
+     * 
+     * @param amount the amount of money to be added.
+     */
     @Override
     public void investMore(BigDecimal amount){
         this.investedValue = this.investedValue.add(amount);

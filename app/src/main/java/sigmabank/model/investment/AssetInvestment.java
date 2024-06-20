@@ -51,6 +51,11 @@ public class AssetInvestment extends Investment implements InvestmentOperations 
     }
     
 
+    /**
+     * Method that retrieves a certain amount of money from the investment.
+     * 
+     * @param amount the amount of money to be retrieved.
+     */
     @Override
     public BigDecimal retrieveInvestment(BigDecimal amount){
         if(amount.compareTo(this.value) > 0){
@@ -64,6 +69,12 @@ public class AssetInvestment extends Investment implements InvestmentOperations 
         return amount;
     }
 
+    /**
+     * Method that adds a certain amount of money to the investment, It instantly buys the 
+     * asset by the price defined 
+     * 
+     * @param additionalValue the amount of money to be added.
+     */
     @Override
     public void investMore(BigDecimal additionalValue){
         this.investedValue = this.investedValue.add(additionalValue);
