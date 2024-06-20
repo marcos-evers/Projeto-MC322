@@ -21,8 +21,8 @@ public class ClientWritter implements WritterXML<Client>{
     /**
      * Create an XML element from a Client object.
      * 
-     * @param doc
-     * @param client
+     * @param doc the document to create the element from.
+     * @param client the Client object to create the element from.
      * @return Element Client 
      */
     private Element createElementFromClient(Document doc, Client client) {

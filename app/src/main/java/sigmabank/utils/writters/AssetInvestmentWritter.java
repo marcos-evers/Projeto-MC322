@@ -22,8 +22,8 @@ public class AssetInvestmentWritter implements WritterXML<AssetInvestment> {
     /**
      * Create an XML element from a AssetInvestment object.
      * 
-     * @param doc
-     * @param investment
+     * @param doc the document to create the element from.
+     * @param investment the AssetInvestment object to create the element from.
      * @return Element AssetInvestment
      */
     private Element createElementFromInvestment(Document doc, AssetInvestment investment) {

@@ -20,8 +20,8 @@ public class LoanWritter implements WritterXML<Loan> {
     /**
      * Create an XML element from a Loan object.
      * 
-     * @param doc
-     * @param loan
+     * @param doc the document to create the element from.
+     * @param loan the Loan object to create the element from.
      * @return Element Loan
      */
     private Element createElementFromLoan(Document doc, Loan loan) {

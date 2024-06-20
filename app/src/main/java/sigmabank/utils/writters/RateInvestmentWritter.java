@@ -19,9 +19,9 @@ public class RateInvestmentWritter implements WritterXML<RateInvestment> {
     /**
      * Create an XML element from a RateInvestment object.
      * 
-     * @param doc
-     * @param investment
-     * @return Element RateInvestment
+     * @param doc the document to create the element from.
+     * @param investment the RateInvestment object to create the element from.
+     * @return Element RateInvestment 
      */
     private Element createElementFromInvestment(Document doc, RateInvestment investment) {
         // RateInvestment element
@@ -89,9 +89,9 @@ public class RateInvestmentWritter implements WritterXML<RateInvestment> {
     /**
      * Write a list of RateInvestment objects to an XML file.
      * 
-     * @param label
-     * @param investments
-     * @param pathToXML
+     * @param label label to use for the root element.
+     * @param investments list of RateInvestment objects to write.
+     * @param pathToXML path to the file to write to.
      */
     @Override
     public void writeToXML(String label, List<Object> investments, String pathToXML) {
