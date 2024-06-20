@@ -82,6 +82,11 @@ public class Client extends Register {
         return this.cpf;
     }
 
+    public String getFormattedCpf() {
+        return this.cpf.replaceAll("(\\d{3})(\\d{3})(\\d{3})(\\d{2})", "$1.$2.$3-$4");
+
+    }
+
     public List<Investment> getInvestments() {
         return investments;
     }
