@@ -10,6 +10,7 @@ import java.net.URI;
 import java.net.URL;
 
 import java.util.Map;
+import java.util.List;
 
 import sigmabank.model.register.Client;
 
@@ -20,7 +21,16 @@ public class ClientConnection implements IConnection<Client> {
         this.uri = uri;
     }
 
-    public Client fetch(Map<String, Object> params) throws IOException {
+    /**
+     * Do a GET request to the server for search a client
+     *
+     * @param params A map with two keys:
+     *      - CPF (String)
+     *      - passwordHash (String)
+     * @return an empty list or a list containing only the desired client
+     * @throws IOException if a error occur connecting to the server
+     */
+    public List<Client> fetch(Map<String, Object> params) throws IOException {
         URI requestURI = URI.create(buildFetchURI(params));
         URL requestURL = requestURI.toURL();
         HttpURLConnection connection = (HttpURLConnection) requestURL.openConnection(); 
@@ -42,7 +52,13 @@ public class ClientConnection implements IConnection<Client> {
         return null;
     }
 
-    public void send(Client client) throws IOException {
+    /**
+     * Do a POST request to register a client that will pending approval
+     *
+     * @param params A map with client attributes.
+     * @throws IOException if a error occur connecting to the server
+     */
+    public void send(Map<String, Object> params) throws IOException {
         URL url = URI.create(uri).toURL();
         HttpURLConnection connection = (HttpURLConnection) url.openConnection(); 
 
@@ -50,7 +66,7 @@ public class ClientConnection implements IConnection<Client> {
         connection.setDoOutput(true);
 
         try(DataOutputStream os = new DataOutputStream(connection.getOutputStream())) {
-            os.writeBytes(buildPostData(client));
+            os.writeBytes(buildPostData(params));
             os.flush();
         }
 
@@ -72,13 +88,13 @@ public class ClientConnection implements IConnection<Client> {
             + "password=" + params.get("password");
     }
 
-    private String buildPostData(Client client) {
-        return "name=" + client.getName() + "&"
-            +  "dob=" + client.getDateOfBirth() + "&"
-            +  "cpf=" + client.getCpf() + "&"
-            +  "phoneNumber=" + client.getPhoneNumber() + "&"
-            +  "address=" + client.getAddress() + "&"
-            +  "email=" + client.getEmail() + "&"
-            +  "password=" + client.getPasswordHash();
+    private String buildPostData(Map<String, Object> params) {
+        return "name=" + (String) params.get("name") + "&"
+            +  "dob=" + (String) params.get("dataOfBirth") + "&"
+            +  "cpf=" + (String) params.get("cpf") + "&"
+            +  "phoneNumber=" + (String) params.get("phoneNumber") + "&"
+            +  "address=" + (String) params.get("address") + "&"
+            +  "email=" + (String) params.get("email") + "&"
+            +  "password=" + (String) params.get("passwordHash");
     }
 }
