@@ -44,6 +44,11 @@ public class ClientWritter implements WritterXML<Client>{
         cpf.appendChild(doc.createTextNode(client.getCpf())); 
         clientElement.appendChild(cpf);
 
+        // Balance element
+        Element balance = doc.createElement("balance");
+        balance.appendChild(doc.createTextNode(client.getBalance().toString()));
+        clientElement.appendChild(balance);
+
         // DateOfBirth element
         Element dateOfBirth = doc.createElement("dateOfBirth");
         dateOfBirth.appendChild(doc.createTextNode(client.getDateOfBirth().toString())); 
