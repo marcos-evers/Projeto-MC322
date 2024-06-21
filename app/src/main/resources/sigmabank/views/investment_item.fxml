@@ -8,7 +8,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#open" prefHeight="94.0" prefWidth="471.0" stylesheets="@../css/item.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sigmabank.controllers.InvestmentItemController">
    <children>
-      <Text fx:id="value" layoutX="285.0" layoutY="55.0" strokeType="OUTSIDE" strokeWidth="0.0" text="R$ 1.234,56" textAlignment="RIGHT" wrappingWidth="165.6171875" />
+      <Text fx:id="value" fill="#828282" layoutX="285.0" layoutY="55.0" strokeWidth="0.0" text="R$ 1.234,56" textAlignment="RIGHT" wrappingWidth="165.6171875" />
       <Label fx:id="name" layoutX="21.0" layoutY="31.0" prefHeight="33.0" prefWidth="301.0" text="Nome do investimento" />
    </children>
    <effect>

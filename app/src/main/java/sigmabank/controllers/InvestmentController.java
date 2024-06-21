@@ -4,9 +4,11 @@ import java.io.IOException;
 import java.time.format.DateTimeFormatter;
 
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.text.Text;
 import sigmabank.model.investment.Investment;
+import sigmabank.model.register.Client;
 
 public class InvestmentController extends BaseController<Investment> {
     @FXML private Text investmentName;
@@ -31,7 +33,7 @@ public class InvestmentController extends BaseController<Investment> {
         this.stage.close();
     }
 
-    public void investMore(ActionEvent e) {
-        // TODO
+    public void investMore(Event e) throws IOException {
+        this.openModal("invest_more", "Aplicar", this.object, (Client) this.additionalData);
     }
 }

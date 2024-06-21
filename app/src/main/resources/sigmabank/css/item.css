@@ -11,10 +11,10 @@ AnchorPane {
     -fx-font-size: 21;
 }
 
-AnchorPane Text {
-    -fx-text-fill: #000000;
+Text {
+    -fx-text-fill: #828282;
 }
 
-AnchorPane Label {
-    -fx-text-fill: #828282;
+Label {
+    -fx-text-fill: #000000;
 }
