@@ -94,7 +94,7 @@
                   </DropShadow>
                </effect>
             </Button>
-            <Button mnemonicParsing="false" prefHeight="34.0" prefWidth="171.0" text="Realizar pagamento">
+            <Button mnemonicParsing="false" onAction="#pay" prefHeight="34.0" prefWidth="171.0" text="Realizar pagamento">
                <font>
                   <Font name="Segoe UI Semibold" size="31.0" />
                </font>

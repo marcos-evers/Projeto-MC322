@@ -22,6 +22,6 @@ public class LoanItemController extends BaseController<Loan> {
     }
     
     public void open(Event e) throws IOException {
-        this.openModal("loan", "Empréstimo", this.object);
+        this.openModal("loan", "Empréstimo", this.object, this.additionalData);
     }
 }
