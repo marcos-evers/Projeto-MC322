@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -9,7 +10,7 @@
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#open" prefHeight="94.0" prefWidth="471.0" stylesheets="@../css/item.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sigmabank.controllers.ClientItemController">
    <children>
       <Label fx:id="name" layoutX="21.0" layoutY="31.0" prefHeight="33.0" prefWidth="266.0" text="Nome do cliente" />
-      <Text fx:id="cpf" layoutX="285.0" layoutY="55.0" strokeType="OUTSIDE" strokeWidth="0.0" text="CPF" textAlignment="RIGHT" wrappingWidth="165.6171875" />
+      <Text fx:id="cpf" fill="#828282" layoutX="285.0" layoutY="55.0" strokeType="OUTSIDE" strokeWidth="0.0" text="CPF" textAlignment="RIGHT" wrappingWidth="165.6171875" />
    </children>
    <effect>
       <DropShadow offsetX="1.57" offsetY="1.57">
@@ -18,4 +19,7 @@
          </color>
       </DropShadow>
    </effect>
+   <cursor>
+      <Cursor fx:constant="HAND" />
+   </cursor>
 </AnchorPane>

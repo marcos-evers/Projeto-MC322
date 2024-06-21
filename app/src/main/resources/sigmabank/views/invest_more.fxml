@@ -8,7 +8,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="231.0" prefWidth="462.0" style="-fx-border-radius: 0; -fx-background-color: #ffffff !important;" stylesheets="@../css/form.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sigmabank.controllers.InvestMoreController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="231.0" prefWidth="462.0" style="-fx-border-radius: 0; -fx-background-color: #ffffff;" stylesheets="@../css/form.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sigmabank.controllers.InvestMoreController">
    <children>
       <Text fx:id="investmentName" layoutX="1.0" layoutY="58.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Investir" textAlignment="CENTER" wrappingWidth="462.0">
          <font>
@@ -25,8 +25,8 @@
             </DropShadow>
          </effect>
       </Button>
-      <TextField fx:id="value" layoutX="108.0" layoutY="87.0" prefWidth="249.0" promptText="Quanto deseja aplicar?" />
-      <Text fx:id="balance" fill="#828282" layoutY="148.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Saldo em conta: R$ 1.896,23" textAlignment="CENTER" wrappingWidth="462.0">
+      <TextField fx:id="value" layoutX="108.0" layoutY="83.0" prefWidth="249.0" promptText="Quanto deseja aplicar?" />
+      <Text fx:id="balance" fill="#828282" layoutY="153.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Saldo em conta: R$ 1.896,23" textAlignment="CENTER" wrappingWidth="462.0">
          <font>
             <Font name="Segoe UI" size="13.0" />
          </font>

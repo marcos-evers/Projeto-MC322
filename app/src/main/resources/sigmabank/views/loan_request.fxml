@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.effect.InnerShadow?>
@@ -83,31 +84,49 @@
          <effect>
             <DropShadow offsetX="1.57" offsetY="1.57" />
          </effect>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
       </Rectangle>
       <Button layoutX="67.0" layoutY="495.0" mnemonicParsing="false" onAction="#approve" style="-fx-background-color: #000000; -fx-border-radius: 8; -fx-background-radius: 8;" styleClass="black" stylesheets="@../css/black_button.css" text="✓" textFill="WHITE">
          <font>
             <Font name="Monospaced Bold" size="18.0" />
          </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
       </Button>
       <Rectangle fx:id="rect1" arcHeight="20.0" arcWidth="20.0" fill="WHITE" height="50.0" layoutX="237.0" layoutY="488.0" onMouseClicked="#deny" stroke="TRANSPARENT" strokeType="INSIDE" width="146.0">
          <effect>
             <DropShadow offsetX="1.57" offsetY="1.57" />
          </effect>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
       </Rectangle>
       <Button layoutX="247.0" layoutY="495.0" mnemonicParsing="false" onAction="#deny" style="-fx-background-color: #000000; -fx-border-radius: 8; -fx-background-radius: 8;" styleClass="black" stylesheets="@../css/black_button.css" text="×" textFill="WHITE">
          <font>
             <Font name="Monospaced Bold" size="18.0" />
          </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
       </Button>
       <Text layoutX="107.0" layoutY="519.0" onMouseClicked="#approve" strokeType="OUTSIDE" strokeWidth="0.0" text="Aprovar" textAlignment="CENTER" wrappingWidth="96.01171875">
          <font>
             <Font name="Segoe UI Semibold" size="16.0" />
          </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
       </Text>
       <Text layoutX="283.0" layoutY="519.0" onMouseClicked="#deny" strokeType="OUTSIDE" strokeWidth="0.0" text="Negar" textAlignment="CENTER" wrappingWidth="102.01171875">
          <font>
             <Font name="Segoe UI Semibold" size="16.0" />
          </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
       </Text>
       <Button layoutX="155.0" layoutY="542.0" mnemonicParsing="false" onAction="#leave" prefHeight="29.0" prefWidth="120.0" stylesheets="@../css/clickable_link.css" text="Sair" underline="true" />
    </children>
