@@ -6,10 +6,10 @@
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="94.0" prefWidth="471.0" stylesheets="@../css/item.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#open" prefHeight="94.0" prefWidth="471.0" stylesheets="@../css/item.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sigmabank.controllers.LoanRequestItemController">
    <children>
-      <Text layoutX="285.0" layoutY="55.0" strokeType="OUTSIDE" strokeWidth="0.0" text="${'R$ ' + amount}" textAlignment="RIGHT" wrappingWidth="165.6171875" />
-      <Label layoutX="21.0" layoutY="31.0" prefHeight="33.0" prefWidth="301.0" text="${name}" />
+      <Label fx:id="clientUuid" layoutX="21.0" layoutY="31.0" prefHeight="33.0" prefWidth="301.0" text="9123-did01-f31-f-fi" />
+      <Text fx:id="requestedValue" layoutX="285.0" layoutY="55.0" strokeType="OUTSIDE" strokeWidth="0.0" text="R$ 12.400,00" textAlignment="RIGHT" wrappingWidth="165.6171875" />
    </children>
    <effect>
       <DropShadow offsetX="1.57" offsetY="1.57">
