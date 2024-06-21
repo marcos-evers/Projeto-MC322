@@ -32,7 +32,6 @@ import sigmabank.model.investment.Investment;
 import sigmabank.model.investment.ROIFrequencyType;
 import sigmabank.model.investment.RateInvestEnum;
 import sigmabank.model.investment.RateInvestment;
-import sigmabank.model.loan.Loan;
 import sigmabank.model.register.Client;
 
 public class InvestmentHttpHandler implements HttpHandler {
@@ -129,7 +128,7 @@ public class InvestmentHttpHandler implements HttpHandler {
 
         try {
             StringWriter sw = new StringWriter();
-            JAXBContext jaxbcontext = JAXBContext.newInstance(Client.class);
+            JAXBContext jaxbcontext = JAXBContext.newInstance(Investment.class);
             Marshaller marshaller = jaxbcontext.createMarshaller();
 
             marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, false);
