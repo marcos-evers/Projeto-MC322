@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.time.format.DateTimeFormatter;
 
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.text.Text;
 import sigmabank.model.register.Client;
@@ -22,6 +23,16 @@ public class ClientController extends BaseController<Client> {
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         this.dateOfBirth.setText(this.object.getDateOfBirth().format(formatter));
+    }
+
+    public void deny(Event e) {
+        // TODO delete client from table of "ClientsToApproval"
+
+    }
+
+    public void approve(Event e) {
+        // TODO delete client from table of "ClientsToApproval" and add to the
+        // table of regular clients
     }
 
     public void leave(ActionEvent e) {
