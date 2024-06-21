@@ -1,10 +1,12 @@
 package sigmabank.model.register;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import javax.management.InvalidAttributeValueException;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -17,6 +19,7 @@ import sigmabank.utils.HashPassword;
 @XmlRootElement
 public class Client extends Register {
     @XmlElement private final String cpf;
+    @XmlElement private BigDecimal balance;
 
     private List<Investment> investments;
     private List<Loan> loans;
@@ -24,11 +27,13 @@ public class Client extends Register {
     public Client() {
         super();
         this.cpf = "00000000000";
+        this.balance = BigDecimal.valueOf(0);
     }
 
     public Client(String cpf) {
         super();
         this.cpf = cpf;
+        this.balance = BigDecimal.valueOf(0);
     }
 
     public Client(String name, LocalDate dateOfBirth, String cpf) throws InvalidCPFException, InvalidBirthDateException {
@@ -44,6 +49,7 @@ public class Client extends Register {
         this.cpf = cpf;
         this.investments = new ArrayList<>();
         this.loans = new ArrayList<>();
+        this.balance = BigDecimal.valueOf(0);
     }
 
     public Client(String name, LocalDate dateOfBirth, String cpf, UUID uuid) throws InvalidCPFException, InvalidBirthDateException {
@@ -59,6 +65,7 @@ public class Client extends Register {
         this.cpf = cpf;
         this.investments = new ArrayList<>();
         this.loans = new ArrayList<>();
+        this.balance = BigDecimal.valueOf(0);
     }
 
     /**
@@ -102,6 +109,14 @@ public class Client extends Register {
         return loans;
     }
 
+    public BigDecimal getBalance() {
+        return balance;
+    }
+
+    public void setBalance(BigDecimal balance) {
+        this.balance = balance;
+    }
+
     /**
      * Checks if the client is an adult, more than 18 years old.
      *
@@ -111,5 +126,20 @@ public class Client extends Register {
     private boolean isAdult(LocalDate dateOfBirth) {
         LocalDate eighteenYearsAgo = LocalDate.now().minusYears(18);
         return dateOfBirth.isBefore(eighteenYearsAgo);
+    }
+
+    /**
+     * (Feature for future implementation) Initializes a transfer of funds from this account to the account of the specified client seller
+     * 
+     * @param clientSellerAccount The UUID of the client seller's account to transfer funds to.
+     * @param amount The amount of money to transfer.
+     * @param description A description of the transfer.
+     * @param password The password of the account to transfer funds from.
+     * @throws InvalidAttributeValueException if the password is incorrect
+     * @throws InvalidAttributeValueException if the client seller's account does not exist
+     * @throws InvalidAttributeValueException if the amount is higher than the balance of the account
+     */
+    public void Transfer(UUID clientSellerAccount, BigDecimal amount, String description, String password) {
+        // Future implementation
     }
 }
