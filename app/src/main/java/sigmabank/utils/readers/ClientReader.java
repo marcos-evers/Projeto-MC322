@@ -1,6 +1,7 @@
 package sigmabank.utils.readers;
 
 import java.io.File;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -42,6 +43,7 @@ public class ClientReader implements ReaderXML<Client> {
                 String name = clientElement.getElementsByTagName("name").item(0).getTextContent();
                 String dateOfBirth = clientElement.getElementsByTagName("dateOfBirth").item(0).getTextContent();
                 String cpf = clientElement.getElementsByTagName("cpf").item(0).getTextContent();
+                BigDecimal balance = new BigDecimal(clientElement.getElementsByTagName("balance").item(0).getTextContent());
                 String address = clientElement.getElementsByTagName("address").item(0).getTextContent();
                 String email = clientElement.getElementsByTagName("email").item(0).getTextContent();
                 String phoneNumber = clientElement.getElementsByTagName("phoneNumber").item(0).getTextContent();
@@ -52,7 +54,7 @@ public class ClientReader implements ReaderXML<Client> {
                 client.setEmail(email);
                 client.setPhoneNumber(phoneNumber);
                 client.setAddress(address);
-
+                client.setBalance(balance);
                 clients.add((Object) client);
             }
         } catch (Exception e) {
