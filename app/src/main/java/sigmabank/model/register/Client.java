@@ -33,7 +33,7 @@ public class Client extends Register {
     public Client(String cpf) {
         super();
         this.cpf = cpf;
-        this.balance = BigDecimal.valueOf(0);
+        this.balance = BigDecimal.ZERO;
     }
 
     public Client(String name, LocalDate dateOfBirth, String cpf) throws InvalidCPFException, InvalidBirthDateException {

@@ -49,7 +49,7 @@ public class RegisterController extends BaseController<Client> {
     }
 
     public void login(ActionEvent e) throws IOException {
-        BaseController.loadView("login", "Login", this, null);
+        this.loadView("login", "Login", null);
     }
 
     public void leave(ActionEvent e) {

@@ -51,12 +51,12 @@ public class AdminController extends BaseController<Admin> {
 
 
         for (Client client : clients) {
-            accountRequests.getChildren().add(BaseController.getView("client_item", this, client));
+            accountRequests.getChildren().add(this.getView("client_item", client));
         }
         this.amountClients.setText(clients.size() + " contas pendentes");
         
         for (Loan loan : loans) {
-            loanRequests.getChildren().add(BaseController.getView("loan_request_item", this, loan));
+            loanRequests.getChildren().add(this.getView("loan_request_item", loan));
         }
         this.amountLoans.setText(loans.size() + " novas solicitações");
     }

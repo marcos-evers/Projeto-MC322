@@ -14,6 +14,7 @@ import javafx.stage.StageStyle;
 public abstract class BaseController<T> {
     protected Stage stage;
     protected T object;
+    protected Object additionalData;
 
     public void setStage(Stage stage) {
         this.stage = stage;
@@ -21,6 +22,10 @@ public abstract class BaseController<T> {
 
     public void setObject(T object) {
         this.object = object;
+    }
+
+    public void setAdditionalData(Object data) {
+        this.additionalData = data;
     }
 
     /**
@@ -34,18 +39,18 @@ public abstract class BaseController<T> {
      * @return
      * @throws IOException
      */
-    public static <C> BaseController<C> loadView(String viewName, String viewTitle, BaseController<C> context, C object) throws IOException {
-        FXMLLoader loader = new FXMLLoader(context.getClass().getResource("/sigmabank/views/" + viewName + ".fxml"));
+    public <C> BaseController<C> loadView(String viewName, String viewTitle, C object) throws IOException {
+        FXMLLoader loader = new FXMLLoader(this.getClass().getResource("/sigmabank/views/" + viewName + ".fxml"));
 
-        context.stage.setScene(new Scene(loader.load()));
-        context.stage.setTitle(viewTitle);
+        this.stage.setScene(new Scene(loader.load()));
+        this.stage.setTitle(viewTitle);
         
         BaseController<C> controller = loader.getController();
-        controller.setStage(context.stage);
+        controller.setStage(this.stage);
         controller.setObject(object);
         controller.initData();
 
-        context.stage.show();
+        this.stage.show();
 
         return controller;
     }
@@ -74,39 +79,72 @@ public abstract class BaseController<T> {
         return controller;
     }
 
-    public static <C> Parent getView(String viewName, BaseController context, C object) throws IOException {
-        FXMLLoader loader = new FXMLLoader(context.getClass().getResource("/sigmabank/views/" + viewName + ".fxml"));
+    public <C> Parent getView(String viewName, C object) throws IOException {
+        FXMLLoader loader = new FXMLLoader(this.getClass().getResource("/sigmabank/views/" + viewName + ".fxml"));
 
         Parent result = loader.load();
 
         BaseController<C> controller = loader.getController();
-        controller.setStage(context.stage);
+        controller.setStage(this.stage);
         controller.setObject(object);
         controller.initData();
         
         return result;
     }
 
-    public abstract void initData() throws IOException;
+    public <C> Parent getView(String viewName, C object, Object data) throws IOException {
+        FXMLLoader loader = new FXMLLoader(this.getClass().getResource("/sigmabank/views/" + viewName + ".fxml"));
 
-    public static <C> void openModal(String viewName, String viewTitle, BaseController<C> context, C object) throws IOException {
-        FXMLLoader loader = new FXMLLoader(context.getClass().getResource("/sigmabank/views/" + viewName + ".fxml"));
+        Parent result = loader.load();
 
+        BaseController<C> controller = loader.getController();
+        controller.setStage(this.stage);
+        controller.setObject(object);
+        controller.setAdditionalData(data);
+        controller.initData();
+        
+        return result;
+    }
+    
+    private Stage initModalStage() {
         final Stage newStage = new Stage();
         newStage.initModality(Modality.APPLICATION_MODAL);
         newStage.initStyle(StageStyle.UNDECORATED);
         newStage.setResizable(false);
-        newStage.initOwner(context.stage);
-    
-        newStage.setScene(new Scene(loader.load()));
-        newStage.setTitle(viewTitle);
+        newStage.initOwner(this.stage);
+
+        return newStage;
+    }
+
+    private static <C> BaseController<C> setModalOnStage(Stage stage, FXMLLoader loader, String viewTitle, C object, Object data) throws IOException {
+        stage.setScene(new Scene(loader.load()));
+        stage.setTitle(viewTitle);
         ((AnchorPane)loader.getRoot()).setStyle("-fx-border-color: black; -fx-border-width: 1;");
 
         BaseController<C> controller = loader.getController();
-        controller.setStage(newStage);
+        controller.setStage(stage);
         controller.setObject(object);
+        controller.setAdditionalData(data);
         controller.initData();
 
-        newStage.show();
+        stage.show();
+
+        return controller;
     }
+
+    public <C> void openModal(String viewName, String viewTitle, C object) throws IOException {
+        FXMLLoader loader = new FXMLLoader(this.getClass().getResource("/sigmabank/views/" + viewName + ".fxml"));
+        Stage newStage = initModalStage();
+    
+        setModalOnStage(newStage, loader, viewTitle, object, null);
+    }
+
+    public <C> void openModal(String viewName, String viewTitle, C object, Object data) throws IOException {
+        FXMLLoader loader = new FXMLLoader(this.getClass().getResource("/sigmabank/views/" + viewName + ".fxml"));
+        Stage newStage = initModalStage();
+    
+        setModalOnStage(newStage, loader, viewTitle, object, data);
+    }
+
+    public abstract void initData() throws IOException;
 }

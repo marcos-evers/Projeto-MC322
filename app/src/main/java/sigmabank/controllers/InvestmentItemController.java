@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.text.Text;
 import sigmabank.model.investment.Investment;
+import sigmabank.model.register.Client;
 
 public class InvestmentItemController extends BaseController<Investment> {
     @FXML private Label name;
@@ -15,10 +16,10 @@ public class InvestmentItemController extends BaseController<Investment> {
     @Override
     public void initData() throws IOException {
         this.name.setText(this.object.getName());
-        this.value.setText(this.object.getValue().toString());
+        this.value.setText("R$ " + this.object.getValue());
     }
     
     public void open(Event e) throws IOException {
-        BaseController.openModal("investment", "Investimento", this, this.object);
+        this.openModal("investment", "Investimento", this.object, (Client) this.additionalData);
     }
 }

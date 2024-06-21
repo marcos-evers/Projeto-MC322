@@ -14,18 +14,18 @@ public class LoginController extends BaseController<Client> {
 
     public void trySubmit(ActionEvent e) throws IOException {
         if (cpf.getText().equals("admin")) {
-            BaseController.loadView("admin_page", "Administração", this, null);
+            this.loadView("admin_page", "Administração", null);
 
             return;
         }
 
-        // if everything goes right:
-
-        BaseController.loadView("client_page", "Home", this, new Client(cpf.getText()));
+        // TODO make login validation
+        // TODO: query the client here
+        this.loadView("client_page", "Home", new Client(cpf.getText()));
     }
     
     public void register(ActionEvent e) throws IOException {
-        BaseController.loadView("register", "Criar conta", this, null);
+        this.loadView("register", "Criar conta", null);
     }
     
     @Override

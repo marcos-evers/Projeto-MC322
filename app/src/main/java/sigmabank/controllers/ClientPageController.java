@@ -37,7 +37,7 @@ public class ClientPageController extends BaseController<Client> {
         BigDecimal investmentTotal = BigDecimal.ZERO;
         for (Investment investment : this.investments) {
             investmentTotal = investmentTotal.add(investment.getRetrievedValue());            
-            investmentsBox.getChildren().add(BaseController.getView("investment_item", this, investment));
+            investmentsBox.getChildren().add(this.getView("investment_item", investment, this.object));
         }
         this.investmentsTotal.setText("Seus investimentos já renderam R$ " + investmentTotal.toString());
 
@@ -45,7 +45,7 @@ public class ClientPageController extends BaseController<Client> {
         BigDecimal loanTotal = BigDecimal.ZERO;
         for (Loan loan : this.loans) {
             loanTotal = loanTotal.add(loan.getAmount());
-            loansBox.getChildren().add(BaseController.getView("loan_item", this, loan));
+            loansBox.getChildren().add(this.getView("loan_item", loan, this.object));
         }
         this.loansTotal.setText("Seus empréstimos somam R$ " + loanTotal.toString());
     }
