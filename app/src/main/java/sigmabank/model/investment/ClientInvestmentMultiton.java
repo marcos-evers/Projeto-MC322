@@ -8,8 +8,8 @@ import java.util.Map;
 import java.util.UUID;
 
 import sigmabank.model.investment.InfoInvestments.InfoInvest;
-import sigmabank.model.investment.InfoInvestments.readerRateInfo;
-import sigmabank.model.investment.InfoInvestments.readerAssetInfo;
+import sigmabank.model.investment.InfoInvestments.ReaderRateInfo;
+import sigmabank.model.investment.InfoInvestments.ReaderAssetInfo;
 import sigmabank.utils.readers.ReaderFactory;
 import sigmabank.utils.readers.ReaderXML;
 
@@ -55,7 +55,7 @@ public class ClientInvestmentMultiton {
     public RateInvestment getRateInvestment(UUID clientUUID, RateInvestEnum rateType, BigDecimal investedValue, LocalDate startDate) {
         rateInvestments.putIfAbsent(clientUUID, new HashMap<>());
         Map<RateInvestEnum, RateInvestment> clientRateInvestments = rateInvestments.get(clientUUID);
-        InfoInvest info = readerRateInfo.readRateInvestments("app/src/main/resources/RateInvestments.xml", rateType.toString());
+        InfoInvest info = ReaderRateInfo.readRateInvestment("app/src/main/resources/RateInvestments.xml", rateType.toString());
 
         if (!clientRateInvestments.containsKey(rateType)) {
             RateInvestment newInvestment = new RateInvestment(info.getName(), investedValue, clientUUID, startDate, info.getRate(), info.getFrequencyType(), rateType);
@@ -99,7 +99,7 @@ public class ClientInvestmentMultiton {
     public AssetInvestment getAssetInvestment(UUID clientUUID, AssetInvestEnum assetType, BigDecimal investedValue, LocalDate startDate) {
         assetInvestments.putIfAbsent(clientUUID, new HashMap<>());
         Map<AssetInvestEnum, AssetInvestment> clientAssetInvestments = assetInvestments.get(clientUUID);
-        InfoInvest info = readerAssetInfo.readAssetInvestments("app/src/main/resources/AssetInvestments.xml", assetType.toString());
+        InfoInvest info = ReaderAssetInfo.readAssetInvestment("app/src/main/resources/AssetInvestments.xml", assetType.toString());
 
         if (!clientAssetInvestments.containsKey(assetType)) {
             AssetInvestment newInvestment = new AssetInvestment(info.getName(), investedValue, clientUUID, startDate, info.getAssetValue(), assetType);
