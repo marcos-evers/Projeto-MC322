@@ -10,14 +10,15 @@ import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.io.StringWriter;
 
+import java.math.BigDecimal;
+
 import java.net.URLDecoder;
 
 import java.nio.charset.StandardCharsets;
-
 import java.time.LocalDate;
-
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
@@ -25,9 +26,10 @@ import javax.xml.bind.Marshaller;
 import java.util.List;
 
 import sigmabank.database.Database;
+import sigmabank.model.loan.Loan;
 import sigmabank.model.register.Client;
 
-public class RegisterHttpHandler implements HttpHandler {
+public class LoanHttpHandler implements HttpHandler {
     @Override
     public void handle(HttpExchange exchange) throws IOException {
         if ("POST".equalsIgnoreCase(exchange.getRequestMethod())) {
@@ -52,21 +54,20 @@ public class RegisterHttpHandler implements HttpHandler {
         System.out.println("[MSG] Recived data: " + query);
 
         try { 
-            Client client = new Client(
-                params.get("name"),
-                LocalDate.parse(params.get("dob")),
-                params.get("cpf")
+            Loan loan = new Loan(
+                new BigDecimal(params.get("value")),
+                new BigDecimal(params.get("fee")),
+                UUID.fromString(params.get("clientUUID")),
+                UUID.fromString(params.get("loanUUID")),
+                LocalDate.parse(params.get("startDay")),
+                new BigDecimal(params.get("amount")),
+                LocalDate.parse(params.get("lastUpdateDate"))
             );
         
-            client.setPasswordHash(params.get("password"));
-            client.setEmail(params.get("email"));
-            client.setPhoneNumber(params.get("phoneNumber"));
-            client.setAddress(params.get("address"));
-
-            Database.getInstance().addEntry("ClientsToApproval", client);
+            Database.getInstance().addEntry("Loans", loan);
             Database.getInstance().saveToXML("src/main/resources/database");
 
-            String response = "Registration Successful: " + client.toString();
+            String response = "Registration Successful: " + loan.toString();
             exchange.sendResponseHeaders(200, response.getBytes().length);
             try (OutputStream os = exchange.getResponseBody()) {
                 os.write(response.getBytes());
@@ -81,35 +82,30 @@ public class RegisterHttpHandler implements HttpHandler {
     }
 
     private void handleGETMethod(HttpExchange exchange) throws IOException {
-        String query = exchange.getRequestURI().toString().substring("/client?".length());
+        String query = exchange.getRequestURI().toString().substring("/loan?".length());
         Map<String, String> params = parseParams(query);
 
-        String clientCPF = params.get("cpf");
-        String clientPasswordHash = params.get("password");
+        UUID clientUUID = UUID.fromString(params.get("uuid"));
 
-        List<Object> clients = Database.getInstance().query("Clients",
+        List<Object> loans = Database.getInstance().query("Loans",
             (Object obj) -> {
-                Client client = (Client) obj;
-                return client.getCpf().equals(clientCPF)
-                    && client.getPasswordHash().equals(clientPasswordHash);
+                return ((Loan) obj).getClientUUID().equals(clientUUID);
         });
 
-        if (clients.size() != 1) {
-            String response = "Client not found";
-            exchange.sendResponseHeaders(404, response.getBytes().length);
-            try (OutputStream os = exchange.getResponseBody()) {
-                os.write(response.getBytes());
-            }
-            return;
-        }
+        System.out.println(loans);
 
         try {
             StringWriter sw = new StringWriter();
             JAXBContext jaxbcontext = JAXBContext.newInstance(Client.class);
             Marshaller marshaller = jaxbcontext.createMarshaller();
-            marshaller.marshal(clients.get(0), sw);
 
-            String response = sw.toString();
+            marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, false);
+            marshaller.setProperty(Marshaller.JAXB_FRAGMENT, true);
+
+            for (Object loan: loans)
+                marshaller.marshal(loan, sw);
+
+            String response = "<Loans>" + sw.toString() + "</Loans>";
             exchange.sendResponseHeaders(200, response.getBytes().length);
             try (OutputStream os = exchange.getResponseBody()) {
                 os.write(response.getBytes());

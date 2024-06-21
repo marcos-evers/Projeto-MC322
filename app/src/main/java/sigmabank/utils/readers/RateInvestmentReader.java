@@ -19,6 +19,12 @@ import sigmabank.model.investment.RateInvestEnum;
 import sigmabank.model.investment.RateInvestment;
 
 public class RateInvestmentReader implements ReaderXML<RateInvestment> {
+    /**
+     * Read RateInvestment objects from an XML file.
+     * 
+     * @param pathToXML
+     * @return List<RateInvestment>
+     */
     @Override
     public List<Object> readFromXML(String pathToXML) {
         List<Object> investments = new ArrayList<>();
@@ -61,6 +67,13 @@ public class RateInvestmentReader implements ReaderXML<RateInvestment> {
         return investments;
     }
 
+    /**
+     * Read RateInvestment objects from an XML file.
+     * 
+     * @param pathToXML
+     * @param identifier
+     * @return List<RateInvestment>
+     */
     public List<RateInvestment> readFromXML(String pathToXML, String identifier){
         List<RateInvestment> investments = new ArrayList<>();
 
@@ -105,6 +118,14 @@ public class RateInvestmentReader implements ReaderXML<RateInvestment> {
         return investments;
     }
 
+    /**
+     * Query a RateInvestment object from an XML file using the.
+     * 
+     * @param pathToXML path to the XML file.
+     * @param identifier
+     * @param rateType
+     * @return RateInvestment
+     */
     public RateInvestment queryInvestment(String pathToXML, String identifier, RateInvestEnum rateType){
         List<RateInvestment> investments = readFromXML(pathToXML, identifier);
         for (RateInvestment investment : investments) {

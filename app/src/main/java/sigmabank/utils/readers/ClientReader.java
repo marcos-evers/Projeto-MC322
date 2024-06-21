@@ -15,12 +15,19 @@ import org.w3c.dom.NodeList;
 import sigmabank.model.register.Client;
 
 public class ClientReader implements ReaderXML<Client> {
+
+    /**
+     * Read Client objects from an XML file.
+     * 
+     * @param pathToXML path to the XML file.
+     * @return List<Client>
+     */
     @Override
-    public List<Object> readFromXML(String path) {
+    public List<Object> readFromXML(String pathToXML) {
         List<Object> clients = new ArrayList<>();
 
         try {
-            File file = new File(path);
+            File file = new File(pathToXML);
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             Document doc = dBuilder.parse(file);
@@ -31,6 +38,7 @@ public class ClientReader implements ReaderXML<Client> {
             for (int i = 0; i < nodeList.getLength(); i++) {
                 Element clientElement = (Element) nodeList.item(i);
 
+                // TODO add uuid
                 String name = clientElement.getElementsByTagName("name").item(0).getTextContent();
                 String dateOfBirth = clientElement.getElementsByTagName("dateOfBirth").item(0).getTextContent();
                 String cpf = clientElement.getElementsByTagName("cpf").item(0).getTextContent();
@@ -39,7 +47,7 @@ public class ClientReader implements ReaderXML<Client> {
                 String phoneNumber = clientElement.getElementsByTagName("phoneNumber").item(0).getTextContent();
                 String passwordHash = clientElement.getElementsByTagName("passwordHash").item(0).getTextContent();
 
-                Client client = new Client(name, LocalDate.parse(dateOfBirth), cpf, passwordHash);
+                Client client = new Client(name, LocalDate.parse(dateOfBirth), cpf);
                 client.setPasswordHash(passwordHash);
                 client.setEmail(email);
                 client.setPhoneNumber(phoneNumber);
@@ -55,8 +63,16 @@ public class ClientReader implements ReaderXML<Client> {
         return clients;
     }
 
+    /**
+     * Read Client objects from an XML file.
+     * 
+     * @param pathToXML path to the XML file.
+     * @param identifier identifier to use for filtering.
+     * @return List<Client>
+     */
     @Override
     public List<Client> readFromXML(String pathToXML, String identifier) {
+        
         return null;
     }
 }

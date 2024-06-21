@@ -11,6 +11,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import sigmabank.model.investment.Investment;
 import sigmabank.model.loan.Loan;
 import sigmabank.utils.DocumentValidator;
+import sigmabank.utils.HashPassword;
 
 
 @XmlRootElement
@@ -30,8 +31,8 @@ public class Client extends Register {
         this.cpf = cpf;
     }
 
-    public Client(String name, LocalDate dateOfBirth, String cpf, String passwordHash) throws InvalidCPFException, InvalidBirthDateException {
-        super(name, dateOfBirth, passwordHash);
+    public Client(String name, LocalDate dateOfBirth, String cpf) throws InvalidCPFException, InvalidBirthDateException {
+        super(name, dateOfBirth);
 
         if (!DocumentValidator.isValidCPF(cpf)) {
             throw new InvalidCPFException("CPF inválido " + cpf);
@@ -78,6 +79,17 @@ public class Client extends Register {
         this.loans.add(loan);
     }
 
+    /**
+     * Sets the password of the client.
+     *
+     * @param password The password string to be set.
+     */
+    public void setPassword(String password) {
+        String passwordHash = HashPassword.hashPassword(cpf, password);
+
+        this.setPasswordHash(passwordHash);
+    }
+
     public String getCpf() {
         return this.cpf;
     }
@@ -95,6 +107,12 @@ public class Client extends Register {
         return loans;
     }
 
+    /**
+     * Checks if the client is an adult, more than 18 years old.
+     *
+     * @param dateOfBirth The date of birth of the client.
+     * @return True if the client is an adult, false otherwise.
+     */
     private boolean isAdult(LocalDate dateOfBirth) {
         LocalDate eighteenYearsAgo = LocalDate.now().minusYears(18);
         return dateOfBirth.isBefore(eighteenYearsAgo);

@@ -16,6 +16,13 @@ import org.w3c.dom.Element;
 import sigmabank.model.investment.RateInvestment;
 
 public class RateInvestmentWritter implements WritterXML<RateInvestment> {
+    /**
+     * Create an XML element from a RateInvestment object.
+     * 
+     * @param doc the document to create the element from.
+     * @param investment the RateInvestment object to create the element from.
+     * @return Element RateInvestment 
+     */
     private Element createElementFromInvestment(Document doc, RateInvestment investment) {
         // RateInvestment element
         Element investmentElement = doc.createElement("RateInvestment");
@@ -79,6 +86,13 @@ public class RateInvestmentWritter implements WritterXML<RateInvestment> {
         return investmentElement;
     }
 
+    /**
+     * Write a list of RateInvestment objects to an XML file.
+     * 
+     * @param label label to use for the root element.
+     * @param investments list of RateInvestment objects to write.
+     * @param pathToXML path to the file to write to.
+     */
     @Override
     public void writeToXML(String label, List<Object> investments, String pathToXML) {
         try {

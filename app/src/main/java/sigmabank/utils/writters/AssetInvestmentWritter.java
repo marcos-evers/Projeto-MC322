@@ -18,6 +18,14 @@ import sigmabank.model.investment.AssetInvestment;
 
 
 public class AssetInvestmentWritter implements WritterXML<AssetInvestment> {
+
+    /**
+     * Create an XML element from a AssetInvestment object.
+     * 
+     * @param doc the document to create the element from.
+     * @param investment the AssetInvestment object to create the element from.
+     * @return Element AssetInvestment
+     */
     private Element createElementFromInvestment(Document doc, AssetInvestment investment) {
         // AssetInvestment element
         Element investmentElement = doc.createElement("AssetInvestment");
@@ -70,6 +78,13 @@ public class AssetInvestmentWritter implements WritterXML<AssetInvestment> {
         return investmentElement;
     }
 
+    /**
+     * Write a list of asset investments to an XML file.
+     * 
+     * @param label the label to use for the root element.
+     * @param investments the list of asset investments to write.
+     * @param pathToXML the path to the file to write to.
+     */
     @Override
     public void writeToXML(String label , List<Object> investments, String pathToXML) throws IOException {
         try {

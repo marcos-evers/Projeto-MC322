@@ -7,8 +7,12 @@ import java.net.InetSocketAddress;
 
 import sigmabank.database.Database;
 import sigmabank.httphandler.ApprovalHttpHandler;
+import sigmabank.httphandler.LoanHttpHandler;
 import sigmabank.httphandler.RegisterHttpHandler;
+
 import sigmabank.model.register.Client;
+import sigmabank.model.investment.Investment;
+import sigmabank.model.loan.Loan;
 
 public class Server {
     private static int port = 8000;
@@ -18,6 +22,7 @@ public class Server {
         Database.getInstance()
             .addTable("Clients", Client.class)
             .addTable("ClientsToApproval", Client.class)
+            .addTable("Loans", Loan.class)
             .loadFromXML();
 
         server = HttpServer.create(new InetSocketAddress(port), 0);
@@ -36,7 +41,7 @@ public class Server {
 
         // POST - Create a new loan in the server
         // GET - Return the loans of a client
-        server.createContext("/loan");
+        server.createContext("/loan", new LoanHttpHandler());
 
         server.setExecutor(null);
 

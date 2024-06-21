@@ -18,6 +18,13 @@ import sigmabank.model.register.Client;
 
 
 public class ClientWritter implements WritterXML<Client>{
+    /**
+     * Create an XML element from a Client object.
+     * 
+     * @param doc the document to create the element from.
+     * @param client the Client object to create the element from.
+     * @return Element Client 
+     */
     private Element createElementFromClient(Document doc, Client client) {
         // Client element
         Element clientElement = doc.createElement("Client");
@@ -64,6 +71,13 @@ public class ClientWritter implements WritterXML<Client>{
         return clientElement;
     }
 
+    /**
+     * Write a list of clients to an XML file.
+     * 
+     * @param label the label to use for the root element.
+     * @param clients the list of clients to write.
+     * @param filename the name of the file to write to.
+     */
     @Override
     public void writeToXML(String label, List<Object> clients, String pathToXML) throws IOException {
         try {       

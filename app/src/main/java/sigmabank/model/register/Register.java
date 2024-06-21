@@ -10,10 +10,8 @@ import javax.management.InvalidAttributeValueException;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import sigmabank.utils.HashPassword;
-
 @XmlRootElement
-public class Register {
+public abstract class Register {
     // Personal Data
     @XmlElement private final UUID uuid;
     @XmlElement private final String name;
@@ -32,11 +30,10 @@ public class Register {
         this.passwordHash = null;
     }
 
-    public Register(String name, LocalDate dateOfBirth, String passwordHash) {
+    public Register(String name, LocalDate dateOfBirth) {
         this.uuid = UUID.randomUUID();
         this.name = name;
         this.dateOfBirth = dateOfBirth;
-        this.passwordHash = passwordHash;
     }
 
     public Register(String name, LocalDate dateOfBirth, UUID uuid) {
@@ -48,7 +45,7 @@ public class Register {
     /**
      * Sets the email attribute of the Register.
      *
-     * @param email The phone number to set.
+     * @param email The emall string to be set
      * @throws InvalidAttributeValueException if the provided email does not match the expected format.
      */
     public void setEmail(String email) throws InvalidAttributeValueException {
@@ -64,7 +61,7 @@ public class Register {
     /**
      * Sets the phone number attribute of the Register.
      *
-     * @param phoneNumber The phone number to set.
+     * @param phoneNumber The phone number string to set.
      * @throws InvalidAttributeValueException if the provided phone number does not match the expected format.
      */
     public void setPhoneNumber(String phoneNumber) throws InvalidAttributeValueException {
@@ -81,7 +78,7 @@ public class Register {
     /**
      * Sets the address attribute of the Register.
      *
-     * @param address The phone number to set.
+     * @param address The adress string to set.
      * @throws InvalidAttributeValueException if the provided address does not match the expected format.
      */
     public void setAddress(String address) throws InvalidAttributeValueException {
@@ -94,9 +91,7 @@ public class Register {
             throw new InvalidAttributeValueException(address + " is not a address");
     }
 
-    public void setPassword(String password) {
-        this.passwordHash = HashPassword.hashPassword(uuid.toString(), password);
-    }
+    public abstract void setPassword(String password);
 
     public void setPasswordHash(String passwordHash) {
         this.passwordHash = passwordHash;

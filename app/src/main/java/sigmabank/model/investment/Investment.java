@@ -57,6 +57,12 @@ public class Investment {
         this.value = value;
     }
     
+    /**
+     * Calculate the total profit of the investment generated throught history,
+     * taking account even the removed value
+     * 
+     * @return the profit of the investment
+     */
     public BigDecimal calculateProfit(){
         return this.value.subtract(this.investedValue).add(this.retrievedValue);
     }

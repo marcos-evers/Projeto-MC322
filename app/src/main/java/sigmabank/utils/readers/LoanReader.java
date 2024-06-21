@@ -17,12 +17,19 @@ import org.w3c.dom.NodeList;
 import sigmabank.model.loan.Loan;
 
 public class LoanReader implements ReaderXML<Loan> {
+
+    /**
+     * Read Loan objects from an XML file.
+     * 
+     * @param pathToXML path to the XML file.
+     * @return List<Loan>
+     */
     @Override
-    public List<Object> readFromXML(String path) {
+    public List<Object> readFromXML(String pathToXML) {
         List<Object> loans = new ArrayList<>();
 
         try {
-            File file = new File(path);
+            File file = new File(pathToXML);
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             Document doc = dBuilder.parse(file);
@@ -52,6 +59,13 @@ public class LoanReader implements ReaderXML<Loan> {
         return loans;
     }
 
+    /**
+     * Read Loan objects from an XML file.
+     * 
+     * @param pathToXML path to the XML file.
+     * @param identifier identifier to use for filtering.
+     * @return List<Loan>
+     */
     @Override
     public List<Loan> readFromXML(String pathToXML, String identifier){
         List<Loan> loans = new ArrayList<>();
@@ -88,6 +102,14 @@ public class LoanReader implements ReaderXML<Loan> {
         return loans;
     }
 
+    /**
+     * Query a Loan object from an XML file.
+     * 
+     * @param pathToXML path to the XML file.
+     * @param identifier identifier to use for filtering.
+     * @param loanUUID  UUID of the loan to query.
+     * @return Loan
+     */
     public Loan queryLoan(String pathToXML, String identifier, String loanUUID){
         List<Loan> loans = readFromXML(pathToXML, identifier);
         for (Loan loan : loans) {
