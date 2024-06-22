@@ -27,7 +27,6 @@ import java.util.List;
 
 import sigmabank.database.Database;
 import sigmabank.model.loan.Loan;
-import sigmabank.model.register.Client;
 
 public class LoanHttpHandler implements HttpHandler {
     @Override
@@ -96,7 +95,7 @@ public class LoanHttpHandler implements HttpHandler {
 
         try {
             StringWriter sw = new StringWriter();
-            JAXBContext jaxbcontext = JAXBContext.newInstance(Client.class);
+            JAXBContext jaxbcontext = JAXBContext.newInstance(Loan.class);
             Marshaller marshaller = jaxbcontext.createMarshaller();
 
             marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, false);
