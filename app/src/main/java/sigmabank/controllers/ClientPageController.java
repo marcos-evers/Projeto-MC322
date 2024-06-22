@@ -13,11 +13,16 @@ import javafx.fxml.FXML;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import sigmabank.model.investment.Investment;
+import sigmabank.model.investment.InfoInvestments.InfoInvest;
+import sigmabank.model.investment.InfoInvestments.ReaderAssetInfo;
+import sigmabank.model.investment.InfoInvestments.ReaderRateInfo;
 import sigmabank.model.loan.Loan;
 import sigmabank.model.register.Client;
 
 public class ClientPageController extends BaseController<Client> {
     @FXML private Text greeting;
+
+    @FXML private Text balance;
     
     @FXML private VBox loansBox;
     @FXML private Text loansTotal;
@@ -31,12 +36,14 @@ public class ClientPageController extends BaseController<Client> {
     @Override
     public void initData() throws IOException {
         // // TODO replace cpf with client's queried name
-        this.greeting.setText("Olá, " + this.object.getCpf() + "!");
+        this.greeting.setText("Olá, " + this.object.getName() + "!");
+
+        this.balance.setText("R$ " + this.object.getBalance());
 
         this.investments.add(new Investment("dogecoin", BigDecimal.valueOf(1000.0), UUID.fromString("6e8dfd5d-3ced-4499-bd9a-94e5b08595c0"), LocalDate.now()));
         BigDecimal investmentTotal = BigDecimal.ZERO;
         for (Investment investment : this.investments) {
-            investmentTotal = investmentTotal.add(investment.getRetrievedValue());            
+            investmentTotal = investmentTotal.add(investment.getValue()).subtract(investment.getInvestedValue());
             investmentsBox.getChildren().add(this.getView("investment_item", investment, this.object));
         }
         this.investmentsTotal.setText("Seus investimentos já renderam R$ " + investmentTotal.toString());
