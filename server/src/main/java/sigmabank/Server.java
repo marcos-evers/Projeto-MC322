@@ -10,12 +10,11 @@ import sigmabank.httphandler.ApprovalHttpHandler;
 import sigmabank.httphandler.InvestmentHttpHandler;
 import sigmabank.httphandler.InvestmentOperationHttpHandler;
 import sigmabank.httphandler.LoanHttpHandler;
+import sigmabank.httphandler.LoanPaymentHttpHandler;
 import sigmabank.httphandler.RegisterHttpHandler;
 
 import sigmabank.model.register.Client;
-import sigmabank.model.investment.AssetInvestment;
-import sigmabank.model.investment.Investment;
-import sigmabank.model.investment.RateInvestment;
+import sigmabank.model.investment.ClientInvestmentMultiton;
 import sigmabank.model.loan.Loan;
 
 public class Server {
@@ -27,9 +26,11 @@ public class Server {
             .addTable("Clients", Client.class)
             .addTable("ClientsToApproval", Client.class)
             .addTable("Loans", Loan.class)
-            .addTable("AssetInvestments", AssetInvestment.class)
-            .addTable("RateInvestments", RateInvestment.class)
             .loadFromXML();
+
+        ClientInvestmentMultiton.getInstance()
+            .loadInvestments("src/main/resources/database/Investments.xml",
+                             "src/main/resources/database/Investments.xml");
 
         server = HttpServer.create(new InetSocketAddress(port), 0);
 
@@ -51,6 +52,9 @@ public class Server {
         // POST - Create a new loan in the server
         // GET - Return the loans of a client
         server.createContext("/loan", new LoanHttpHandler());
+
+        // POST - Receive a loan payment
+        server.createContext("/loan/payment", new LoanPaymentHttpHandler());
 
         server.setExecutor(null);
 
