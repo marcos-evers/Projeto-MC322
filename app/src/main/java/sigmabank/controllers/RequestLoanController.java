@@ -63,7 +63,7 @@ public class RequestLoanController extends BaseController<Client> {
             return;
         }
 
-        Loan loan = new Loan(valueToLoan, feeValue, this.object.getUUID(), LocalDate.now());
+        Loan loan = new Loan(valueToLoan, this.object.getUUID(), LocalDate.now());
         // TODO database stuff to insert this loan
 
         this.goBack(e);

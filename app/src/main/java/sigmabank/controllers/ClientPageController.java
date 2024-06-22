@@ -48,7 +48,7 @@ public class ClientPageController extends BaseController<Client> {
         }
         this.investmentsTotal.setText("Seus investimentos já renderam R$ " + investmentTotal.toString());
 
-        this.loans.add(new Loan(BigDecimal.valueOf(10000), BigDecimal.valueOf(0.05), UUID.fromString("6e8dfd5d-3ced-4499-bd9a-94e5b08595c0"), LocalDate.now()));
+        this.loans.add(new Loan(BigDecimal.valueOf(10000), UUID.fromString("6e8dfd5d-3ced-4499-bd9a-94e5b08595c0"), LocalDate.now()));
         BigDecimal loanTotal = BigDecimal.ZERO;
         for (Loan loan : this.loans) {
             loanTotal = loanTotal.add(loan.getAmount());
