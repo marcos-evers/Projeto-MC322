@@ -2,6 +2,7 @@ package sigmabank.model.investment;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -138,5 +139,59 @@ public class ClientInvestmentMultiton {
     public void loadInvestments(String pathToRateInvestments, String pathToAssetInvestments) {
         LoadRateInvestments(pathToRateInvestments);
         LoadAssetInvestments(pathToAssetInvestments);
+    }
+
+    /**
+     * Retrieves the rate-based investments for a client identified by clientUUID.
+     * @param clientUUID Unique identifier for the client
+     * @return Map of rate-based investments for the client
+     */
+    public Map<RateInvestEnum, RateInvestment> getRateInvestments(UUID clientUUID) {
+        return rateInvestments.get(clientUUID);
+    }
+
+    /**
+     * Retrieves the asset-based investments for a client identified by clientUUID.
+     * @param clientUUID Unique identifier for the client
+     * @return Map of asset-based investments for the client
+     */
+    public Map<AssetInvestEnum, AssetInvestment> getAssetInvestments(UUID clientUUID) {
+        return assetInvestments.get(clientUUID);
+    }
+
+    /**
+     * Retrives the InfoInvest objects that the client does not have for rate - based investments
+     * 
+     * @param clientUUID
+     * @return ArrayList<InfoInvest> 
+     */ 
+    public ArrayList<InfoInvest> getNotExistingRateInvestments(UUID clientUUID) {
+        ArrayList<InfoInvest> notExistingRateInvestments = new ArrayList<>();
+        InfoInvest info;
+        for (RateInvestEnum rateInvestEnum : RateInvestEnum.values()) {
+            if (!rateInvestments.get(clientUUID).containsKey(rateInvestEnum)) {
+                info = ReaderRateInfo.readRateInvestment("app/src/main/resources/RateInvestments.xml", rateInvestEnum.toString());
+                notExistingRateInvestments.add(info);
+            }
+        }
+        return notExistingRateInvestments;
+    }
+
+    /**
+     * Retrives the InfoInvest objects that the client does not have for asset - based investments
+     * 
+     * @param clientUUID
+     * @return ArrayList<InfoInvest> 
+     */
+    public ArrayList<InfoInvest> getNotExistingAssetInvestments(UUID clientUUID) {
+        ArrayList<InfoInvest> notExistingAssetInvestments = new ArrayList<>();
+        InfoInvest info;
+        for (AssetInvestEnum assetInvestEnum : AssetInvestEnum.values()) {
+            if (!assetInvestments.get(clientUUID).containsKey(assetInvestEnum)) {
+                info = ReaderAssetInfo.readAssetInvestment("app/src/main/resources/AssetInvestments.xml", assetInvestEnum.toString());
+                notExistingAssetInvestments.add(info);
+            }
+        }
+        return notExistingAssetInvestments;
     }
 }
