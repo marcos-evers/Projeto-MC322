@@ -64,8 +64,8 @@ public class ClientPageController extends BaseController<Client> {
         this.openModal("choose_investment", "Escolher investimento", infoInvestments, this.object);
     }
     
-    public void requestLoan(ActionEvent e) {
-        System.out.println("Request loan");
+    public void requestLoan(ActionEvent e) throws IOException {
+        this.loadView("request_loan", "Solicitar empréstimo", this.object);
     }
 
     public void leave(ActionEvent e) {
