@@ -28,13 +28,11 @@ import java.util.List;
 import sigmabank.database.Database;
 import sigmabank.model.loan.Loan;
 
-public class LoanHttpHandler implements HttpHandler {
+public class LoanPaymentHttpHandler implements HttpHandler {
     @Override
     public void handle(HttpExchange exchange) throws IOException {
         if ("POST".equalsIgnoreCase(exchange.getRequestMethod())) {
             handlePOSTMethod(exchange);
-        } else if ("GET".equalsIgnoreCase(exchange.getRequestMethod())) {
-            handleGETMethod(exchange);
         } else {
             String response = "Invalid request";
             exchange.sendResponseHeaders(405, response.getBytes().length);
@@ -50,64 +48,40 @@ public class LoanHttpHandler implements HttpHandler {
         String query = br.readLine();
         Map<String, String> params = parseParams(query);
 
+        UUID clientUUID = UUID.fromString(params.get("clientUUID"));
+        UUID loanUUID = UUID.fromString(params.get("loanUUID"));
+        BigDecimal value = new BigDecimal(params.get("value"));
+
         System.out.println("[MSG] Recived data: " + query);
 
         try { 
-            Loan loan = new Loan(
-                new BigDecimal(params.get("value")),
-                UUID.fromString(params.get("clientUUID")),
-                LocalDate.parse(params.get("startDay"))
-            );
-        
-            Database.getInstance().addEntry("Loans", loan);
-            Database.getInstance().saveToXML("src/main/resources/database");
+            Loan loan = (Loan) Database.getInstance().query("Loan",
+                (Object obj) -> {
+                    return ((Loan)obj).getLoanUUID().equals(loanUUID)
+                        && ((Loan)obj).getClientUUID().equals(clientUUID);
+            }).get(0);
 
-            String response = "Registration Successful: " + loan.toString();
+            loan.payLoan(value);
+
+            if (loan.getAmount().compareTo(BigDecimal.ZERO) < 0)
+                throw new Exception("Value more then the amount");
+            if (loan.getAmount().compareTo(BigDecimal.ZERO) == 0) {
+                Database.getInstance().deleteEntries("Loan",
+                    (Object obj) -> {
+                        return ((Loan)obj).getLoanUUID().equals(loanUUID)
+                            && ((Loan)obj).getClientUUID().equals(clientUUID);
+                });
+            }
+                
+
+            String response = "Payed " + value + " from loan successfuly";
             exchange.sendResponseHeaders(200, response.getBytes().length);
             try (OutputStream os = exchange.getResponseBody()) {
                 os.write(response.getBytes());
             }
         } catch(Exception e) {
-            String response = "Registration Unsuccessful: " + e.getMessage();
+            String response = "Something went wrong " + e.getMessage();
             exchange.sendResponseHeaders(200, response.getBytes().length);
-            try (OutputStream os = exchange.getResponseBody()) {
-                os.write(response.getBytes());
-            }
-        }
-    }
-
-    private void handleGETMethod(HttpExchange exchange) throws IOException {
-        String query = exchange.getRequestURI().toString().substring("/loan?".length());
-        Map<String, String> params = parseParams(query);
-
-        UUID clientUUID = UUID.fromString(params.get("uuid"));
-
-        List<Object> loans = Database.getInstance().query("Loans",
-            (Object obj) -> {
-                return ((Loan) obj).getClientUUID().equals(clientUUID);
-        });
-
-        System.out.println(loans);
-
-        try {
-            StringWriter sw = new StringWriter();
-            JAXBContext jaxbcontext = JAXBContext.newInstance(Loan.class);
-            Marshaller marshaller = jaxbcontext.createMarshaller();
-
-            marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, false);
-            marshaller.setProperty(Marshaller.JAXB_FRAGMENT, true);
-
-            for (Object loan: loans)
-                marshaller.marshal(loan, sw);
-
-            String response = "<Loans>" + sw.toString() + "</Loans>";
-            exchange.sendResponseHeaders(200, response.getBytes().length);
-            try (OutputStream os = exchange.getResponseBody()) {
-                os.write(response.getBytes());
-            }
-        } catch(Exception e) {
-            String response = "Something went wrong: " + e.getMessage();
-            exchange.sendResponseHeaders(400, response.getBytes().length);
             try (OutputStream os = exchange.getResponseBody()) {
                 os.write(response.getBytes());
             }
