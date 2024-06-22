@@ -50,6 +50,15 @@ public class InvestmentHttpHandler implements HttpHandler {
         }
     }
 
+    /**
+     * Handle the create of a new investment
+     * Expected Data:
+     *      - clientUUID
+     *      - invtype: asset or rate
+     *      - type: AssetInvestmentType or RateInvestmentType
+     *      - investedvalue
+     *      - startdate
+     */
     private void handlePOSTMethod(HttpExchange exchange) throws IOException {
         InputStreamReader isr = new InputStreamReader(exchange.getRequestBody(), StandardCharsets.UTF_8);
         BufferedReader br = new BufferedReader(isr);
@@ -60,36 +69,20 @@ public class InvestmentHttpHandler implements HttpHandler {
 
         try {
             Investment investment = null;
-            if (params.get("type").equals("asset")) {
-                investment = new AssetInvestment(
-                    params.get("name"),
-                    new BigDecimal(params.get("investedvalue")),
-                    new BigDecimal(params.get("value")),
-                    new BigDecimal(params.get("retrivedvalue")),
+            if (params.get("invtype").equals("asset")) {
+                investment = ClientInvestmentMultiton.getInstance().getAssetInvestment(
                     UUID.fromString(params.get("clientuuid")),
-                    LocalDate.parse(params.get("startdate")),
-                    new BigDecimal(params.get("assetvalue")),
-                    new BigDecimal(params.get("assetquantity")),
-                    AssetInvestEnum.valueOf(params.get("assettype"))
+                    AssetInvestEnum.valueOf(params.get("type")),
+                    new BigDecimal(params.get("investedvalue")),
+                    LocalDate.parse(params.get("startdate"))
                 );
-
-                Database.getInstance().addEntry("AssetInvestment", investment);
             } else {
-                investment = new RateInvestment(
-                    params.get("name"),
-                    new BigDecimal(params.get("investedvalue")),
-                    new BigDecimal(params.get("value")),
-                    new BigDecimal(params.get("retrivedvalue")),
+                investment = ClientInvestmentMultiton.getInstance().getRateInvestment(
                     UUID.fromString(params.get("clientuuid")),
-                    LocalDate.parse(params.get("startdate")),
-                    new BigDecimal(params.get("rate")),
-                    new BigDecimal(params.get("addedvalue")),
-                    ROIFrequencyType.valueOf(params.get("frequencytype")),
-                    LocalDate.parse(params.get("lastupdatedate")),
-                    RateInvestEnum.valueOf(params.get("ratetype"))
+                    RateInvestEnum.valueOf(params.get("type")),
+                    new BigDecimal(params.get("investedvalue")),
+                    LocalDate.parse(params.get("startdate"))
                 );
-
-                Database.getInstance().addEntry("RateInvestment", investment);
             }
         
             Database.getInstance().saveToXML("src/main/resources/database");
