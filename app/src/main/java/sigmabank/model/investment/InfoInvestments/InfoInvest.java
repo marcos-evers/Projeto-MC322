@@ -4,7 +4,9 @@ import java.math.BigDecimal;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import sigmabank.model.investment.AssetInvestEnum;
 import sigmabank.model.investment.ROIFrequencyType;
+import sigmabank.model.investment.RateInvestEnum;
 
 
 /**
@@ -17,19 +19,24 @@ public class InfoInvest {
     @XmlElement private BigDecimal assetValue;
     @XmlElement private BigDecimal rate;
     @XmlElement private ROIFrequencyType frequencyType;
+    @XmlElement private AssetInvestEnum assetype;
+    @XmlElement private RateInvestEnum ratetype;
 
-    public InfoInvest(String name, BigDecimal rate, ROIFrequencyType frequencyType) {
+    public InfoInvest(String name, BigDecimal rate, ROIFrequencyType frequencyType, RateInvestEnum Ratetype) {
         this.name = name;
         this.rate = rate;
         this.frequencyType = frequencyType;
+        this.ratetype = Ratetype;
         this.assetValue = null;
     }
 
-    public InfoInvest(String name, BigDecimal assetValue) {
+    public InfoInvest(String name, BigDecimal assetValue, AssetInvestEnum assetype) {
         this.name = name;
         this.assetValue = assetValue;
+        this.assetype = null;
         this.rate = null;
         this.frequencyType = null;
+        this.ratetype = null;	
     }
 
     public String getName() {

@@ -11,16 +11,18 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
-public class ReaderAssetInfo {
+import sigmabank.model.investment.ROIFrequencyType;
+import sigmabank.model.investment.RateInvestEnum;
 
+public class ReaderRateInfo {
     /**
-     * Read Infoinvest - AssetInvestment objects from an XML source file.
+     * Read Infoinvest - RateInvestment objects from an XML source file.
      * 
      * @param pathToXML path to the XML file.
-     * @param identifier the identifier of the asset investment to read.
+     * @param identifier the identifier of the rate investment to read.
      * @return InfoInvest
      */
-    public static InfoInvest readAssetInvestment(String pathToXML, String identifier) {
+    public static InfoInvest readRateInvestment(String pathToXML, String identifier) {
         InfoInvest investment = null;
         try {
             File file = new File(pathToXML);
@@ -29,17 +31,18 @@ public class ReaderAssetInfo {
             Document doc = dBuilder.parse(file);
             doc.getDocumentElement().normalize();
 
-            NodeList nodeList = doc.getElementsByTagName("AssetInvestment");
+            NodeList nodeList = doc.getElementsByTagName("RateInvestment");
 
             for (int i = 0; i < nodeList.getLength(); i++) {
                 Element element = (Element) nodeList.item(i);
 
-                String type = element.getElementsByTagName("type").item(0).getTextContent();
+                RateInvestEnum rateType = RateInvestEnum.valueOf(element.getElementsByTagName("type").item(0).getTextContent());
                 String name = element.getElementsByTagName("name").item(0).getTextContent();
-                BigDecimal assetValue = new BigDecimal(element.getElementsByTagName("assetValue").item(0).getTextContent());
+                BigDecimal rate = new BigDecimal(element.getElementsByTagName("rate").item(0).getTextContent());
+                ROIFrequencyType frequencyType = ROIFrequencyType.valueOf(element.getElementsByTagName("frequencyType").item(0).getTextContent().toUpperCase());
 
-                if (type.equals(identifier)) {
-                    investment = new InfoInvest(name, assetValue);
+                if (rateType.toString().equals(identifier)) {
+                    investment = new InfoInvest(name, rate, frequencyType, rateType);
                     break;
                 }
             }
@@ -50,26 +53,34 @@ public class ReaderAssetInfo {
         }
         return investment;
     }
-    
-    public static List<InfoInvest> readAssetInvestments() {
+
+    /**
+     * Read all Infoinvest - RateInvestment objects from an XML source file presented in resources.
+     * 
+     * @return List<InfoInvest>
+     */
+    public static List<InfoInvest> readRateInvestments() {
         List<InfoInvest> investments = new ArrayList<>();
         try {
-            File file = new File("src/main/resources/AssetInvestments.xml");
+            File file = new File("src/main/resources/RateInvestments.xml");
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             Document doc = dBuilder.parse(file);
             doc.getDocumentElement().normalize();
 
-            NodeList nodeList = doc.getElementsByTagName("AssetInvestment");
+            NodeList nodeList = doc.getElementsByTagName("RateInvestment");
 
             for (int i = 0; i < nodeList.getLength(); i++) {
                 Element element = (Element) nodeList.item(i);
 
+                RateInvestEnum rateType = RateInvestEnum.valueOf(element.getElementsByTagName("type").item(0).getTextContent());
                 String name = element.getElementsByTagName("name").item(0).getTextContent();
-                BigDecimal assetValue = new BigDecimal(element.getElementsByTagName("assetValue").item(0).getTextContent());
+                BigDecimal rate = new BigDecimal(element.getElementsByTagName("rate").item(0).getTextContent());
+                ROIFrequencyType frequencyType = ROIFrequencyType.valueOf(element.getElementsByTagName("frequencyType").item(0).getTextContent().toUpperCase());
 
-                investments.add(new InfoInvest(name, assetValue));
+                investments.add(new InfoInvest(name, rate, frequencyType, rateType));
             }
+
         } catch (Exception e) {
             System.err.println("Error reading the XML file: " + e.getMessage());
             e.printStackTrace();
