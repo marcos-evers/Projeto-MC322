@@ -32,7 +32,6 @@ import sigmabank.model.investment.Investment;
 import sigmabank.model.investment.ROIFrequencyType;
 import sigmabank.model.investment.RateInvestEnum;
 import sigmabank.model.investment.RateInvestment;
-import sigmabank.model.register.Client;
 
 public class InvestmentHttpHandler implements HttpHandler {
     @Override
@@ -63,30 +62,30 @@ public class InvestmentHttpHandler implements HttpHandler {
             if (params.get("type").equals("asset")) {
                 investment = new AssetInvestment(
                     params.get("name"),
-                    new BigDecimal(params.get("investmentdvalue")),
+                    new BigDecimal(params.get("investedvalue")),
                     new BigDecimal(params.get("value")),
-                    new BigDecimal(params.get("retrivedValue")),
-                    UUID.fromString(params.get("clientUUID")),
-                    LocalDate.parse(params.get("startDate")),
-                    new BigDecimal(params.get("assetValue")),
-                    new BigDecimal(params.get("assetQuantity")),
-                    AssetInvestEnum.valueOf(params.get("assetType"))
+                    new BigDecimal(params.get("retrivedvalue")),
+                    UUID.fromString(params.get("clientuuid")),
+                    LocalDate.parse(params.get("startdate")),
+                    new BigDecimal(params.get("assetvalue")),
+                    new BigDecimal(params.get("assetquantity")),
+                    AssetInvestEnum.valueOf(params.get("assettype"))
                 );
 
                 Database.getInstance().addEntry("AssetInvestment", investment);
             } else {
                 investment = new RateInvestment(
                     params.get("name"),
-                    new BigDecimal(params.get("investmentdvalue")),
+                    new BigDecimal(params.get("investedvalue")),
                     new BigDecimal(params.get("value")),
-                    new BigDecimal(params.get("retrivedValue")),
-                    UUID.fromString(params.get("clientUUID")),
-                    LocalDate.parse(params.get("startDate")),
+                    new BigDecimal(params.get("retrivedvalue")),
+                    UUID.fromString(params.get("clientuuid")),
+                    LocalDate.parse(params.get("startdate")),
                     new BigDecimal(params.get("rate")),
-                    new BigDecimal(params.get("addedValue")),
-                    ROIFrequencyType.valueOf(params.get("frequencyType")),
-                    LocalDate.parse(params.get("lastUpdateDate")),
-                    RateInvestEnum.valueOf(params.get("rateType"))
+                    new BigDecimal(params.get("addedvalue")),
+                    ROIFrequencyType.valueOf(params.get("frequencytype")),
+                    LocalDate.parse(params.get("lastupdatedate")),
+                    RateInvestEnum.valueOf(params.get("ratetype"))
                 );
 
                 Database.getInstance().addEntry("RateInvestment", investment);
@@ -108,7 +107,7 @@ public class InvestmentHttpHandler implements HttpHandler {
     }
 
     private void handleGETMethod(HttpExchange exchange) throws IOException {
-        String query = exchange.getRequestURI().toString().substring("/loan?".length());
+        String query = exchange.getRequestURI().toString().substring("/investment?".length());
         Map<String, String> params = parseParams(query);
 
         UUID clientUUID = UUID.fromString(params.get("uuid"));
