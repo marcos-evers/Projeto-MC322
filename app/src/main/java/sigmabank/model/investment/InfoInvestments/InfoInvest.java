@@ -19,24 +19,24 @@ public class InfoInvest {
     @XmlElement private BigDecimal assetValue;
     @XmlElement private BigDecimal rate;
     @XmlElement private ROIFrequencyType frequencyType;
-    @XmlElement private AssetInvestEnum assetype;
-    @XmlElement private RateInvestEnum ratetype;
+    @XmlElement private AssetInvestEnum assetType;
+    @XmlElement private RateInvestEnum rateType;
 
-    public InfoInvest(String name, BigDecimal rate, ROIFrequencyType frequencyType, RateInvestEnum Ratetype) {
+    public InfoInvest(String name, BigDecimal rate, ROIFrequencyType frequencyType, RateInvestEnum rateType) {
         this.name = name;
         this.rate = rate;
         this.frequencyType = frequencyType;
-        this.ratetype = Ratetype;
+        this.rateType = rateType;
         this.assetValue = null;
     }
 
-    public InfoInvest(String name, BigDecimal assetValue, AssetInvestEnum assetype) {
+    public InfoInvest(String name, BigDecimal assetValue, AssetInvestEnum assetType) {
         this.name = name;
         this.assetValue = assetValue;
-        this.assetype = null;
+        this.assetType = assetType;
         this.rate = null;
         this.frequencyType = null;
-        this.ratetype = null;	
+        this.rateType = null;	
     }
 
     public String getName() {
@@ -45,6 +45,14 @@ public class InfoInvest {
 
     public BigDecimal getRate() {
         return rate;
+    }
+
+    public AssetInvestEnum getAssetType() {
+        return assetType;
+    }
+
+    public RateInvestEnum getRateType() {
+        return rateType;
     }
 
     public ROIFrequencyType getFrequencyType() {

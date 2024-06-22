@@ -54,7 +54,7 @@
             </InnerShadow>
          </effect>
          <children>
-            <Text fx:id="fee" fill="#828282" layoutY="49.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0.05%" textAlignment="CENTER" wrappingWidth="262.0">
+            <Text fx:id="fee" fill="#828282" layoutY="49.0" strokeType="OUTSIDE" strokeWidth="0.0" text="-" textAlignment="CENTER" wrappingWidth="262.0">
                <font>
                   <Font name="Segoe UI Semibold" size="19.0" />
                </font>
