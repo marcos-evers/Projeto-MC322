@@ -20,20 +20,21 @@ public class PaymentController extends BaseController<Loan> {
     }
 
     public void confirm(ActionEvent e) {
-        double valueToPay;
+        BigDecimal valueToPay;
         try {
-            valueToPay = Double.parseDouble(value.getText());
+            valueToPay = new BigDecimal(value.getText());
         } catch (Exception err) {
             BaseController.errorDialog("Insira um valor numérico.");
             return;
         }
 
-        if (valueToPay <= 0) {
+        if (valueToPay.compareTo(valueToPay) <= 0) {
             BaseController.errorDialog("Valor inválido.");
             return;
         }
 
-        if (((Client)this.additionalData).getBalance().compareTo(BigDecimal.valueOf(valueToPay)) < 0) {
+        final Client client = (Client) this.additionalData;
+        if (client.getBalance().compareTo(valueToPay) < 0) {
             BaseController.errorDialog("Saldo insuficiente.");            
             return;
         }

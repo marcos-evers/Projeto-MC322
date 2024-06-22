@@ -20,20 +20,21 @@ public class InvestMoreController extends BaseController<Investment> {
     }
 
     public void confirm(ActionEvent e) {
-        double valueToInvest;
+        BigDecimal valueToInvest;
         try {
-            valueToInvest = Double.parseDouble(value.getText());
+            valueToInvest = new BigDecimal(value.getText());
         } catch (Exception err) {
             BaseController.errorDialog("Insira um valor numérico.");
             return;
         }
 
-        if (valueToInvest <= 0) {
+        if (valueToInvest.compareTo(BigDecimal.ZERO) <= 0) {
             BaseController.errorDialog("Valor inválido.");
             return;
         }
 
-        if (((Client)this.additionalData).getBalance().compareTo(BigDecimal.valueOf(valueToInvest)) < 0) {
+        final Client client = (Client) this.additionalData;
+        if (client.getBalance().compareTo(valueToInvest) < 0) {
             BaseController.errorDialog("Saldo insuficiente.");            
             return;
         }
