@@ -14,7 +14,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="772.0" prefWidth="1128.0" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sigmabank.controllers.ClientPageController">
    <children>
-      <AnchorPane nodeOrientation="LEFT_TO_RIGHT" prefHeight="51.0" prefWidth="1128.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1">
+      <AnchorPane nodeOrientation="LEFT_TO_RIGHT" prefHeight="51.0" prefWidth="1128.0" style="-fx-background-radius: 0; -fx-border-radius: 0;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1">
          <children>
             <ImageView fitHeight="76.0" fitWidth="238.0" layoutX="69.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -28,7 +28,7 @@
          <DropShadow />
          </effect>
       </AnchorPane>
-      <Text layoutX="386.0" layoutY="171.0" strokeType="OUTSIDE" strokeWidth="0.0" text="R$ 1.810,73">
+      <Text fx:id="balance" layoutY="171.0" strokeType="OUTSIDE" strokeWidth="0.0" text="R$ 1.810,73" textAlignment="CENTER" wrappingWidth="1128.0">
          <font>
             <Font name="Segoe UI Semibold" size="72.0" />
          </font></Text>
@@ -48,7 +48,7 @@
                               <Font name="Segoe UI" size="16.0" />
                            </font>
                         </Text>
-                        <Button layoutX="398.0" layoutY="36.0" mnemonicParsing="false" onAction="#newInvestment" style="-fx-background-color: #000000; -fx-border-radius: 8; -fx-background-radius: 8;" styleClass="black" stylesheets="@../css/black_button.css" text="+" textFill="WHITE">
+                        <Button layoutX="398.0" layoutY="36.0" mnemonicParsing="false" onAction="#newInvestment" style="-fx-background-color: #000000; -fx-border-radius: 8; -fx-background-radius: 8;" styleClass="black" text="+" textFill="WHITE">
                            <font>
                               <Font name="Segoe UI Bold" size="18.0" />
                            </font>
@@ -82,7 +82,7 @@
                               <Font name="Segoe UI" size="16.0" />
                            </font>
                         </Text>
-                        <Button layoutX="395.0" layoutY="36.0" mnemonicParsing="false" onAction="#requestLoan" style="-fx-background-color: #000000; -fx-border-radius: 8; -fx-background-radius: 8;" styleClass="black" stylesheets="@../css/black_button.css" text="+" textFill="WHITE">
+                        <Button layoutX="395.0" layoutY="36.0" mnemonicParsing="false" onAction="#requestLoan" style="-fx-background-color: #000000; -fx-border-radius: 8; -fx-background-radius: 8;" styleClass="black" text="+" textFill="WHITE">
                            <font>
                               <Font name="Segoe UI Bold" size="18.0" />
                            </font>

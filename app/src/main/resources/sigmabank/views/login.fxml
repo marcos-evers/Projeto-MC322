@@ -41,14 +41,16 @@
             <Font name="Segoe UI" size="16.0" />
          </font>
       </Button>
-      <Button layoutX="388.0" layoutY="594.0" mnemonicParsing="false" onAction="#register" prefHeight="29.0" prefWidth="350.0" stylesheets="@../css/clickable_link.css" underline="true">
+      <Button layoutX="402.0" layoutY="603.0" mnemonicParsing="false" onAction="#register" prefHeight="30.0" prefWidth="322.0" stylesheets="@../css/clickable_link.css" text="Ainda não possui uma conta?" textAlignment="CENTER" underline="true">
          <font>
-            <Font name="Segoe UI Semibold" size="12.0" />
-         </font></Button>
-      <Button layoutX="487.0" layoutY="623.0" mnemonicParsing="false" onAction="#leave" prefHeight="29.0" prefWidth="153.0" stylesheets="@../css/clickable_link.css" underline="true">
+            <Font name="Segoe UI Semibold" size="16.0" />
+         </font>
+      </Button>
+      <Button layoutX="516.0" layoutY="633.0" mnemonicParsing="false" onAction="#leave" prefHeight="30.0" prefWidth="95.0" stylesheets="@../css/clickable_link.css" text="Sair" textAlignment="CENTER" underline="true">
          <font>
-            <Font name="Segoe UI Semibold" size="12.0" />
-         </font></Button>
+            <Font name="Segoe UI Semibold" size="16.0" />
+         </font>
+      </Button>
    </children>
    <stylesheets>
       <URL value="@../css/style.css" />

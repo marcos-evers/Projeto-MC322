@@ -88,7 +88,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Rectangle>
-      <Button layoutX="67.0" layoutY="495.0" mnemonicParsing="false" onAction="#approve" style="-fx-background-color: #000000; -fx-border-radius: 8; -fx-background-radius: 8;" styleClass="black" stylesheets="@../css/black_button.css" text="✓" textFill="WHITE">
+      <Button layoutX="67.0" layoutY="495.0" mnemonicParsing="false" onAction="#approve" style="-fx-background-color: #000000; -fx-border-radius: 8; -fx-background-radius: 8;" styleClass="black" text="✓" textFill="WHITE">
          <font>
             <Font name="Monospaced Bold" size="18.0" />
          </font>
@@ -104,7 +104,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Rectangle>
-      <Button layoutX="247.0" layoutY="495.0" mnemonicParsing="false" onAction="#deny" style="-fx-background-color: #000000; -fx-border-radius: 8; -fx-background-radius: 8;" styleClass="black" stylesheets="@../css/black_button.css" text="×" textFill="WHITE">
+      <Button layoutX="247.0" layoutY="495.0" mnemonicParsing="false" onAction="#deny" style="-fx-background-color: #000000; -fx-border-radius: 8; -fx-background-radius: 8;" styleClass="black" text="×" textFill="WHITE">
          <font>
             <Font name="Monospaced Bold" size="18.0" />
          </font>
