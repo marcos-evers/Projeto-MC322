@@ -8,6 +8,7 @@ import java.net.InetSocketAddress;
 import sigmabank.database.Database;
 import sigmabank.httphandler.ApprovalHttpHandler;
 import sigmabank.httphandler.InvestmentHttpHandler;
+import sigmabank.httphandler.InvestmentOperationHttpHandler;
 import sigmabank.httphandler.LoanHttpHandler;
 import sigmabank.httphandler.RegisterHttpHandler;
 
@@ -43,6 +44,9 @@ public class Server {
         // POST - Create a new investment in the server
         // GET - Return the investments of a client
         server.createContext("/investment", new InvestmentHttpHandler());
+
+        // POST - Retrieve or invest more
+        server.createContext("/investment/operate", new InvestmentOperationHttpHandler());
 
         // POST - Create a new loan in the server
         // GET - Return the loans of a client
