@@ -6,6 +6,8 @@ import java.net.URL;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -147,4 +149,11 @@ public abstract class BaseController<T> {
     }
 
     public abstract void initData() throws IOException;
+
+    public static void errorDialog(String message) {
+        Alert alert = new Alert(AlertType.ERROR);
+        alert.setHeaderText("Algo deu errado:");
+        alert.setContentText(message);
+        alert.show();
+    }
 }

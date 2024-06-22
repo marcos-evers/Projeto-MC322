@@ -6,8 +6,6 @@ import java.math.BigDecimal;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.text.Text;
 import sigmabank.model.investment.Investment;
 import sigmabank.model.register.Client;;
@@ -21,29 +19,22 @@ public class InvestMoreController extends BaseController<Investment> {
         this.balance.setText("Saldo em conta: R$ " + ((Client)this.additionalData).getBalance());
     }
 
-    private void errorDialog(String message) {
-        Alert alert = new Alert(AlertType.ERROR);
-        alert.setHeaderText("Algo deu errado:");
-        alert.setContentText(message);
-        alert.show();
-    }
-
     public void confirm(ActionEvent e) {
         double valueToInvest;
         try {
             valueToInvest = Double.parseDouble(value.getText());
         } catch (Exception err) {
-            errorDialog("Insira um valor numérico.");
+            BaseController.errorDialog("Insira um valor numérico.");
             return;
         }
 
         if (valueToInvest <= 0) {
-            errorDialog("Valor inválido.");
+            BaseController.errorDialog("Valor inválido.");
             return;
         }
 
         if (((Client)this.additionalData).getBalance().compareTo(BigDecimal.valueOf(valueToInvest)) < 0) {
-            errorDialog("Saldo insuficiente.");            
+            BaseController.errorDialog("Saldo insuficiente.");            
             return;
         }
         
