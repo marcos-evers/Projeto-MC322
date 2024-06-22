@@ -1,6 +1,7 @@
 package sigmabank.model.loan;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.util.UUID;
 
@@ -17,9 +18,9 @@ public class Loan {
     @XmlElement private LocalDate lastUpdateDate;
     @XmlElement private BigDecimal amount;
     
-    public Loan(BigDecimal value, BigDecimal fee, UUID clientUUID, LocalDate startDay){
+    public Loan(BigDecimal value, UUID clientUUID, LocalDate startDay){
         this.value = value;
-        this.fee = fee;
+        this.fee = calculateFee(value);
         this.clientUUID = clientUUID;
         this.loanUUID = UUID.randomUUID();
         this.startDay = startDay;
@@ -101,6 +102,28 @@ public class Loan {
         this.amount = newAmount;
     }
 
+    private BigDecimal calculateFee(BigDecimal input) {
+        double stableMarketRate = 0.05;
+        double marketLimit = 0.12;
+
+        double inputDouble = input.doubleValue();
+        double numMonthsThumbRule = Math.sqrt(2 * inputDouble);
+         
+        double feeDouble = Math.pow(1+ stableMarketRate, numMonthsThumbRule) / (numMonthsThumbRule);
+        
+        if(feeDouble > marketLimit){
+            System.out.println(feeDouble);
+            feeDouble = stableMarketRate * 2;
+        }
+
+        BigDecimal fee = BigDecimal.valueOf(feeDouble).setScale(2, RoundingMode.HALF_UP);
+        
+        
+        System.out.println(fee);
+        return fee;
+    }
+    
+    
 
     /**
      * Simulates the payment of the loan for a given number of months numMonth.
