@@ -125,9 +125,10 @@ public class Loan {
         BigDecimal result = innerPower.subtract(BigDecimal.ONE).multiply(new BigDecimal("3"), mc);
 
         if(result.compareTo(BigDecimal.ZERO) < 0 || result.compareTo(marketRate) < 0)
-            return marketRate;
+            return marketRate.round(new MathContext(4));
 
-        return result;
+        BigDecimal resultScaled = new BigDecimal(result.setScale(4, RoundingMode.HALF_UP).toString());
+        return resultScaled;
     }
 
     
