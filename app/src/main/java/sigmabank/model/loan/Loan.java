@@ -1,6 +1,7 @@
 package sigmabank.model.loan;
 
 import java.math.BigDecimal;
+import java.math.MathContext;
 import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.util.UUID;
@@ -102,25 +103,76 @@ public class Loan {
         this.amount = newAmount;
     }
 
-    private BigDecimal calculateFee(BigDecimal input) {
-        double stableMarketRate = 0.05;
-        double marketLimit = 0.12;
+    /**
+     * Calculates the fee of the loan.
+     * 
+     * @param loanValue the value of the loan.
+     * @return the fee of the loan.
+     */
+    private static BigDecimal calculateFee(BigDecimal loanValue) {
+        // MathContext for precision
+        BigDecimal marketRate = new BigDecimal(0.05);
+        MathContext mc = new MathContext(10, RoundingMode.HALF_UP);
 
-        double inputDouble = input.doubleValue();
-        double numMonthsThumbRule = Math.sqrt(2 * inputDouble);
-         
-        double feeDouble = Math.pow(1+ stableMarketRate, numMonthsThumbRule) / (numMonthsThumbRule);
-        
-        if(feeDouble > marketLimit){
-            System.out.println(feeDouble);
-            feeDouble = stableMarketRate * 2;
+        // Calculate tempo = pow(2 * valor, 1/2)
+        BigDecimal two = new BigDecimal("2");
+        BigDecimal tempo = sqrt(two.multiply(loanValue, mc), mc);
+
+        // Calculate pow(1.05, tempo)
+        BigDecimal onePointZeroFive = new BigDecimal("1.05");
+        BigDecimal powOnePointZeroFive = onePointZeroFive.pow(tempo.intValue(), mc);
+
+        // Calculate pow(pow(1.05, tempo) / tempo, 1 / (tempo + 1))
+        BigDecimal division = powOnePointZeroFive.divide(tempo, mc);
+        BigDecimal oneOverTempoPlusOne = BigDecimal.ONE.divide(tempo.add(BigDecimal.ONE), mc);
+        BigDecimal innerPower = pow(division, oneOverTempoPlusOne, mc);
+
+        // Calculate final result
+        BigDecimal result = innerPower.subtract(BigDecimal.ONE).multiply(new BigDecimal("3"), mc);
+
+        if(result.compareTo(BigDecimal.ZERO) < 0 || result.compareTo(marketRate) < 0)
+            return marketRate;
+
+        return result;
+    }
+
+    /**
+     * Calculates the square root of a BigDecimal number.
+     * 
+     * @param loanValue the value to calculate the square root.
+     * @param mc the MathContext to use in the calculations.
+     * @return the square root of the loanValue.
+     */    
+    private static BigDecimal sqrt(BigDecimal loanValue, MathContext mc) {
+        BigDecimal x0 = new BigDecimal(Math.sqrt(loanValue.doubleValue()));
+        BigDecimal x1 = loanValue.divide(x0, mc);
+        x1 = x1.add(x0);
+        x1 = x1.divide(new BigDecimal("2"), mc);
+        return x1;
+    }
+
+    /**
+     * Calculates the power of a BigDecimal number.
+     * 
+     * @param base the base of the power.
+     * @param exponent the exponent of the power.
+     * @param mc the MathContext to use in the calculations.
+     * @return the result of the power.
+     */
+    private static BigDecimal pow(BigDecimal base, BigDecimal exponent, MathContext mc) {
+        int signOf2 = exponent.signum();
+        double dn1 = base.doubleValue();
+        exponent = exponent.multiply(new BigDecimal(signOf2)); 
+        BigDecimal remainderOf2 = exponent.remainder(BigDecimal.ONE);
+        BigDecimal n2IntPart = exponent.subtract(remainderOf2);
+        BigDecimal intPow = base.pow(n2IntPart.intValueExact(), mc);
+        BigDecimal doublePow = new BigDecimal(Math.pow(dn1, remainderOf2.doubleValue()));
+
+        BigDecimal result = intPow.multiply(doublePow, mc);
+        if (signOf2 == -1) {
+            result = BigDecimal.ONE.divide(result, mc.getPrecision(), RoundingMode.HALF_UP);
         }
-
-        BigDecimal fee = BigDecimal.valueOf(feeDouble).setScale(2, RoundingMode.HALF_UP);
-        
-        
-        System.out.println(fee);
-        return fee;
+        return result;
     }
     
     
