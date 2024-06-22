@@ -34,12 +34,12 @@ chmod +x ./sigmarun.sh # linux command for allowing the bash file to be executed
 ## Backend TODO
 
 - [ ] Investment Connection
-    - [x] Post Investment
-    - [x] Get Investment
-    - [ ] Connection Investment
-    - [ ] Pay Investment
-    - [ ] Sell Investment
-    - [ ] Connection Investment Pay/Sell
+    - [x] Create Investment
+    - [x] Get Investments
+    - [x] Connection Investment
+    - [x] Invest More Investment
+    - [x] Retrieve Investment
+    - [ ] Connection Investment Operation
 - [ ] Loan Connection
     - [x] Post Loan
     - [x] Get Loan

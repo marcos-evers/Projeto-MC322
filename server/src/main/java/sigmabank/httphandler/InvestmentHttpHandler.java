@@ -28,6 +28,7 @@ import java.util.List;
 import sigmabank.database.Database;
 import sigmabank.model.investment.AssetInvestEnum;
 import sigmabank.model.investment.AssetInvestment;
+import sigmabank.model.investment.ClientInvestmentMultiton;
 import sigmabank.model.investment.Investment;
 import sigmabank.model.investment.ROIFrequencyType;
 import sigmabank.model.investment.RateInvestEnum;
