@@ -103,13 +103,7 @@ public class Loan {
         this.amount = newAmount;
     }
 
-    /**
-     * Calculates the fee of the loan.
-     * 
-     * @param loanValue the value of the loan.
-     * @return the fee of the loan.
-     */
-    private static BigDecimal calculateFee(BigDecimal loanValue) {
+    public static BigDecimal calculateFee(BigDecimal loanValue) {
         // MathContext for precision
         BigDecimal marketRate = new BigDecimal(0.05);
         MathContext mc = new MathContext(10, RoundingMode.HALF_UP);
@@ -131,18 +125,13 @@ public class Loan {
         BigDecimal result = innerPower.subtract(BigDecimal.ONE).multiply(new BigDecimal("3"), mc);
 
         if(result.compareTo(BigDecimal.ZERO) < 0 || result.compareTo(marketRate) < 0)
-            return marketRate;
+            return marketRate.round(new MathContext(4));
 
-        return result;
+        BigDecimal resultScaled = new BigDecimal(result.setScale(4, RoundingMode.HALF_UP).toString());
+        return resultScaled;
     }
 
-    /**
-     * Calculates the square root of a BigDecimal number.
-     * 
-     * @param loanValue the value to calculate the square root.
-     * @param mc the MathContext to use in the calculations.
-     * @return the square root of the loanValue.
-     */    
+    
     private static BigDecimal sqrt(BigDecimal loanValue, MathContext mc) {
         BigDecimal x0 = new BigDecimal(Math.sqrt(loanValue.doubleValue()));
         BigDecimal x1 = loanValue.divide(x0, mc);
@@ -151,14 +140,7 @@ public class Loan {
         return x1;
     }
 
-    /**
-     * Calculates the power of a BigDecimal number.
-     * 
-     * @param base the base of the power.
-     * @param exponent the exponent of the power.
-     * @param mc the MathContext to use in the calculations.
-     * @return the result of the power.
-     */
+    
     private static BigDecimal pow(BigDecimal base, BigDecimal exponent, MathContext mc) {
         int signOf2 = exponent.signum();
         double dn1 = base.doubleValue();
