@@ -57,8 +57,11 @@ public class ClientPageController extends BaseController<Client> {
         this.loansTotal.setText("Seus empréstimos somam R$ " + loanTotal.toString());
     }
     
-    public void newInvestment(ActionEvent e) {
-        System.out.println("New investment");
+    public void newInvestment(ActionEvent e) throws IOException {
+        final List<InfoInvest> infoInvestments = ReaderRateInfo.readRateInvestments();
+        infoInvestments.addAll(ReaderAssetInfo.readAssetInvestments());
+        // TODO filter to exhibit only valid investments (the ones the client doesn't have yet)
+        this.openModal("choose_investment", "Escolher investimento", infoInvestments, this.object);
     }
     
     public void requestLoan(ActionEvent e) {
