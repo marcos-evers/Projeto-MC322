@@ -16,7 +16,7 @@ import sigmabank.model.loan.Loan;
 import sigmabank.model.register.Admin;
 import sigmabank.model.register.Client;
 
-public class AdminController extends BaseController<Admin> {
+public class AdminPageController extends BaseController<Admin> {
     @FXML private VBox accountRequests;
     @FXML private Text amountClients;
     

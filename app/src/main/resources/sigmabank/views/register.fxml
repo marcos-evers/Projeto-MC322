@@ -31,7 +31,7 @@
       <TextField fx:id="address" layoutX="573.0" layoutY="397.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="48.0" prefWidth="412.0" promptText="Endereço" />
       <TextField fx:id="password" layoutX="144.0" layoutY="460.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="48.0" prefWidth="412.0" promptText="Senha" />
       <TextField fx:id="confirmPassword" layoutX="573.0" layoutY="460.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="48.0" prefWidth="412.0" promptText="Confirmar senha" />
-      <Button alignment="CENTER" layoutX="890.0" layoutY="521.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#trySubmit" prefHeight="52.0" prefWidth="95.0" style="-fx-background-color: #000000; -fx-border-radius: 8; -fx-background-radius: 8;" text="Entrar" textAlignment="CENTER" textFill="WHITE">
+      <Button alignment="CENTER" layoutX="493.0" layoutY="546.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#trySubmit" prefHeight="52.0" prefWidth="142.0" style="-fx-background-color: #000000; -fx-border-radius: 8; -fx-background-radius: 8;" text="Entrar" textAlignment="CENTER" textFill="WHITE">
          <padding>
             <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
          </padding>
@@ -39,8 +39,8 @@
             <Font name="Segoe UI" size="16.0" />
          </font>
       </Button>
-      <Button layoutX="404.0" layoutY="594.0" mnemonicParsing="false" onAction="#login" prefHeight="29.0" prefWidth="322.0" stylesheets="@../css/clickable_link.css" text="Já possui uma conta?" underline="true" />
-      <Button layoutX="485.0" layoutY="623.0" mnemonicParsing="false" onAction="#leave" prefHeight="29.0" prefWidth="142.0" stylesheets="@../css/clickable_link.css" text="Sair" underline="true" />
+      <Button layoutX="412.0" layoutY="620.0" mnemonicParsing="false" onAction="#login" prefHeight="29.0" prefWidth="322.0" stylesheets="@../css/clickable_link.css" text="Já possui uma conta?" underline="true" />
+      <Button layoutX="493.0" layoutY="649.0" mnemonicParsing="false" onAction="#leave" prefHeight="29.0" prefWidth="142.0" stylesheets="@../css/clickable_link.css" text="Sair" underline="true" />
    </children>
    <stylesheets>
       <URL value="@../css/style.css" />
