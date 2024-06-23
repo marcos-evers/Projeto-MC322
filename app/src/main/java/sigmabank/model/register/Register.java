@@ -6,7 +6,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.UUID;
 
-import javax.management.InvalidAttributeValueException;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -46,25 +45,25 @@ public abstract class Register {
      * Sets the email attribute of the Register.
      *
      * @param email The emall string to be set
-     * @throws InvalidAttributeValueException if the provided email does not match the expected format.
+     * @throws InvalidEmailException if the provided email does not match the expected format.
      */
-    public void setEmail(String email) throws InvalidAttributeValueException {
+    public void setEmail(String email) throws InvalidEmailException {
         Pattern pattern = Pattern.compile("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$");
         Matcher matcher = pattern.matcher(email);
 
         if (matcher.find())
             this.email = email;
         else
-            throw new InvalidAttributeValueException(email + " is not a email");
+            throw new InvalidEmailException(email + " is not a email");
     }
 
     /**
      * Sets the phone number attribute of the Register.
      *
      * @param phoneNumber The phone number string to set.
-     * @throws InvalidAttributeValueException if the provided phone number does not match the expected format.
+     * @throws InvalidPhoneNumberException if the provided phone number does not match the expected format.
      */
-    public void setPhoneNumber(String phoneNumber) throws InvalidAttributeValueException {
+    public void setPhoneNumber(String phoneNumber) throws InvalidPhoneNumberException {
         // TODO fix regex
         Pattern pattern = Pattern.compile("^\\+?[0-9()-]*$");
         Matcher matcher = pattern.matcher(phoneNumber);
@@ -72,23 +71,23 @@ public abstract class Register {
         if (matcher.find())
             this.phoneNumber = phoneNumber;
         else
-            throw new InvalidAttributeValueException(phoneNumber + " is not a phone number");
+            throw new InvalidPhoneNumberException(phoneNumber + " is not a phone number");
     }
 
     /**
      * Sets the address attribute of the Register.
      *
      * @param address The adress string to set.
-     * @throws InvalidAttributeValueException if the provided address does not match the expected format.
+     * @throws InvalidAddressException if the provided address does not match the expected format.
      */
-    public void setAddress(String address) throws InvalidAttributeValueException {
+    public void setAddress(String address) throws InvalidAddressException {
         Pattern pattern = Pattern.compile("^(Rua|Avenida) [a-zA-Z0-9 ]+, [0-9]+, [0-9]{5}-[0-9]{3}");
         Matcher matcher = pattern.matcher(address);
 
         if (matcher.find())
             this.address = address;
         else
-            throw new InvalidAttributeValueException(address + " is not a address");
+            throw new InvalidAddressException(address + " is not a address");
     }
 
     public abstract void setPassword(String password);

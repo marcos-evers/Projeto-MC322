@@ -18,23 +18,30 @@ public class LoginController extends BaseController<Client> {
     @FXML private TextField cpf;
     @FXML private PasswordField password;
 
-    public void trySubmit(ActionEvent e) throws Exception {
+    public void trySubmit(ActionEvent e) throws IOException {
+        if (cpf.getText() == null || cpf.getText().trim().isEmpty() || password.getText() == null) {
+            BaseController.errorDialog("Preencha todos os campos!");
+            return;
+        }
+
         if (cpf.getText().equals("admin")) {
             this.loadView("admin/home", "Administração", null);
 
             return;
         }
+        // TODO remove this hardcoded shortcut
+        // this.loadView("client/home", "Home", new Client("rafa omiya", LocalDate.now().minusYears(19), "42250341869"));
 
         ClientConnection connection = new ClientConnection("http://localhost:8000/client");
  
         String hash = HashPassword.hashPassword(this.cpf.getText(), this.password.getText());
  
-        List<Client> clientsList = connection.fetch(Map.of(
+        List<Client> client = connection.fetch(Map.of(
             "cpf", this.cpf.getText(),
             "password", hash
         ));
-        if (clientsList.size() != 0) {
-            this.loadView("client/home", "Home", clientsList.get(0));
+        if (client.size() != 0) {
+            this.loadView("client/home", "Home", client.get(0));
             return;
         }
 
