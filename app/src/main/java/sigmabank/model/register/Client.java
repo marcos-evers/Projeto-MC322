@@ -62,6 +62,22 @@ public class Client extends Register {
         this.balance = BigDecimal.valueOf(0);
     }
 
+    public Client(String name, LocalDate dateOfBirth, String cpf, UUID uuid, BigDecimal balance) throws InvalidCPFException, InvalidBirthDateException {
+        super(name, dateOfBirth, uuid);
+
+        if (!DocumentValidator.isValidCPF(cpf)) {
+            throw new InvalidCPFException("CPF inválido " + cpf);
+        }
+        if (!isAdult(dateOfBirth)) {
+            throw new InvalidBirthDateException("A data de nascimento não é válida " + dateOfBirth);
+        }
+        
+        this.cpf = cpf;
+        this.investments = new ArrayList<>();
+        this.loans = new ArrayList<>();
+        this.balance = balance;
+    }
+
     /**
      * Adds a new investment to the client.
      *

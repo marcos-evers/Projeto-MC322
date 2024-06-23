@@ -1,0 +1,11 @@
+@startuml Admin
+class Admin extends Register {
+    - name: String
+    - cpf: String
+    - dateOfBirth: LocalDate
+    
+    + ADMIN_COLOR + Admin(name: String, dateOfBirth: LocalDate, cpf: String)
+    + ADMIN_COLOR + Admin(name: String, dateOfBirth: LocalDate, cpf: String, uuid: UUID)
+    + ADMIN_COLOR + setPassword(password: String): void
+    + ADMIN_COLOR + getCPF(): String
+}

@@ -25,7 +25,10 @@ public class Server {
         Database.getInstance()
             .addTable("Clients", Client.class)
             .addTable("ClientsToApproval", Client.class)
+
             .addTable("Loans", Loan.class)
+            .addTable("LoansToApproval", Loan.class)
+
             .loadFromXML();
 
         ClientInvestmentMultiton.getInstance()

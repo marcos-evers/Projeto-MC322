@@ -21,14 +21,6 @@ public class LoanPaymentConnection implements IConnection<Loan> {
         this.uri = uri;
     }
 
-    /**
-     * Do a GET request to the server for search for the loans of a client.
-     *
-     * @param params A map with two keys:
-     *      - clientUUID (String).
-     * @return a list containing the loans of the client.
-     * @throws IOException if a error occur connecting to the server.
-     */
     public List<Loan> fetch(Map<String, Object> params) throws IOException {
         return null;
     }

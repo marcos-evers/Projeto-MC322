@@ -16,6 +16,7 @@ import java.nio.charset.StandardCharsets;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
@@ -23,6 +24,7 @@ import javax.xml.bind.Marshaller;
 import java.util.List;
 
 import sigmabank.database.Database;
+import sigmabank.model.loan.Loan;
 import sigmabank.model.register.Client;
 
 public class ApprovalHttpHandler implements HttpHandler {
@@ -41,36 +43,59 @@ public class ApprovalHttpHandler implements HttpHandler {
         }
     }
 
+    private boolean handleClientApproval(Map<String, String> params) {
+        UUID clientUUID = UUID.fromString(params.get("uuid"));
+        boolean isapproved = params.get("isapproved").equals("true");
+
+        List<Object> clients = Database.getInstance().deleteEntries("ClientsToApproval",
+            (Object obj) -> {
+                Client client = (Client) obj;
+                return client.getUUID().equals(clientUUID);
+        });
+
+        if (clients.size() != 1 || !isapproved) return false;
+
+        Client client = (Client) clients.get(0);
+        Database.getInstance().addEntry("Clients", client);
+
+        return true;
+    }
+
+    private boolean handleLoanApproval(Map<String, String> params) {
+        UUID loanUUID = UUID.fromString(params.get("uuid"));
+        boolean isapproved = params.get("isapproved").equals("true");
+
+        List<Object> loans = Database.getInstance().deleteEntries("LoansToApproval",
+            (Object obj) -> {
+                Loan loan = (Loan) obj;
+                return loan.getLoanUUID().equals(loanUUID);
+        });
+
+        if (loans.size() != 1 || !isapproved) return false;
+
+        Loan loan = (Loan) loans.get(0);
+        Database.getInstance().addEntry("Loans", loan);
+
+        return true;
+    }
+
     private void handlePOSTMethod(HttpExchange exchange) throws IOException {
         InputStreamReader isr = new InputStreamReader(exchange.getRequestBody(), StandardCharsets.UTF_8);
         BufferedReader br = new BufferedReader(isr);
         String query = br.readLine();
         Map<String, String> params = parseParams(query);
 
-        String clientCPF = params.get("cpf");
-        boolean isapproved = params.get("isapproved").equals("true");
-
-        List<Object> clients = Database.getInstance().deleteEntries("ClientsToApproval",
-            (Object obj) -> {
-                Client client = (Client) obj;
-                return client.getCpf().equals(clientCPF);
-        });
-
-        if (clients.size() != 1 || !isapproved) {
-            String response = "Nothing to do";
-            exchange.sendResponseHeaders(200, response.getBytes().length);
-            try (OutputStream os = exchange.getResponseBody()) {
-                os.write(response.getBytes());
-            }
+        String response = "";
+        if ((params.get("type").equals("loan") && !handleLoanApproval(params))
+                || (params.get("type").equals("client") && !handleClientApproval(params))) {
+            response = "Not Approved";
         } else {
-            Client client = (Client) clients.get(0);
-            Database.getInstance().addEntry("Clients", client);
-            Database.getInstance().saveToXML();
-            String response = "Client Approved";
-            exchange.sendResponseHeaders(200, response.getBytes().length);
-            try (OutputStream os = exchange.getResponseBody()) {
-                os.write(response.getBytes());
-            }
+            response = "Approved";
+        }
+
+        exchange.sendResponseHeaders(200, response.getBytes().length);
+        try (OutputStream os = exchange.getResponseBody()) {
+            os.write(response.getBytes());
         }
     }
 
@@ -80,20 +105,30 @@ public class ApprovalHttpHandler implements HttpHandler {
                 return true;
         });
 
-        System.out.println(clients);
+        List<Object> loans = Database.getInstance().query("LoansToApproval",
+            (Object obj) -> {
+                return true;
+        });
+
+        System.out.println("[MSG] clients to approval: " + clients);
+        System.out.println("[MSG] loans to approval: " + loans);
 
         try {
-            StringWriter sw = new StringWriter();
-            JAXBContext jaxbcontext = JAXBContext.newInstance(Client.class);
+            StringWriter swclient = new StringWriter();
+            StringWriter swloan = new StringWriter();
+            JAXBContext jaxbcontext = JAXBContext.newInstance(Client.class, Loan.class);
             Marshaller marshaller = jaxbcontext.createMarshaller();
 
             marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, false);
             marshaller.setProperty(Marshaller.JAXB_FRAGMENT, true);
 
             for (Object client: clients)
-                marshaller.marshal(client, sw);
+                marshaller.marshal(client, swclient);
+            for (Object loan: loans)
+                marshaller.marshal(loan, swloan);
 
-            String response = "<ClientsToApproval>" + sw.toString() + "</ClientsToApproval>";
+            String response = "<ClientsToApproval>" + swclient.toString() + "</ClientsToApproval>"
+                + "<LoansToApproval>" + swloan.toString() + "</LoansToApproval>";
             exchange.sendResponseHeaders(200, response.getBytes().length);
             try (OutputStream os = exchange.getResponseBody()) {
                 os.write(response.getBytes());

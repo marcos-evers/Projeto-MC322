@@ -1,0 +1,24 @@
+@startuml RateInvestment
+
+class RateInvestment extends Investment implements InvestmentOperations{
+    - rate: BigDecimal
+    - addedValue: BigDecimal
+    - frequencyType: ROIFrequencyType
+    - lastUpdateDate: LocalDate
+    - rateType: RateInvestEnum
+    
+    + RateInvestment(name: String, investedValue: BigDecimal, clientUUID: UUID, startDate: LocalDate, rate: BigDecimal, frequencyType: ROIFrequencyType, rateType: RateInvestEnum)
+    + RateInvestment(name: String, investedValue: BigDecimal, value: BigDecimal, retrievedValue: BigDecimal, clientUUID: UUID, startDate: LocalDate, rate: BigDecimal, addedValue: BigDecimal, frequencyType: ROIFrequencyType, lastUpdateDate: LocalDate, rateType: RateInvestEnum)
+    
+    + getRate(): BigDecimal
+    + getFrequencyType(): ROIFrequencyType
+    + getLastUpdateDate(): LocalDate
+    + getAddedValue(): BigDecimal
+    + getRateType(): RateInvestEnum
+    + setRate(rate: BigDecimal): void
+    + updateValue(): void
+    + retrieveInvestment(amount: BigDecimal): BigDecimal
+    + investMore(amount: BigDecimal): void
+}
+
+@enduml

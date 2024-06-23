@@ -1,0 +1,25 @@
+@startuml Investment
+
+class Investment {
+    - name: String
+    - investedValue: BigDecimal
+    - value: BigDecimal
+    - retrievedValue: BigDecimal
+    - clientUUID: UUID
+    - startDate: LocalDate
+    
+    + Investment(name: String, investedValue: BigDecimal, clientUUID: UUID, startDate: LocalDate)
+    
+    + getName(): String
+    + getInvestedValue(): BigDecimal
+    + getValue(): BigDecimal
+    + getRetrievedValue(): BigDecimal
+    + getClientUUID(): UUID
+    + getStartDate(): LocalDate
+    
+    + setInvestedValue(investedValue: BigDecimal): void
+    + setValue(value: BigDecimal): void
+    + calculateProfit(): BigDecimal
+}
+
+@enduml
