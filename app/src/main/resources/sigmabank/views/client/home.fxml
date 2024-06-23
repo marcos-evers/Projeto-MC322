@@ -38,12 +38,12 @@
                <children>
                   <AnchorPane prefHeight="84.0" prefWidth="471.0" style="-fx-background-color: #00000000;">
                      <children>
-                        <Text layoutX="14.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Seus investimentos" wrappingWidth="264.521484375">
+                        <Text layoutX="14.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Seus investimentos" wrappingWidth="382.521484375">
                            <font>
                               <Font name="Segoe UI Bold" size="27.0" />
                            </font>
                         </Text>
-                        <Text fx:id="investmentsTotal" fill="#7b7b7b" layoutX="14.0" layoutY="77.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Seus investimentos já renderam">
+                        <Text fx:id="investmentsTotal" fill="#7b7b7b" layoutX="14.0" layoutY="77.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Seus investimentos já renderam" wrappingWidth="350.96875">
                            <font>
                               <Font name="Segoe UI" size="16.0" />
                            </font>
@@ -72,12 +72,12 @@
                <children>
                   <AnchorPane prefHeight="82.0" prefWidth="471.0" style="-fx-background-color: #00000000;">
                      <children>
-                        <Text layoutX="14.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Seus empréstimos" wrappingWidth="264.521484375">
+                        <Text layoutX="14.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Seus empréstimos" wrappingWidth="380.521484375">
                            <font>
                               <Font name="Segoe UI Bold" size="27.0" />
                            </font>
                         </Text>
-                        <Text fx:id="loansTotal" fill="#7b7b7b" layoutX="14.0" layoutY="77.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Seus empréstimos somam R$">
+                        <Text fx:id="loansTotal" fill="#7b7b7b" layoutX="14.0" layoutY="77.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Seus empréstimos somam R$" wrappingWidth="349.4375">
                            <font>
                               <Font name="Segoe UI" size="16.0" />
                            </font>
