@@ -62,7 +62,7 @@ public class ClientConnection implements IConnection<Client> {
      *
      * @param params A map with client attributes:
      *  - name
-     *  - dob (Date of Birth)
+     *  - dateOfBirth
      *  - cpf
      *  - phonenumber (Phone Number)
      *  - address
