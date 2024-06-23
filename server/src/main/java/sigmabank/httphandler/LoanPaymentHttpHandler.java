@@ -8,25 +8,19 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
-import java.io.StringWriter;
 
 import java.math.BigDecimal;
 
 import java.net.URLDecoder;
 
 import java.nio.charset.StandardCharsets;
-import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.Marshaller;
-
-import java.util.List;
-
 import sigmabank.database.Database;
 import sigmabank.model.loan.Loan;
+import sigmabank.model.register.Client;
 
 public class LoanPaymentHttpHandler implements HttpHandler {
     @Override
@@ -48,13 +42,17 @@ public class LoanPaymentHttpHandler implements HttpHandler {
         String query = br.readLine();
         Map<String, String> params = parseParams(query);
 
-        UUID clientUUID = UUID.fromString(params.get("clientUUID"));
-        UUID loanUUID = UUID.fromString(params.get("loanUUID"));
+        UUID clientUUID = UUID.fromString(params.get("clientduuid"));
+        UUID loanUUID = UUID.fromString(params.get("loanuuid"));
         BigDecimal value = new BigDecimal(params.get("value"));
 
         System.out.println("[MSG] Recived data: " + query);
 
-        try { 
+        try {
+            Client client = (Client) Database.getInstance().query("Client",
+                (Object obj) -> {
+                    return ((Loan)obj).getClientUUID().equals(clientUUID);
+            }).get(0);
             Loan loan = (Loan) Database.getInstance().query("Loan",
                 (Object obj) -> {
                     return ((Loan)obj).getLoanUUID().equals(loanUUID)
@@ -62,6 +60,7 @@ public class LoanPaymentHttpHandler implements HttpHandler {
             }).get(0);
 
             loan.payLoan(value);
+            client.setBalance(client.getBalance().subtract(value));
 
             if (loan.getAmount().compareTo(BigDecimal.ZERO) < 0)
                 throw new Exception("Value more then the amount");
@@ -72,7 +71,6 @@ public class LoanPaymentHttpHandler implements HttpHandler {
                             && ((Loan)obj).getClientUUID().equals(clientUUID);
                 });
             }
-                
 
             String response = "Payed " + value + " from loan successfuly";
             exchange.sendResponseHeaders(200, response.getBytes().length);

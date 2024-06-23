@@ -104,7 +104,7 @@ public class ClientConnection implements IConnection<Client> {
         return "name=" + params.get("name") + "&"
             +  "dob=" + params.get("dataOfBirth") + "&"
             +  "cpf=" + params.get("cpf") + "&"
-            +  "phonenumber=" + params.get("phonenumber") + "&"
+            +  "phonenumber=" + params.get("phoneNumber") + "&"
             +  "address=" + params.get("address") + "&"
             +  "email=" + params.get("email") + "&"
             +  "password=" + params.get("password");
