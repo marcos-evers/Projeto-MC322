@@ -20,6 +20,6 @@ public class ClientItemController extends BaseController<Client> {
     }
 
     public void open(Event e) throws IOException {
-        this.openModal("admin/client", "Cliente", this.object);
+        this.openModal("admin/client", "Cliente", this.object, this.additionalData);
     }
 }

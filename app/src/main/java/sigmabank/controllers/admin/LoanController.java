@@ -3,7 +3,6 @@ package sigmabank.controllers.admin;
 import java.io.IOException;
 import java.util.Map;
 
-import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.text.Text;
@@ -47,6 +46,8 @@ public class LoanController extends BaseController<Loan> {
     }
 
     public void leave(Event e) {
+        // TODO return to admin/home but re calling the initData method.
+        // important: admin object is on this.additionalData
         this.stage.close();
     }
 }

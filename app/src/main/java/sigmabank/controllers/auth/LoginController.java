@@ -1,6 +1,7 @@
 package sigmabank.controllers.auth;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 
@@ -29,13 +30,11 @@ public class LoginController extends BaseController<Client> {
 
             return;
         }
-        // TODO remove this hardcoded shortcut
-        // this.loadView("client/home", "Home", new Client("rafa omiya", LocalDate.now().minusYears(19), "42250341869"));
-
+        
         ClientConnection connection = new ClientConnection("http://localhost:8000/client");
- 
+        
         String hash = HashPassword.hashPassword(this.cpf.getText(), this.password.getText());
- 
+        
         List<Client> client = connection.fetch(Map.of(
             "cpf", this.cpf.getText(),
             "password", hash
