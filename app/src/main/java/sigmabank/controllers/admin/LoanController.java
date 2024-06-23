@@ -1,6 +1,7 @@
 package sigmabank.controllers.admin;
 
 import java.io.IOException;
+import java.util.Map;
 
 import javafx.event.ActionEvent;
 import javafx.event.Event;
@@ -8,6 +9,7 @@ import javafx.fxml.FXML;
 import javafx.scene.text.Text;
 import sigmabank.controllers.BaseController;
 import sigmabank.model.loan.Loan;
+import sigmabank.net.ApprovalConnection;
 import sigmabank.utils.DateFormatter;
 
 public class LoanController extends BaseController<Loan> {
@@ -22,16 +24,29 @@ public class LoanController extends BaseController<Loan> {
         this.clientUuid.setText(this.object.getClientUUID().toString());
     }
 
-    public void deny(Event e) {
-        // TODO delete this loan from "loansToApproval" (or smth like that) table
+    public void deny(Event e) throws IOException {
+        ApprovalConnection conn = new ApprovalConnection("http://localhost:8000/toapproval");
+        conn.send(Map.of(
+            "type", "loan",
+            "uuid", this.object.getLoanUUID().toString(),
+            "isapproved", "false"
+        ));
+        
+        this.leave(e);
     }
     
-    public void approve(Event e) {
-        // TODO delete from table "loansToApproval" (or smth like that)
-        // and add to the table of regular loans
+    public void approve(Event e) throws IOException {
+        ApprovalConnection conn = new ApprovalConnection("http://localhost:8000/toapproval");
+        conn.send(Map.of(
+            "type", "loan",
+            "uuid", this.object.getLoanUUID().toString(),
+            "isapproved", "true"
+        ));
+
+        this.leave(e);
     }
 
-    public void leave(ActionEvent e) {
+    public void leave(Event e) {
         this.stage.close();
     }
 }
