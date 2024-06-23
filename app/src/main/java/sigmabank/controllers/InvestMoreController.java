@@ -40,6 +40,8 @@ public class InvestMoreController extends BaseController<Investment> {
         }
         
         // TODO update the investment and client's balance on database
+        BigDecimal newBalance = client.getBalance().subtract(valueToInvest);
+        client.setBalance(newBalance);
     }
     
     public void leave(ActionEvent e) {

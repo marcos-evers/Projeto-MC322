@@ -48,9 +48,7 @@ public class RequestLoanController extends BaseController<Client> {
             return null;
         }
 
-        // TODO define how to calculate the fee as a function of `valueToLoan`
-        // then set this text no `fee`
-        BigDecimal newFeeValue = /*f(valueToLoan)*/valueToLoan;
+        BigDecimal newFeeValue = Loan.calculateFee(valueToLoan);
 
         return newFeeValue;
     }
