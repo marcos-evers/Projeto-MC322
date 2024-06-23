@@ -1,3 +1,7 @@
+AnchorPane {
+    -fx-background-color: #ffffff;
+}
+
 TextField, DatePicker {
     -fx-background-radius: 8;
     -fx-border-radius: 8;

@@ -2,6 +2,7 @@ package sigmabank.controllers;
 
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -9,6 +10,7 @@ import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
+import sigmabank.model.investment.RateInvestment;
 import sigmabank.model.investment.InfoInvestments.InfoInvest;
 import sigmabank.model.register.Client;
 
@@ -30,11 +32,11 @@ public class NewRateInvestmentController extends BaseController<InfoInvest> {
         this.balance.setText("Saldo em conta: R$ " + client.getBalance());
     }
 
-    public void goBack(ActionEvent e) throws IOException {
+    public void goBack(Event e) throws IOException {
         this.loadView("client_page", "Home", this.additionalData);
     }
 
-    public void confirm(Event e) {
+    public void confirm(Event e) throws IOException {
         BigDecimal valueToInvest;
         try {
             valueToInvest = new BigDecimal(value.getText());
@@ -54,7 +56,19 @@ public class NewRateInvestmentController extends BaseController<InfoInvest> {
             return;
         }
 
+        RateInvestment investment = new RateInvestment(
+            this.object.getName(),
+            valueToInvest,
+            client.getUUID(),
+            LocalDate.now(),
+            this.object.getRate(),
+            this.object.getFrequencyType(),
+            this.object.getRateType()
+        );
+
         // call database stuff
+
+        this.goBack(e);
     }
 
     public void leave(ActionEvent e) {

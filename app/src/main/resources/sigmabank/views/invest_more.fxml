@@ -10,7 +10,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="231.0" prefWidth="462.0" style="-fx-border-radius: 0; -fx-background-color: #ffffff;" stylesheets="@../css/form.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sigmabank.controllers.InvestMoreController">
    <children>
-      <Text fx:id="investmentName" layoutX="1.0" layoutY="58.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Investir" textAlignment="CENTER" wrappingWidth="462.0">
+      <Text layoutX="1.0" layoutY="58.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Investir" textAlignment="CENTER" wrappingWidth="462.0">
          <font>
             <Font name="Segoe UI Bold" size="28.0" />
          </font>

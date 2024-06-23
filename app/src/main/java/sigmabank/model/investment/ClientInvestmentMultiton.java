@@ -70,7 +70,7 @@ public class ClientInvestmentMultiton {
      * Loads rate-based investments from an XML file.
      * @param pathToXML Path to the XML file containing rate-based investments
      */
-    private void LoadRateInvestments(String pathToXML) {
+    private void loadRateInvestments(String pathToXML) {
         ReaderXML<RateInvestment> reader = ReaderFactory.createReader(RateInvestment.class);
         List<Object> rateInvestmentsArray = reader.readFromXML(pathToXML);
 
@@ -114,7 +114,7 @@ public class ClientInvestmentMultiton {
      * Loads asset-based investments from an XML file.
      * @param pathToXML Path to the XML file containing asset-based investments
      */
-    private void LoadAssetInvestments(String pathToXML) {
+    private void loadAssetInvestments(String pathToXML) {
         ReaderXML<AssetInvestment> reader = ReaderFactory.createReader(AssetInvestment.class);
         List<Object> assetInvestmentsArray = reader.readFromXML(pathToXML);
 
@@ -137,8 +137,8 @@ public class ClientInvestmentMultiton {
      * @param pathToAssetInvestments Path to the XML file containing asset-based investments
      */
     public void loadInvestments(String pathToRateInvestments, String pathToAssetInvestments) {
-        LoadRateInvestments(pathToRateInvestments);
-        LoadAssetInvestments(pathToAssetInvestments);
+        loadRateInvestments(pathToRateInvestments);
+        loadAssetInvestments(pathToAssetInvestments);
     }
 
     /**
