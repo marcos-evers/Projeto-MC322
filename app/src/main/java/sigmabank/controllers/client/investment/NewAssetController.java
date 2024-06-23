@@ -14,7 +14,7 @@ import sigmabank.controllers.BaseController;
 import sigmabank.model.investment.AssetInvestment;
 import sigmabank.model.investment.InfoInvestments.InfoInvest;
 import sigmabank.model.register.Client;
-import sigmabank.utils.Rounder;;
+import sigmabank.utils.Rounder;
 
 public class NewAssetController extends BaseController<InfoInvest> {
     @FXML private Text greeting;

@@ -49,9 +49,7 @@ public class RequestController extends BaseController<Client> {
             return null;
         }
 
-        BigDecimal newFeeValue = Loan.calculateFee(valueToLoan);
-
-        return newFeeValue;
+        return Loan.calculateFee(valueToLoan);
     }
 
     public void confirm(Event e) throws IOException {

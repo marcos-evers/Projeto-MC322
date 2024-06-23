@@ -27,7 +27,7 @@ public class ApprovalConnection implements IConnection<Object> {
     /**
      * Send if a Client or a Loan was approved:
      *      - type = loan or client
-     *      - uuid = uuid if of the laon or the client
+     *      - uuid = uuid of the loan or client
      *      - isapproved = true or false
      */
     public void send(Map<String, Object> params) throws IOException {

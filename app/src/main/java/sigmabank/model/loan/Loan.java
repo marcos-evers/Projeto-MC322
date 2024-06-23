@@ -81,9 +81,7 @@ public class Loan {
      * @param valuePay
      */
     public void payLoan(BigDecimal valuePay){
-        //TODO check if the client has the money to pay the loan
         this.amount = amount.subtract(valuePay);
-        //TODO remember to remove the money from the client account 
     }
 
     /**

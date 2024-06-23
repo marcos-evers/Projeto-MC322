@@ -96,7 +96,7 @@
             </DropShadow>
          </effect>
       </Button>
-      <Button layoutX="250.0" layoutY="499.0" mnemonicParsing="false" onAction="#investMore" style="-fx-background-color: #ffffff; -fx-background-radius: 8; -fx-border-radius: 8;" text="Investir mais" textAlignment="CENTER">
+      <Button layoutX="250.0" layoutY="499.0" mnemonicParsing="false" onAction="#investMore" prefHeight="35.0" prefWidth="114.0" style="-fx-background-color: #ffffff; -fx-background-radius: 8; -fx-border-radius: 8;" text="Investir mais" textAlignment="CENTER">
          <font>
             <Font name="Segoe UI Semibold" size="16.0" />
          </font>
