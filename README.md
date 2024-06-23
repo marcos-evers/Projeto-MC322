@@ -5,9 +5,8 @@ Our project aims to model a system that emulates a virtual bank, made with Java.
 
 ## Tools
 
-- ```JavaFX``` for the GUI;
-- ```Gradle``` as build tool;
-- ```JUnit Jupiter``` como testing framework.
+We used ```JavaFX``` for the GUI and ```Gradle``` for the build system. The server was made
+with the Java SE api, and little of the xml parsing with JAXB.
 
 ## Build commands
 
@@ -27,26 +26,8 @@ chmod +x ./sigmarun.sh # linux command for allowing the bash file to be executed
 ## Functionalities
 
 - Register of new clients
-- Bank transfer as payment method
-- Balance and statement
-- Loans
-- Investments
-- Different types of bank accounts
-
-## Backend TODO
-
-- [ ] Investment Connection
-    - [x] Create Investment
-    - [x] Get Investments
-    - [x] Connection Investment
-    - [x] Invest More Investment
-    - [x] Retrieve Investment
-    - [ ] Connection Investment Operation
-- [ ] Loan Connection
-    - [x] Post Loan
-    - [x] Get Loan
-    - [x] Connection Loan Front and Back 
-    - [ ] Pay Loan
-    - [ ] Sell Loan
-    - [ ] Connection Loan Pay/Sell
+- Creation of two types of investments -- asset and rate investments
+- Creation of loan
+- Approvement of new clients and new loans
+- An administrator
 

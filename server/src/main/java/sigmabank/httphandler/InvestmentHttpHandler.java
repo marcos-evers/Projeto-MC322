@@ -23,15 +23,11 @@ import java.util.UUID;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
 
-import java.util.List;
-
 import sigmabank.database.Database;
 import sigmabank.model.investment.AssetInvestEnum;
-import sigmabank.model.investment.AssetInvestment;
 import sigmabank.model.investment.ClientInvestmentMultiton;
 import sigmabank.model.investment.Investment;
 import sigmabank.model.investment.RateInvestEnum;
-import sigmabank.model.investment.RateInvestment;
 
 public class InvestmentHttpHandler implements HttpHandler {
     @Override
@@ -110,9 +106,6 @@ public class InvestmentHttpHandler implements HttpHandler {
 
         Map<?, ?> assetInvestments = ClientInvestmentMultiton.getInstance()
             .getAssetInvestments(clientUUID);
-
-        System.out.println(assetInvestments);
-        System.out.println(rateInvestments);
 
         try {
             StringWriter sw = new StringWriter();

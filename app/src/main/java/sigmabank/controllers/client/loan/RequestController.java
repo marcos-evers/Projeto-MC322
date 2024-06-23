@@ -3,6 +3,7 @@ package sigmabank.controllers.client.loan;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.Map;
 
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -13,6 +14,7 @@ import javafx.scene.text.Text;
 import sigmabank.controllers.BaseController;
 import sigmabank.model.loan.Loan;
 import sigmabank.model.register.Client;
+import sigmabank.net.LoanConnection;
 
 public class RequestController extends BaseController<Client> {
     @FXML private Text greeting;
@@ -60,8 +62,12 @@ public class RequestController extends BaseController<Client> {
             return;
         }
 
-        Loan loan = new Loan(valueToLoan, this.object.getUUID(), LocalDate.now());
-        // TODO database stuff to insert this loan
+        LoanConnection conn = new LoanConnection("http://localhost:8000/loan");
+        conn.send(Map.of(
+            "value", valueToLoan,
+            "uuid", this.object.getUUID(),
+            "startday", LocalDate.now()
+        ));
 
         this.goBack(e);
     }

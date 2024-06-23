@@ -96,11 +96,7 @@ public class LoanConnection implements IConnection<Loan> {
 
     private String buildPostData(Map<String, Object> params) {
         return "value=" + params.get("value").toString() + "&"
-            +   "fee=" + params.get("fee").toString() + "&"
-            +   "clientUUID=" + params.get("clientUUID").toString() + "&"
-            +   "loanUUID=" + params.get("loanUUID").toString() + "&"
-            +   "startDay=" + params.get("startDay").toString() + "&"
-            +   "lastUpdateDate=" + params.get("lastUpdateDate").toString() + "&"
-            +   "amount=" + params.get("amount").toString();
+            +   "uuid=" + params.get("uuid").toString() + "&"
+            +   "startday=" + params.get("startday").toString();
     }
 }

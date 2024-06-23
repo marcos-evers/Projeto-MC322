@@ -47,7 +47,7 @@ public class LoanReader implements ReaderXML<Loan> {
                 UUID clientUUID = UUID.fromString(loanElement.getElementsByTagName("clientUUID").item(0).getTextContent());
                 UUID loanUUID = UUID.fromString(loanElement.getElementsByTagName("loanUUID").item(0).getTextContent());
                 LocalDate startDay = LocalDate.parse(loanElement.getElementsByTagName("startDay").item(0).getTextContent());
-                LocalDate lastUpdateDate = LocalDate.parse(loanElement.getElementsByTagName("lastUpdatedDate").item(0).getTextContent());
+                LocalDate lastUpdateDate = LocalDate.parse(loanElement.getElementsByTagName("lastUpdateDate").item(0).getTextContent());
                 BigDecimal amount = new BigDecimal(loanElement.getElementsByTagName("amount").item(0).getTextContent());
                 
                 Loan loan = new Loan(value, fee, clientUUID, loanUUID,startDay, amount, lastUpdateDate);
@@ -78,12 +78,14 @@ public class LoanReader implements ReaderXML<Loan> {
             for (int i = 0; i < nodeList.getLength(); i++) {
                 Element loanElement = (Element) nodeList.item(i);
 
+                System.out.println(loanElement.getElementsByTagName("lastUpdatedDate").getLength());
+
                 BigDecimal value = new BigDecimal(loanElement.getElementsByTagName("value").item(0).getTextContent());
                 BigDecimal fee = new BigDecimal(loanElement.getElementsByTagName("fee").item(0).getTextContent());
                 UUID clientUUID = UUID.fromString(loanElement.getElementsByTagName("clientUUID").item(0).getTextContent());
                 UUID loanUUID = UUID.fromString(loanElement.getElementsByTagName("loanUUID").item(0).getTextContent());
                 LocalDate startDay = LocalDate.parse(loanElement.getElementsByTagName("startDay").item(0).getTextContent());
-                LocalDate lastUpdateDate = LocalDate.parse(loanElement.getElementsByTagName("lastUpdatedDate").item(0).getTextContent());
+                LocalDate lastUpdateDate = LocalDate.parse(loanElement.getElementsByTagName("lastUpdateDate").item(0).getTextContent());
                 BigDecimal amount = new BigDecimal(loanElement.getElementsByTagName("amount").item(0).getTextContent());
                 
                 Loan loan = new Loan(value, fee, clientUUID, loanUUID,startDay, amount, lastUpdateDate);
