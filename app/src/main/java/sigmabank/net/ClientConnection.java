@@ -10,9 +10,11 @@ import java.net.URI;
 import java.net.URL;
 
 import java.util.Map;
+import java.util.ArrayList;
 import java.util.List;
 
 import sigmabank.model.register.Client;
+import sigmabank.utils.readers.ReaderFactory;
 
 public class ClientConnection implements IConnection<Client> {
     private final String uri;
@@ -25,8 +27,8 @@ public class ClientConnection implements IConnection<Client> {
      * Do a GET request to the server for search a client
      *
      * @param params A map with two keys:
-     *      - CPF (String)
-     *      - passwordHash (String)
+     *      - cpf
+     *      - password 
      * @return an empty list or a list containing only the desired client
      * @throws IOException if a error occur connecting to the server
      */
@@ -48,14 +50,24 @@ public class ClientConnection implements IConnection<Client> {
             System.out.println("[MSG] Fetch client: " + responseBody);
         }
         connection.disconnect();
-        // TODO create client object
-        return null;
+        List<Client> clients = new ArrayList<>();
+        for (Object client: ReaderFactory.createReader(Client.class).readStringXML(responseBody)) {
+            clients.add((Client) client);
+        }
+        return clients;
     }
 
     /**
      * Do a POST request to register a client that will pending approval
      *
-     * @param params A map with client attributes.
+     * @param params A map with client attributes:
+     *  - name
+     *  - dob (Date of Birth)
+     *  - cpf
+     *  - phonenumber (Phone Number)
+     *  - address
+     *  - email
+     *  - password (Password hash)
      * @throws IOException if a error occur connecting to the server
      */
     public void send(Map<String, Object> params) throws IOException {
@@ -89,12 +101,12 @@ public class ClientConnection implements IConnection<Client> {
     }
 
     private String buildPostData(Map<String, Object> params) {
-        return "name=" + (String) params.get("name") + "&"
-            +  "dob=" + (String) params.get("dataOfBirth") + "&"
-            +  "cpf=" + (String) params.get("cpf") + "&"
-            +  "phoneNumber=" + (String) params.get("phoneNumber") + "&"
-            +  "address=" + (String) params.get("address") + "&"
-            +  "email=" + (String) params.get("email") + "&"
-            +  "password=" + (String) params.get("passwordHash");
+        return "name=" + params.get("name") + "&"
+            +  "dob=" + params.get("dataOfBirth") + "&"
+            +  "cpf=" + params.get("cpf") + "&"
+            +  "phonenumber=" + params.get("phonenumber") + "&"
+            +  "address=" + params.get("address") + "&"
+            +  "email=" + params.get("email") + "&"
+            +  "password=" + params.get("password");
     }
 }
