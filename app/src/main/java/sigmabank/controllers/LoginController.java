@@ -22,19 +22,21 @@ public class LoginController extends BaseController<Client> {
 
             return;
         }
+
         ClientConnection connection = new ClientConnection("http://localhost:8000/client");
+ 
         String hash = HashPassword.hashPassword(this.cpf.getText(), this.password.getText());
-        List<Client> clientsList = connection.fetch(Map.of("cpf", this.cpf.getText(), "password", hash));
-        if(clientsList != null){
+ 
+        List<Client> clientsList = connection.fetch(Map.of(
+            "cpf", this.cpf.getText(),
+            "password", hash
+        ));
+        if (clientsList.size() != 0) {
             this.loadView("client_page", "Home", clientsList.get(0));
             return;
         }
-        BaseController.errorDialog("Senha ou cpf invaliado");
 
-
-        // TODO make login validation
-        // TODO: query the client here
-        //this.loadView("client_page", "Home", new Client(cpf.getText()));
+        BaseController.errorDialog("CPF ou senha inválidos.");
     }
     
     public void register(ActionEvent e) throws IOException {

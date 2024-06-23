@@ -7,8 +7,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import sigmabank.model.register.Client;
 
 public class RegisterController extends BaseController<Client> {
@@ -21,21 +19,12 @@ public class RegisterController extends BaseController<Client> {
     @FXML private TextField password;
     @FXML private TextField confirmPassword;
 
-    private void showErrorAlert(String message) {
-        Alert alert = new Alert(AlertType.ERROR);
-        alert.setTitle("Erro");
-        alert.setHeaderText("Ocorreu um erro no cadastro:");
-        alert.setContentText(message);
-
-        alert.showAndWait();
-    }
-
     private boolean checkPasswords() {
         if (password.getText().equals(confirmPassword.getText())) {
             return true;
         }
 
-        this.showErrorAlert("As senhas não conferem");
+        BaseController.errorDialog("As senhas não conferem");
         return false;
     }
 
@@ -44,7 +33,15 @@ public class RegisterController extends BaseController<Client> {
             return;
         }
 
-        // TODO: implement login verification
+        Client client;
+        try {
+            client = new Client(
+                this.name.getText(),
+                this.dateOfBirth.getValue(),
+                this.cpf.getText()
+            );
+        }
+
         this.login(e);
     }
 
