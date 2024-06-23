@@ -47,7 +47,7 @@ public class LoanWritter implements WritterXML<Loan> {
         startDay.appendChild(doc.createTextNode(loan.getStartDay().toString()));
         loanElement.appendChild(startDay);
 
-        Element lastUpdatedDate = doc.createElement("lastUpdatedDate");
+        Element lastUpdatedDate = doc.createElement("lastUpdateDate");
         lastUpdatedDate.appendChild(doc.createTextNode(loan.getLastUpdateDate().toString()));
         loanElement.appendChild(lastUpdatedDate);
 

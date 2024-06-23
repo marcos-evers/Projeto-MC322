@@ -55,8 +55,8 @@ public class LoanHttpHandler implements HttpHandler {
         try { 
             Loan loan = new Loan(
                 new BigDecimal(params.get("value")),
-                UUID.fromString(params.get("clientUUID")),
-                LocalDate.parse(params.get("startDay"))
+                UUID.fromString(params.get("uuid")),
+                LocalDate.parse(params.get("startday"))
             );
 
             Database.getInstance().addEntry("LoansToApproval", loan);

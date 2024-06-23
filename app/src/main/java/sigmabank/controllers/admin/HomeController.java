@@ -1,12 +1,8 @@
 package sigmabank.controllers.admin;
 
 import java.io.IOException;
-import java.math.BigDecimal;
-import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -29,27 +25,6 @@ public class HomeController extends BaseController<Admin> {
     
     @Override
     public void initData() throws IOException {
-        // TODO delete this hardcoded stuff
-        // try {
-        //     clients.add(new Client("Nomeeee nomoe nomaeoaemone", LocalDate.now().minusYears(19), "42250341869"));
-        //     clients.add(new Client("Nomeeee nomoe nomaeoaemone", LocalDate.now().minusYears(19), "42250341869"));
-        //     clients.add(new Client("Nomeeee nomoe nomaeoaemone", LocalDate.now().minusYears(19), "42250341869"));
-        //     clients.add(new Client("Nomeeee nomoe nomaeoaemone", LocalDate.now().minusYears(19), "42250341869"));
-        //     clients.add(new Client("Nomeeee nomoe nomaeoaemone", LocalDate.now().minusYears(19), "42250341869"));
-        //     clients.add(new Client("Nomeeee nomoe nomaeoaemone", LocalDate.now().minusYears(19), "42250341869"));
-        //     clients.add(new Client("Nomeeee nomoe nomaeoaemone", LocalDate.now().minusYears(19), "42250341869"));
-        // } catch (Exception err) {
-        //     err.printStackTrace();
-        // }
-        // loans.add(new Loan(BigDecimal.valueOf(10000), BigDecimal.valueOf(0.03), UUID.randomUUID(), null, LocalDate.now().minusYears(2), BigDecimal.valueOf(4193), LocalDate.now().minusWeeks(74)));
-        // loans.add(new Loan(BigDecimal.valueOf(10000), BigDecimal.valueOf(0.03), UUID.randomUUID(), null, LocalDate.now().minusYears(2), BigDecimal.valueOf(4193), LocalDate.now().minusWeeks(74)));
-        // loans.add(new Loan(BigDecimal.valueOf(10000), BigDecimal.valueOf(0.03), UUID.randomUUID(), null, LocalDate.now().minusYears(2), BigDecimal.valueOf(4193), LocalDate.now().minusWeeks(74)));
-        // loans.add(new Loan(BigDecimal.valueOf(10000), BigDecimal.valueOf(0.03), UUID.randomUUID(), null, LocalDate.now().minusYears(2), BigDecimal.valueOf(4193), LocalDate.now().minusWeeks(74)));
-        // loans.add(new Loan(BigDecimal.valueOf(10000), BigDecimal.valueOf(0.03), UUID.randomUUID(), null, LocalDate.now().minusYears(2), BigDecimal.valueOf(4193), LocalDate.now().minusWeeks(74)));
-        // loans.add(new Loan(BigDecimal.valueOf(10000), BigDecimal.valueOf(0.03), UUID.randomUUID(), null, LocalDate.now().minusYears(2), BigDecimal.valueOf(4193), LocalDate.now().minusWeeks(74)));
-        // loans.add(new Loan(BigDecimal.valueOf(10000), BigDecimal.valueOf(0.03), UUID.randomUUID(), null, LocalDate.now().minusYears(2), BigDecimal.valueOf(4193), LocalDate.now().minusWeeks(74)));
-        // loans.add(new Loan(BigDecimal.valueOf(10000), BigDecimal.valueOf(0.03), UUID.randomUUID(), null, LocalDate.now().minusYears(2), BigDecimal.valueOf(4193), LocalDate.now().minusWeeks(74)));
-        
         ApprovalConnection conn = new ApprovalConnection("http://localhost:8000/toapproval");
         List<Object> temp = conn.fetch(Map.of());
         
