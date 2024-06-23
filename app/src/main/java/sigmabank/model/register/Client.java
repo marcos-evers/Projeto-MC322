@@ -16,7 +16,7 @@ import sigmabank.utils.DocumentValidator;
 import sigmabank.utils.HashPassword;
 
 
-@XmlRootElement
+@XmlRootElement(name="Client")
 public class Client extends Register {
     @XmlElement private final String cpf;
     private BigDecimal balance;

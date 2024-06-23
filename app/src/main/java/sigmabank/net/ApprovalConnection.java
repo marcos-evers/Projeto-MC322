@@ -84,8 +84,15 @@ public class ApprovalConnection implements IConnection<Object> {
         List<Object> loans = ReaderFactory.createReader(Loan.class).readStringXML(responseBody);
 
         List<Object> lists = new ArrayList<>();
-        lists.add(clients);
-        lists.add(loans);
+        lists.add(new ArrayList<Client>());
+        for (Object obj: clients) {
+            ((List<Client>) lists.get(0)).add((Client) obj);
+        }
+
+        lists.add(new ArrayList<Loan>());
+        for (Object obj: loans) {
+            ((List<Loan>) lists.get(1)).add((Loan) obj);
+        }
 
         return lists;
     }
