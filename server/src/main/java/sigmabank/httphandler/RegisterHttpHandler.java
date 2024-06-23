@@ -60,7 +60,7 @@ public class RegisterHttpHandler implements HttpHandler {
         
             client.setPasswordHash(params.get("password"));
             client.setEmail(params.get("email"));
-            client.setPhoneNumber(params.get("phoneNumber"));
+            client.setPhoneNumber(params.get("phonenumber"));
             client.setAddress(params.get("address"));
 
             Database.getInstance().addEntry("ClientsToApproval", client);
@@ -73,7 +73,7 @@ public class RegisterHttpHandler implements HttpHandler {
             }
         } catch(Exception e) {
             String response = "Registration Unsuccessful: " + e.getMessage();
-            exchange.sendResponseHeaders(200, response.getBytes().length);
+            exchange.sendResponseHeaders(400, response.getBytes().length);
             try (OutputStream os = exchange.getResponseBody()) {
                 os.write(response.getBytes());
             }
