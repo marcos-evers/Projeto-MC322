@@ -10,6 +10,7 @@ import sigmabank.controllers.BaseController;
 import sigmabank.model.loan.Loan;
 import sigmabank.net.ApprovalConnection;
 import sigmabank.utils.DateFormatter;
+import sigmabank.utils.Rounder;
 
 public class LoanController extends BaseController<Loan> {
     @FXML private Text startDate;
@@ -19,8 +20,8 @@ public class LoanController extends BaseController<Loan> {
     @Override
     public void initData() throws IOException {
         this.startDate.setText(DateFormatter.format(this.object.getStartDay()));        
-        this.value.setText(this.object.getValue().toString());
-        this.clientUuid.setText(this.object.getClientUUID().toString());
+        this.value.setText("R$ " + Rounder.round(this.object.getValue()));
+        this.clientUuid.setText(Rounder.round(this.object.getClientUUID()));
     }
 
     public void deny(Event e) throws IOException {
