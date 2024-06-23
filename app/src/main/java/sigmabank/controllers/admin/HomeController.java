@@ -56,6 +56,9 @@ public class HomeController extends BaseController<Admin> {
         List<Client> clients = (List<Client>) temp.get(0);
         List<Loan> loans = (List<Loan>) temp.get(1);
 
+        System.out.println(clients);
+        System.out.println(loans);
+
         for (Client client : clients) {
             accountRequests.getChildren().add(this.getView("admin/client_item", client));
         }

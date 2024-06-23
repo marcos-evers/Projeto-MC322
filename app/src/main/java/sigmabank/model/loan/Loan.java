@@ -9,7 +9,7 @@ import java.util.UUID;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement
+@XmlRootElement(name="Loan")
 public class Loan {
     @XmlElement private final BigDecimal value;
     @XmlElement private final BigDecimal fee;
