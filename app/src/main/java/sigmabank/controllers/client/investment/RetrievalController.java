@@ -2,6 +2,7 @@ package sigmabank.controllers.client.investment;
 
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.util.Map;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -10,18 +11,20 @@ import javafx.scene.text.Text;
 import sigmabank.controllers.BaseController;
 import sigmabank.model.investment.Investment;
 import sigmabank.model.register.Client;
+import sigmabank.net.InvestmentOperationConnection;
+import sigmabank.net.LoanPaymentConnection;
+import sigmabank.utils.Rounder;
 
 public class RetrievalController extends BaseController<Investment> {
     @FXML private TextField value;
-    @FXML private Text maxValueToRetrive;
+    @FXML private Text available;
 
     @Override
     public void initData() throws IOException {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'initData'");
+        this.available.setText("R$ " + Rounder.round(this.object.getValue()));
     }
 
-    public void confirm(ActionEvent e) {
+    public void confirm(ActionEvent e) throws IOException {
         BigDecimal valueToRetrieve;
         try {
             valueToRetrieve = new BigDecimal(value.getText());
@@ -35,10 +38,16 @@ public class RetrievalController extends BaseController<Investment> {
             return;
         }
 
+        if (this.object.getValue().compareTo(valueToRetrieve) < 0) {
+            BaseController.errorDialog("Valor indisponível.");
+            return;
+        }
+
         final Client client = (Client) this.additionalData;
-        //TODO comparar se o dinheiro no investimento é suficiente
-        BigDecimal newBalance = client.getBalance().add(valueToRetrieve);
-        client.setBalance(newBalance);
+        // client.setBalance(client.getBalance().add(valueToRetrieve));
+
+        InvestmentOperationConnection conn = new InvestmentOperationConnection("http://localhost:80000//investment/operate");
+        conn.sendOperation(this.object, "retrieval", valueToRetrieve);
     }
 
     public void leave(ActionEvent e) {
