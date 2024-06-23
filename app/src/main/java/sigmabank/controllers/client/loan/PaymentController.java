@@ -2,6 +2,7 @@ package sigmabank.controllers.client.loan;
 
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.util.Map;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -10,6 +11,7 @@ import javafx.scene.text.Text;
 import sigmabank.controllers.BaseController;
 import sigmabank.model.loan.Loan;
 import sigmabank.model.register.Client;
+import sigmabank.net.LoanPaymentConnection;
 import sigmabank.utils.Rounder;
 
 public class PaymentController extends BaseController<Loan> {
@@ -21,7 +23,7 @@ public class PaymentController extends BaseController<Loan> {
         this.balance.setText("Saldo em conta: R$ " + Rounder.round(((Client)this.additionalData).getBalance()));
     }
 
-    public void confirm(ActionEvent e) {
+    public void confirm(ActionEvent e) throws IOException {
         BigDecimal valueToPay;
         try {
             valueToPay = new BigDecimal(value.getText());
@@ -41,7 +43,17 @@ public class PaymentController extends BaseController<Loan> {
             return;
         }
         
-        // TODO update the loan and client's balance on database
+        LoanPaymentConnection conn = new LoanPaymentConnection("http://localhost:8000/loan/payment");
+        conn.send(Map.of(
+            "clientuuid", this.object.getClientUUID().toString(),
+            "loanuuid", this.object.getLoanUUID().toString(),
+            "value", valueToPay
+        ));
+
+        client.setBalance(client.getBalance().subtract(valueToPay));
+        this.object.payLoan(valueToPay);
+
+        this.leave(e);
     }
     
     public void leave(ActionEvent e) {
