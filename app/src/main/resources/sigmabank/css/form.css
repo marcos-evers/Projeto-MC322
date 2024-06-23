@@ -2,7 +2,7 @@ AnchorPane {
     -fx-background-color: #ffffff;
 }
 
-TextField, DatePicker {
+TextField, PasswordField, DatePicker {
     -fx-background-radius: 8;
     -fx-border-radius: 8;
     -fx-font-size: 16;
@@ -10,7 +10,7 @@ TextField, DatePicker {
     -fx-pref-height: 48;
 }
 
-TextField::placeholder {
+TextField::placeholder, PasswordField::placeholder {
     -fx-font-size: 16;
     -fx-text-fill: #828282;
 }

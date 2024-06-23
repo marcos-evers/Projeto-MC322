@@ -17,7 +17,7 @@ public class App extends Application {
         stage.getIcons().add(new Image("/sigmabank/images/logo.png"));
 
         BaseController.loadView(
-            getClass().getResource("/sigmabank/views/login.fxml"),
+            getClass().getResource("/sigmabank/views/auth/login.fxml"),
             "Login",
             stage
         );
