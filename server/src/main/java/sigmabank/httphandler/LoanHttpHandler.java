@@ -58,11 +58,11 @@ public class LoanHttpHandler implements HttpHandler {
                 UUID.fromString(params.get("clientUUID")),
                 LocalDate.parse(params.get("startDay"))
             );
-        
-            Database.getInstance().addEntry("Loans", loan);
+
+            Database.getInstance().addEntry("LoansToApproval", loan);
             Database.getInstance().saveToXML("src/main/resources/database");
 
-            String response = "Registration Successful: " + loan.toString();
+            String response = "Register Loan to Approval: " + loan.toString();
             exchange.sendResponseHeaders(200, response.getBytes().length);
             try (OutputStream os = exchange.getResponseBody()) {
                 os.write(response.getBytes());

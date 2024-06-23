@@ -5,5 +5,5 @@ server/bin
 .settings/*
 app/.settings
 server/.settings
-server/src/main/resources/sigmabank/database
+server/src/main/resources/database
 gradle.properties

@@ -111,9 +111,6 @@ public class InvestmentHttpHandler implements HttpHandler {
         Map<?, ?> assetInvestments = ClientInvestmentMultiton.getInstance()
             .getAssetInvestments(clientUUID);
 
-        System.out.println(assetInvestments);
-        System.out.println(rateInvestments);
-
         try {
             StringWriter sw = new StringWriter();
             JAXBContext jaxbcontext = JAXBContext.newInstance(Investment.class);
