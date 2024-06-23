@@ -75,6 +75,14 @@ public class ApprovalHttpHandler implements HttpHandler {
         if (loans.size() != 1 || !isapproved) return false;
 
         Loan loan = (Loan) loans.get(0);
+        
+        Client client = (Client) Database.getInstance().query("Clients",
+            (Object obj) -> {
+                return ((Client) obj).getUUID().equals(loan.getClientUUID());
+        }).get(0);
+
+        client.setBalance(client.getBalance().add(loan.getValue()));
+
         Database.getInstance().addEntry("Loans", loan);
         Database.getInstance().saveToXML();
 
@@ -86,6 +94,8 @@ public class ApprovalHttpHandler implements HttpHandler {
         BufferedReader br = new BufferedReader(isr);
         String query = br.readLine();
         Map<String, String> params = parseParams(query);
+
+        System.out.println("[MSG] Recived data: " + query);
 
         String response = "";
         if ((params.get("type").equals("loan") && !handleLoanApproval(params))

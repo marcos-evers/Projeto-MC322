@@ -87,8 +87,6 @@ public class LoanHttpHandler implements HttpHandler {
                 return ((Loan) obj).getClientUUID().equals(clientUUID);
         });
 
-        System.out.println(loans);
-
         try {
             StringWriter sw = new StringWriter();
             JAXBContext jaxbcontext = JAXBContext.newInstance(Loan.class);
