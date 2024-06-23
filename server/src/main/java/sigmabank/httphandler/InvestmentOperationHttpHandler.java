@@ -8,28 +8,22 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
-import java.io.StringWriter;
 
 import java.math.BigDecimal;
 
 import java.net.URLDecoder;
 
 import java.nio.charset.StandardCharsets;
-import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.Marshaller;
 
 import java.util.List;
 
 import sigmabank.database.Database;
 import sigmabank.model.investment.AssetInvestEnum;
 import sigmabank.model.investment.AssetInvestment;
-import sigmabank.model.investment.Investment;
-import sigmabank.model.investment.ROIFrequencyType;
 import sigmabank.model.investment.RateInvestEnum;
 import sigmabank.model.investment.RateInvestment;
 
@@ -47,7 +41,6 @@ public class InvestmentOperationHttpHandler implements HttpHandler {
         }
     }
 
-    // TODO refactor this code, its bad
     private void handleAssetOperation(Map<String, String> params) {
         UUID clientUUID = UUID.fromString(params.get("uuid"));
         AssetInvestEnum investEnum = AssetInvestEnum.valueOf(params.get("invenum"));

@@ -84,6 +84,7 @@ public class Client extends Register {
      * @param investment The investment object to be added.
      */
     public void addInvestiment(Investment investment) {
+        this.balance = this.balance.add(investment.getValue());
         this.investments.add(investment);
     }
 
@@ -93,6 +94,7 @@ public class Client extends Register {
      * @param loan The loan object to be added.
      */
     public void addLoan(Loan loan) {
+        this.balance = this.balance.add(loan.getValue());
         this.loans.add(loan);
     }
 
