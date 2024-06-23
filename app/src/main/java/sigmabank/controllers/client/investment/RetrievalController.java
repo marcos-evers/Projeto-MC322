@@ -44,10 +44,14 @@ public class RetrievalController extends BaseController<Investment> {
         }
 
         final Client client = (Client) this.additionalData;
-        // client.setBalance(client.getBalance().add(valueToRetrieve));
-
+        
         InvestmentOperationConnection conn = new InvestmentOperationConnection("http://localhost:80000//investment/operate");
-        conn.sendOperation(this.object, "retrieval", valueToRetrieve);
+        conn.sendOperation(this.object, "retrieve", valueToRetrieve);
+
+        client.setBalance(client.getBalance().add(valueToRetrieve));
+        this.object.setValue(this.object.getValue().subtract(valueToRetrieve));
+
+        this.leave(e);
     }
 
     public void leave(ActionEvent e) {
