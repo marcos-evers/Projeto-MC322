@@ -8,11 +8,12 @@ import java.io.DataOutputStream;
 import java.net.HttpURLConnection;
 import java.net.URI;
 import java.net.URL;
-
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import sigmabank.model.investment.Investment;
+import sigmabank.utils.readers.ReaderFactory;
 
 public class InvestmentConnection implements IConnection<Investment> {
     private final String uri;
@@ -63,8 +64,13 @@ public class InvestmentConnection implements IConnection<Investment> {
             System.out.println("[MSG] Fetch client: " + responseBody);
         }
         connection.disconnect();
-        // TODO parse response
-        return null;
+        
+        List<Object> investments = ReaderFactory.createReader(Investment.class).readStringXML(responseBody);
+        List<Investment> investmentsInvestment = new ArrayList<>();
+        for (Object investment : investments) {
+            investmentsInvestment.add((Investment) investment);
+        }
+        return investmentsInvestment;
     }
 
     private String buildFetchURI(Map<String, Object> params) {

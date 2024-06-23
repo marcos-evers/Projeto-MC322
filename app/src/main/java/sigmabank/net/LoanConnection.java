@@ -10,9 +10,11 @@ import java.net.URI;
 import java.net.URL;
 
 import java.util.Map;
+import java.util.ArrayList;
 import java.util.List;
 
 import sigmabank.model.loan.Loan;
+import sigmabank.utils.readers.ReaderFactory;
 
 public class LoanConnection implements IConnection<Loan> {
     private final String uri;
@@ -47,8 +49,14 @@ public class LoanConnection implements IConnection<Loan> {
             System.out.println("[MSG] Fetch client: " + responseBody);
         }
         connection.disconnect();
-        // TODO parse response
-        return null;
+        
+        List<Object> loans = ReaderFactory.createReader(Loan.class).readStringXML(responseBody);
+        List<Loan> loansLoan = new ArrayList<>();
+        for (Object loan : loans) {
+            loansLoan.add((Loan) loan);
+        }
+
+        return loansLoan;
     }
 
     /**
