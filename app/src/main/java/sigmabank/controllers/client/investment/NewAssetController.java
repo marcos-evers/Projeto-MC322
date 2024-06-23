@@ -2,14 +2,18 @@ package sigmabank.controllers.client.investment;
 
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.math.MathContext;
+import java.math.RoundingMode;
 import java.time.LocalDate;
 
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 import sigmabank.controllers.BaseController;
 import sigmabank.model.investment.AssetInvestment;
 import sigmabank.model.investment.InfoInvestments.InfoInvest;
@@ -42,7 +46,11 @@ public class NewAssetController extends BaseController<InfoInvest> {
     }
 
     public void goBack(Event e) throws IOException {
-        this.loadView("client/home", "Home", (Client)this.additionalData);
+        Stage parentStage = (Stage) this.stage.getOwner();
+
+        this.loadView("client/home", "Home", (Client) this.additionalData);
+
+        parentStage.close();
     }
 
     public void valueChanged(String newValue) {
@@ -57,7 +65,7 @@ public class NewAssetController extends BaseController<InfoInvest> {
             return null;
         }
 
-        return valueToInvest.divide(this.object.getAssetValue());
+        return valueToInvest.divide(this.object.getAssetValue(), new MathContext(4, RoundingMode.HALF_UP));
     }
 
     public void confirm(Event e) throws IOException {

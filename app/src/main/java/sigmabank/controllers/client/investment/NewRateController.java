@@ -8,8 +8,10 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 import sigmabank.controllers.BaseController;
 import sigmabank.model.investment.RateInvestment;
 import sigmabank.model.investment.InfoInvestments.InfoInvest;
@@ -35,7 +37,11 @@ public class NewRateController extends BaseController<InfoInvest> {
     }
 
     public void goBack(Event e) throws IOException {
+        Stage parentStage = (Stage) this.stage.getOwner();
+
         this.loadView("client/home", "Home", this.additionalData);
+
+        parentStage.close();
     }
 
     public void confirm(Event e) throws IOException {
