@@ -41,9 +41,9 @@ public class Server {
         // GET - Given CPF and password return the respective client
         server.createContext("/client", new RegisterHttpHandler());
         
-        // POST - Informs that a client was approved or not
-        // GET - Return the clients to be approved
-        server.createContext("/client/toapproval", new ApprovalHttpHandler());
+        // POST - Informs that a client or a loan was approved or not
+        // GET - Return the clients and loans to be approved
+        server.createContext("/toapproval", new ApprovalHttpHandler());
 
         // POST - Create a new investment in the server
         // GET - Return the investments of a client
