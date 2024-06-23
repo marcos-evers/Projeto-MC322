@@ -18,6 +18,13 @@ public class Loan {
     @XmlElement private final LocalDate startDay;
     @XmlElement private LocalDate lastUpdateDate;
     @XmlElement private BigDecimal amount;
+
+    public Loan() {
+        this.value = null;
+        this.fee = null;
+        this.clientUUID = null;
+        this.startDay = null;
+    }
     
     public Loan(BigDecimal value, UUID clientUUID, LocalDate startDay){
         this.value = value;

@@ -19,7 +19,7 @@ import sigmabank.utils.HashPassword;
 @XmlRootElement
 public class Client extends Register {
     @XmlElement private final String cpf;
-    @XmlElement private BigDecimal balance;
+    private BigDecimal balance;
 
     private List<Investment> investments;
     private List<Loan> loans;

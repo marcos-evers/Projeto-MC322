@@ -127,13 +127,18 @@ public class ApprovalHttpHandler implements HttpHandler {
             for (Object loan: loans)
                 marshaller.marshal(loan, swloan);
 
-            String response = "<ClientsToApproval>" + swclient.toString() + "</ClientsToApproval>"
-                + "<LoansToApproval>" + swloan.toString() + "</LoansToApproval>";
+            String response = 
+                "<Response>" 
+                + "<ClientsToApproval>" + swclient.toString() + "</ClientsToApproval>"
+                + "<LoansToApproval>" + swloan.toString() + "</LoansToApproval>"
+                + "</Response>";
             exchange.sendResponseHeaders(200, response.getBytes().length);
             try (OutputStream os = exchange.getResponseBody()) {
                 os.write(response.getBytes());
             }
         } catch(Exception e) {
+            System.out.println("[ERR] " + e.getMessage());
+            e.printStackTrace();
             String response = "Something went wrong: " + e.getMessage();
             exchange.sendResponseHeaders(400, response.getBytes().length);
             try (OutputStream os = exchange.getResponseBody()) {
