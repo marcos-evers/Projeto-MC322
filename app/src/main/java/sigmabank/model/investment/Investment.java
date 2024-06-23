@@ -13,14 +13,19 @@ import sigmabank.utils.LocalDateAdapter;
 @XmlRootElement
 public class Investment {
     @XmlElement protected String name;
-    @XmlElement protected BigDecimal investedValue;
-    @XmlElement protected BigDecimal value;
+    protected BigDecimal investedValue;
+    protected BigDecimal value;
     @XmlElement protected BigDecimal retrievedValue;
     @XmlElement protected final UUID clientUUID;
 
     @XmlElement
     @XmlJavaTypeAdapter(value = LocalDateAdapter.class)
     protected final LocalDate startDate;
+
+    public Investment() {
+        clientUUID = null;
+        startDate = null;
+    }
     
     public Investment(String name, BigDecimal investedValue, UUID clientUUID, LocalDate startDate){
         this.name = name;

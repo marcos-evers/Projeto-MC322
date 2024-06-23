@@ -9,7 +9,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement(name = "RateInvestment")
 public class RateInvestment extends Investment implements InvestmentOperations{
-    @XmlElement private BigDecimal rate;
+    private BigDecimal rate;
     @XmlElement private BigDecimal addedValue;
     @XmlElement private final ROIFrequencyType frequencyType;
     @XmlElement private LocalDate lastUpdateDate;

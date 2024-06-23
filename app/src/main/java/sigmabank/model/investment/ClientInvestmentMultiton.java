@@ -147,6 +147,7 @@ public class ClientInvestmentMultiton {
      * @return Map of rate-based investments for the client
      */
     public Map<RateInvestEnum, RateInvestment> getRateInvestments(UUID clientUUID) {
+        rateInvestments.putIfAbsent(clientUUID, new HashMap<>());
         return rateInvestments.get(clientUUID);
     }
 
@@ -156,6 +157,7 @@ public class ClientInvestmentMultiton {
      * @return Map of asset-based investments for the client
      */
     public Map<AssetInvestEnum, AssetInvestment> getAssetInvestments(UUID clientUUID) {
+        assetInvestments.putIfAbsent(clientUUID, new HashMap<>());
         return assetInvestments.get(clientUUID);
     }
 

@@ -9,9 +9,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement(name = "AssetInvestment")
 public class AssetInvestment extends Investment implements InvestmentOperations {
-    @XmlElement private BigDecimal assetValue;
-    @XmlElement private BigDecimal assetQuantity;
-    @XmlElement private AssetInvestEnum assetType;
+    private BigDecimal assetValue;
+    private BigDecimal assetQuantity;
+    private AssetInvestEnum assetType;
 
     public AssetInvestment(String name, BigDecimal investedvalue, UUID clientUUID, LocalDate startDate, BigDecimal assetValue, AssetInvestEnum assetType) {
         super(name, investedvalue, clientUUID, startDate);

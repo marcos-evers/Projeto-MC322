@@ -12,7 +12,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import sigmabank.model.investment.AssetInvestment;
 import sigmabank.model.investment.Investment;
+import sigmabank.model.investment.RateInvestment;
 import sigmabank.utils.readers.ReaderFactory;
 
 public class InvestmentConnection implements IConnection<Investment> {
@@ -65,11 +67,12 @@ public class InvestmentConnection implements IConnection<Investment> {
         }
         connection.disconnect();
         
-        List<Object> investments = ReaderFactory.createReader(Investment.class).readStringXML(responseBody);
+        List<Object> rateInvestments = ReaderFactory.createReader(RateInvestment.class).readStringXML(responseBody);
+        List<Object> assetInvestments = ReaderFactory.createReader(AssetInvestment.class).readStringXML(responseBody);
+
         List<Investment> investmentsInvestment = new ArrayList<>();
-        for (Object investment : investments) {
-            investmentsInvestment.add((Investment) investment);
-        }
+        for (Object investment : rateInvestments)  investmentsInvestment.add((Investment) investment);
+        for (Object investment : assetInvestments) investmentsInvestment.add((Investment) investment);
         return investmentsInvestment;
     }
 

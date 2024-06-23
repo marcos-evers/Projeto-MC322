@@ -105,15 +105,11 @@ public class InvestmentHttpHandler implements HttpHandler {
 
         UUID clientUUID = UUID.fromString(params.get("uuid"));
 
-        // List<Object> rateInvestments = Database.getInstance().query("RateInvestments",
-        //     (Object obj) -> {
-        //         return ((RateInvestment) obj).getClientUUID().equals(clientUUID);
-        // });
-        //
-        // List<Object> assetInvestments = Database.getInstance().query("AssetInvestments",
-        //     (Object obj) -> {
-        //         return ((AssetInvestment) obj).getClientUUID().equals(clientUUID);
-        // });
+        Map<?, ?> rateInvestments = ClientInvestmentMultiton.getInstance()
+            .getRateInvestments(clientUUID);
+
+        Map<?, ?> assetInvestments = ClientInvestmentMultiton.getInstance()
+            .getAssetInvestments(clientUUID);
 
         System.out.println(assetInvestments);
         System.out.println(rateInvestments);
@@ -126,9 +122,9 @@ public class InvestmentHttpHandler implements HttpHandler {
             marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, false);
             marshaller.setProperty(Marshaller.JAXB_FRAGMENT, true);
 
-            for (Object investment: assetInvestments)
+            for (Object investment: assetInvestments.entrySet())
                 marshaller.marshal(investment, sw);
-            for (Object investment: rateInvestments)
+            for (Object investment: rateInvestments.entrySet())
                 marshaller.marshal(investment, sw);
 
             String response = "<Investments>" + sw.toString() + "</Investments>";
@@ -137,8 +133,9 @@ public class InvestmentHttpHandler implements HttpHandler {
                 os.write(response.getBytes());
             }
         } catch(Exception e) {
+            e.printStackTrace();
             String response = "Something went wrong: " + e.getMessage();
-            exchange.sendResponseHeaders(400, response.getBytes().length);
+            exchange.sendResponseHeaders(200, response.getBytes().length);
             try (OutputStream os = exchange.getResponseBody()) {
                 os.write(response.getBytes());
             }
