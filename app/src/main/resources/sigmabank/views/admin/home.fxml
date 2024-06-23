@@ -34,12 +34,12 @@
                <children>
                   <AnchorPane prefHeight="84.0" prefWidth="471.0" style="-fx-border-radius: 8; -fx-background-radius: 8;">
                      <children>
-                        <Text layoutX="23.0" layoutY="54.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Criação de contas" wrappingWidth="264.521484375">
+                        <Text layoutX="23.0" layoutY="54.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Criação de contas" wrappingWidth="448.521484375">
                            <font>
                               <Font name="Segoe UI Bold" size="27.0" />
                            </font>
                         </Text>
-                        <Text fx:id="amountClients" fill="#7b7b7b" layoutX="23.0" layoutY="74.0" strokeType="OUTSIDE" strokeWidth="0.0" text="n contas pendentes">
+                        <Text fx:id="amountClients" fill="#7b7b7b" layoutX="23.0" layoutY="74.0" strokeType="OUTSIDE" strokeWidth="0.0" text="n contas pendentes" wrappingWidth="256.2421875">
                            <font>
                               <Font name="Segoe UI" size="16.0" />
                            </font>
@@ -71,12 +71,12 @@
                <children>
                   <AnchorPane prefHeight="84.0" prefWidth="471.0" style="-fx-border-radius: 8; -fx-background-radius: 8;">
                      <children>
-                        <Text layoutX="23.0" layoutY="54.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Solicitações de empréstimos" wrappingWidth="359.521484375">
+                        <Text layoutX="23.0" layoutY="54.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Solicitações de empréstimos" wrappingWidth="443.521484375">
                            <font>
                               <Font name="Segoe UI Bold" size="27.0" />
                            </font>
                         </Text>
-                        <Text fx:id="amountLoans" fill="#7b7b7b" layoutX="23.0" layoutY="74.0" strokeType="OUTSIDE" strokeWidth="0.0" text="n contas pendentes">
+                        <Text fx:id="amountLoans" fill="#7b7b7b" layoutX="23.0" layoutY="74.0" strokeType="OUTSIDE" strokeWidth="0.0" text="n contas pendentes" wrappingWidth="220.2421875">
                            <font>
                               <Font name="Segoe UI" size="16.0" />
                            </font>
