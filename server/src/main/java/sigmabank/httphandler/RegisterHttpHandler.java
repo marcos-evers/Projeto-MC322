@@ -107,9 +107,10 @@ public class RegisterHttpHandler implements HttpHandler {
             StringWriter sw = new StringWriter();
             JAXBContext jaxbcontext = JAXBContext.newInstance(Client.class);
             Marshaller marshaller = jaxbcontext.createMarshaller();
+            marshaller.setProperty(Marshaller.JAXB_FRAGMENT, true);
             marshaller.marshal(clients.get(0), sw);
 
-            String response = sw.toString();
+            String response = "<Response>" + sw.toString() + "</Response>";
             exchange.sendResponseHeaders(200, response.getBytes().length);
             try (OutputStream os = exchange.getResponseBody()) {
                 os.write(response.getBytes());

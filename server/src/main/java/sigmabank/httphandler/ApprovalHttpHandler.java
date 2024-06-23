@@ -57,6 +57,7 @@ public class ApprovalHttpHandler implements HttpHandler {
 
         Client client = (Client) clients.get(0);
         Database.getInstance().addEntry("Clients", client);
+        Database.getInstance().saveToXML();
 
         return true;
     }
@@ -75,6 +76,7 @@ public class ApprovalHttpHandler implements HttpHandler {
 
         Loan loan = (Loan) loans.get(0);
         Database.getInstance().addEntry("Loans", loan);
+        Database.getInstance().saveToXML();
 
         return true;
     }

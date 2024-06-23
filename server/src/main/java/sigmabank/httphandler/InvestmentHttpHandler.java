@@ -30,7 +30,6 @@ import sigmabank.model.investment.AssetInvestEnum;
 import sigmabank.model.investment.AssetInvestment;
 import sigmabank.model.investment.ClientInvestmentMultiton;
 import sigmabank.model.investment.Investment;
-import sigmabank.model.investment.ROIFrequencyType;
 import sigmabank.model.investment.RateInvestEnum;
 import sigmabank.model.investment.RateInvestment;
 
@@ -106,15 +105,15 @@ public class InvestmentHttpHandler implements HttpHandler {
 
         UUID clientUUID = UUID.fromString(params.get("uuid"));
 
-        List<Object> rateInvestments = Database.getInstance().query("RateInvestments",
-            (Object obj) -> {
-                return ((RateInvestment) obj).getClientUUID().equals(clientUUID);
-        });
-
-        List<Object> assetInvestments = Database.getInstance().query("AssetInvestments",
-            (Object obj) -> {
-                return ((AssetInvestment) obj).getClientUUID().equals(clientUUID);
-        });
+        // List<Object> rateInvestments = Database.getInstance().query("RateInvestments",
+        //     (Object obj) -> {
+        //         return ((RateInvestment) obj).getClientUUID().equals(clientUUID);
+        // });
+        //
+        // List<Object> assetInvestments = Database.getInstance().query("AssetInvestments",
+        //     (Object obj) -> {
+        //         return ((AssetInvestment) obj).getClientUUID().equals(clientUUID);
+        // });
 
         System.out.println(assetInvestments);
         System.out.println(rateInvestments);

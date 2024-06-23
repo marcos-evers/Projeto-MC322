@@ -1,1 +1,1 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><Clients/>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><Clients><Client><uuid>96ccfcb9-ea1e-41de-8fa1-35d9e0b8cf31</uuid><name>Marcos Paulo Evers</name><cpf>04897258308</cpf><balance>0</balance><dateOfBirth>2005-02-21</dateOfBirth><passwordHash>68a74c711be8a95f3fefde30094443fa23c5fa0e5bac27ff686b7dab224b4ac3</passwordHash><address>Rua Pinto, 69, 69420-420</address><email>marcos@paulo.evers</email><phoneNumber>0000</phoneNumber></Client></Clients>

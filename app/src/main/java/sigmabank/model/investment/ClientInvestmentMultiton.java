@@ -168,12 +168,14 @@ public class ClientInvestmentMultiton {
     public ArrayList<InfoInvest> getNotExistingRateInvestments(UUID clientUUID) {
         ArrayList<InfoInvest> notExistingRateInvestments = new ArrayList<>();
         InfoInvest info;
+        rateInvestments.putIfAbsent(clientUUID, new HashMap<>());
         for (RateInvestEnum rateInvestEnum : RateInvestEnum.values()) {
             if (!rateInvestments.get(clientUUID).containsKey(rateInvestEnum)) {
-                info = ReaderRateInfo.readRateInvestment("app/src/main/resources/RateInvestments.xml", rateInvestEnum.toString());
+                info = ReaderRateInfo.readRateInvestment("src/main/resources/RateInvestments.xml", rateInvestEnum.toString());
                 notExistingRateInvestments.add(info);
             }
         }
+        System.out.println(notExistingRateInvestments);
         return notExistingRateInvestments;
     }
 
@@ -186,9 +188,10 @@ public class ClientInvestmentMultiton {
     public ArrayList<InfoInvest> getNotExistingAssetInvestments(UUID clientUUID) {
         ArrayList<InfoInvest> notExistingAssetInvestments = new ArrayList<>();
         InfoInvest info;
+        assetInvestments.putIfAbsent(clientUUID, new HashMap<>());
         for (AssetInvestEnum assetInvestEnum : AssetInvestEnum.values()) {
             if (!assetInvestments.get(clientUUID).containsKey(assetInvestEnum)) {
-                info = ReaderAssetInfo.readAssetInvestment("app/src/main/resources/AssetInvestments.xml", assetInvestEnum.toString());
+                info = ReaderAssetInfo.readAssetInvestment("src/main/resources/AssetInvestments.xml", assetInvestEnum.toString());
                 notExistingAssetInvestments.add(info);
             }
         }

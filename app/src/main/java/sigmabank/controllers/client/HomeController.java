@@ -40,24 +40,16 @@ public class HomeController extends BaseController<Client> {
         this.greeting.setText("Olá, " + this.object.getName().split(" ")[0] + "!");
         this.balance.setText("R$ " + Rounder.round(this.object.getBalance()));
         
-        InvestmentConnection connInvest = new InvestmentConnection("localhost:8000/investment");
+        InvestmentConnection connInvest = new InvestmentConnection("http://localhost:8000/investment");
         List<Investment> investments = connInvest.fetch(Map.of(
-            "uuid", this.object.getUUID().toString()
+            "clientUUID", this.object.getUUID().toString()
         ));
         
-        LoanConnection connLoan = new LoanConnection("localhost:8000/loan");
+        LoanConnection connLoan = new LoanConnection("http://localhost:8000/loan");
         List<Loan> loans = connLoan.fetch(Map.of(
-            "uuid", this.object.getUUID().toString()
+            "clientUUID", this.object.getUUID().toString()
         ));
         
-        // hardcoded test:
-        // UUID random = UUID.randomUUID();
-        // List<Investment> investments = new ArrayList<>();
-        // investments.add(new Investment("dogecoin", BigDecimal.valueOf(1232.4), random, LocalDate.now()));
-        
-        // List<Loan> loans = new ArrayList<>();
-        // loans.add(new Loan(BigDecimal.valueOf(11000.0), random, LocalDate.now().minusYears(1)));
-
         investments.sort(Comparator.comparing(Investment::getStartDate).reversed());
         loans.sort(Comparator.comparing(Loan::getStartDay).reversed());
 
