@@ -7,9 +7,7 @@ import java.util.UUID;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-
-
-@XmlRootElement
+@XmlRootElement(name = "RateInvestment")
 public class RateInvestment extends Investment implements InvestmentOperations{
     @XmlElement private BigDecimal rate;
     @XmlElement private BigDecimal addedValue;
