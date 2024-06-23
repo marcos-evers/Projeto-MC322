@@ -1,7 +1,6 @@
 package sigmabank.controllers.admin;
 
 import java.io.IOException;
-import java.time.format.DateTimeFormatter;
 
 import javafx.event.ActionEvent;
 import javafx.event.Event;
@@ -9,6 +8,7 @@ import javafx.fxml.FXML;
 import javafx.scene.text.Text;
 import sigmabank.controllers.BaseController;
 import sigmabank.model.register.Client;
+import sigmabank.utils.DateFormatter;
 
 public class ClientController extends BaseController<Client> {
     @FXML private Text name;
@@ -22,8 +22,7 @@ public class ClientController extends BaseController<Client> {
         this.cpf.setText(this.object.getFormattedCpf());
         this.email.setText(this.object.getEmail());
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        this.dateOfBirth.setText(this.object.getDateOfBirth().format(formatter));
+        this.dateOfBirth.setText(DateFormatter.format(this.object.getDateOfBirth()));
     }
 
     public void deny(Event e) {

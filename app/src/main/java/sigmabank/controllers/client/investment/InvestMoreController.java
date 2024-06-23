@@ -9,7 +9,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import sigmabank.controllers.BaseController;
 import sigmabank.model.investment.Investment;
-import sigmabank.model.register.Client;;
+import sigmabank.model.register.Client;
+import sigmabank.utils.Rounder;
 
 public class InvestMoreController extends BaseController<Investment> {
     @FXML private TextField value;
@@ -17,7 +18,7 @@ public class InvestMoreController extends BaseController<Investment> {
 
     @Override
     public void initData() throws IOException {
-        this.balance.setText("Saldo em conta: R$ " + ((Client)this.additionalData).getBalance());
+        this.balance.setText("Saldo em conta: R$ " + Rounder.round(((Client)this.additionalData).getBalance()));
     }
 
     public void confirm(ActionEvent e) {

@@ -1,7 +1,6 @@
 package sigmabank.controllers.admin;
 
 import java.io.IOException;
-import java.time.format.DateTimeFormatter;
 
 import javafx.event.ActionEvent;
 import javafx.event.Event;
@@ -9,6 +8,7 @@ import javafx.fxml.FXML;
 import javafx.scene.text.Text;
 import sigmabank.controllers.BaseController;
 import sigmabank.model.loan.Loan;
+import sigmabank.utils.DateFormatter;
 
 public class LoanController extends BaseController<Loan> {
     @FXML private Text startDate;
@@ -17,9 +17,7 @@ public class LoanController extends BaseController<Loan> {
 
     @Override
     public void initData() throws IOException {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        this.startDate.setText(this.object.getStartDay().format(formatter));
-        
+        this.startDate.setText(DateFormatter.format(this.object.getStartDay()));        
         this.value.setText(this.object.getValue().toString());
         this.clientUuid.setText(this.object.getClientUUID().toString());
     }

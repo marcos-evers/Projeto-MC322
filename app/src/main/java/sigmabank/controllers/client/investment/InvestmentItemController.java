@@ -9,6 +9,7 @@ import javafx.scene.text.Text;
 import sigmabank.controllers.BaseController;
 import sigmabank.model.investment.Investment;
 import sigmabank.model.register.Client;
+import sigmabank.utils.Rounder;
 
 public class InvestmentItemController extends BaseController<Investment> {
     @FXML private Label name;
@@ -17,7 +18,7 @@ public class InvestmentItemController extends BaseController<Investment> {
     @Override
     public void initData() throws IOException {
         this.name.setText(this.object.getName());
-        this.value.setText("R$ " + this.object.getValue());
+        this.value.setText("R$ " + Rounder.round(this.object.getValue()));
     }
     
     public void open(Event e) throws IOException {

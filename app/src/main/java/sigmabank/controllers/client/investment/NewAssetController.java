@@ -13,7 +13,8 @@ import javafx.scene.text.Text;
 import sigmabank.controllers.BaseController;
 import sigmabank.model.investment.AssetInvestment;
 import sigmabank.model.investment.InfoInvestments.InfoInvest;
-import sigmabank.model.register.Client;;
+import sigmabank.model.register.Client;
+import sigmabank.utils.Rounder;;
 
 public class NewAssetController extends BaseController<InfoInvest> {
     @FXML private Text greeting;
@@ -27,9 +28,9 @@ public class NewAssetController extends BaseController<InfoInvest> {
     public void initData() throws IOException {
         this.greeting.setText("Olá, " + ((Client)this.additionalData).getName() + "!");
         this.name.setText(this.object.getName());
-        this.assetValue.setText("R$ " + this.object.getAssetValue());
+        this.assetValue.setText("R$ " + Rounder.round(this.object.getAssetValue()));
         value.textProperty().addListener((observable, oldValue, newValue) -> valueChanged(newValue));
-        this.balance.setText("R$ " + ((Client)this.additionalData).getBalance());
+        this.balance.setText("R$ " + Rounder.round(((Client)this.additionalData).getBalance()));
     }
 
     private BigDecimal getValueToInvest(String newValue) {

@@ -2,13 +2,14 @@ package sigmabank.controllers.client.loan;
 
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.time.format.DateTimeFormatter;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.text.Text;
 import sigmabank.controllers.BaseController;
 import sigmabank.model.loan.Loan;
+import sigmabank.utils.DateFormatter;
+import sigmabank.utils.Rounder;
 
 public class LoanController extends BaseController<Loan> {
     @FXML private Text startDate;
@@ -18,13 +19,12 @@ public class LoanController extends BaseController<Loan> {
 
     @Override
     public void initData() throws IOException {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        this.startDate.setText("Realizado em " + this.object.getStartDay().format(formatter));
+        this.startDate.setText("Realizado em " + DateFormatter.format(this.object.getStartDay()));
 
-        this.initialValue.setText("R$ " + this.object.getValue());
+        this.initialValue.setText("R$ " + Rounder.round(this.object.getValue()));
         // TODO see if this fee exhibition is right
         this.fee.setText(this.object.getFee().multiply(BigDecimal.valueOf(100.0)) + "%");
-        this.amount.setText("R$ " + this.object.getAmount());
+        this.amount.setText("R$ " + Rounder.round(this.object.getAmount()));
     }
 
     public void pay(ActionEvent e) throws IOException {

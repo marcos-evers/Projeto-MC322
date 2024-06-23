@@ -1,7 +1,6 @@
 package sigmabank.controllers.client.investment;
 
 import java.io.IOException;
-import java.time.format.DateTimeFormatter;
 
 import javafx.event.ActionEvent;
 import javafx.event.Event;
@@ -10,6 +9,8 @@ import javafx.scene.text.Text;
 import sigmabank.controllers.BaseController;
 import sigmabank.model.investment.Investment;
 import sigmabank.model.register.Client;
+import sigmabank.utils.DateFormatter;
+import sigmabank.utils.Rounder;
 
 public class InvestmentController extends BaseController<Investment> {
     @FXML private Text investmentName;
@@ -22,12 +23,10 @@ public class InvestmentController extends BaseController<Investment> {
     public void initData() throws IOException {
         this.investmentName.setText(this.object.getName());
         
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        this.startDate.setText("Iniciado em " + this.object.getStartDate().format(formatter));
-
-        this.invested.setText("R$ " + this.object.getInvestedValue());
-        this.value.setText("R$ " + this.object.getValue());
-        this.retrieved.setText("R$ " + this.object.getRetrievedValue());
+        this.startDate.setText("Iniciado em " + DateFormatter.format(this.object.getStartDate()));
+        this.invested.setText("R$ " + Rounder.round(this.object.getInvestedValue()));
+        this.value.setText("R$ " + Rounder.round(this.object.getValue()));
+        this.retrieved.setText("R$ " + Rounder.round(this.object.getRetrievedValue()));
     }
     
     public void leave(ActionEvent e) {

@@ -14,6 +14,7 @@ import sigmabank.controllers.BaseController;
 import sigmabank.model.investment.RateInvestment;
 import sigmabank.model.investment.InfoInvestments.InfoInvest;
 import sigmabank.model.register.Client;
+import sigmabank.utils.Rounder;
 
 public class NewRateController extends BaseController<InfoInvest> {
     @FXML private Text greeting;
@@ -30,7 +31,7 @@ public class NewRateController extends BaseController<InfoInvest> {
         this.name.setText(this.object.getName());
         this.rate.setText(this.object.getRate().multiply(BigDecimal.valueOf(100.0)) + "%");
         this.frequency.setText(this.object.getFrequencyType().toString());
-        this.balance.setText("Saldo em conta: R$ " + client.getBalance());
+        this.balance.setText("Saldo em conta: R$ " + Rounder.round(client.getBalance()));
     }
 
     public void goBack(Event e) throws IOException {

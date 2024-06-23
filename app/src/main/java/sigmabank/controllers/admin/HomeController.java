@@ -24,11 +24,11 @@ public class HomeController extends BaseController<Admin> {
     @FXML private VBox loanRequests;
     @FXML private Text amountLoans;
 
-    private List<Client> clients = new ArrayList<>();
-    private List<Loan> loans = new ArrayList<>();
-
+    
     @Override
     public void initData() throws IOException {
+        List<Client> clients = new ArrayList<>();
+        List<Loan> loans = new ArrayList<>();
         // TODO delete this hardcoded stuff
         try {
             clients.add(new Client("Nomeeee nomoe nomaeoaemone", LocalDate.now().minusYears(19), "42250341869"));

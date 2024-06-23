@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -21,6 +22,7 @@ import sigmabank.model.loan.Loan;
 import sigmabank.model.register.Client;
 import sigmabank.net.InvestmentConnection;
 import sigmabank.net.LoanConnection;
+import sigmabank.utils.Rounder;
 
 public class HomeController extends BaseController<Client> {
     @FXML private Text greeting;
@@ -36,39 +38,42 @@ public class HomeController extends BaseController<Client> {
     @Override
     public void initData() throws IOException {
         this.greeting.setText("Olá, " + this.object.getName().split(" ")[0] + "!");
-        this.balance.setText("R$ " + this.object.getBalance());
+        this.balance.setText("R$ " + Rounder.round(this.object.getBalance()));
         
         InvestmentConnection connInvest = new InvestmentConnection("localhost:8000/investment");
         List<Investment> investments = connInvest.fetch(Map.of(
             "uuid", this.object.getUUID().toString()
         ));
-
+        
         LoanConnection connLoan = new LoanConnection("localhost:8000/loan");
         List<Loan> loans = connLoan.fetch(Map.of(
             "uuid", this.object.getUUID().toString()
         ));
-
+        
         // hardcoded test:
         // UUID random = UUID.randomUUID();
         // List<Investment> investments = new ArrayList<>();
-        // investments.add(new Investment("dogecoin", BigDecimal.valueOf(123.4), random, LocalDate.now()));
-
+        // investments.add(new Investment("dogecoin", BigDecimal.valueOf(1232.4), random, LocalDate.now()));
+        
         // List<Loan> loans = new ArrayList<>();
         // loans.add(new Loan(BigDecimal.valueOf(11000.0), random, LocalDate.now().minusYears(1)));
 
+        investments.sort(Comparator.comparing(Investment::getStartDate).reversed());
+        loans.sort(Comparator.comparing(Loan::getStartDay).reversed());
+
         BigDecimal investmentTotal = BigDecimal.ZERO;
         for (Investment investment : investments) {
-            investmentTotal = investmentTotal.add(investment.getValue()).subtract(investment.getInvestedValue());
+            investmentTotal = investmentTotal.add(investment.calculateProfit());
             investmentsBox.getChildren().add(this.getView("client/investment/investment_item", investment, this.object));
         }
-        this.investmentsTotal.setText("Seus investimentos já renderam R$ " + investmentTotal.toString());
+        this.investmentsTotal.setText("Seus investimentos já renderam R$ " + Rounder.round(investmentTotal));
 
         BigDecimal loanTotal = BigDecimal.ZERO;
         for (Loan loan : loans) {
             loanTotal = loanTotal.add(loan.getAmount());
             loansBox.getChildren().add(this.getView("client/loan/loan_item", loan, this.object));
         }
-        this.loansTotal.setText("Seus empréstimos somam R$ " + loanTotal.toString());
+        this.loansTotal.setText("Seus empréstimos somam R$ " + Rounder.round(loanTotal));
     }
     
     public void newInvestment(ActionEvent e) throws IOException {
