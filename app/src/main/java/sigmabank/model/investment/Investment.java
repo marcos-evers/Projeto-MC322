@@ -6,6 +6,9 @@ import java.util.UUID;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+
+import sigmabank.utils.LocalDateAdapter;
 
 @XmlRootElement
 public class Investment {
@@ -14,7 +17,10 @@ public class Investment {
     @XmlElement protected BigDecimal value;
     @XmlElement protected BigDecimal retrievedValue;
     @XmlElement protected final UUID clientUUID;
-    @XmlElement protected final LocalDate startDate;
+
+    @XmlElement
+    @XmlJavaTypeAdapter(value = LocalDateAdapter.class)
+    protected final LocalDate startDate;
     
     public Investment(String name, BigDecimal investedValue, UUID clientUUID, LocalDate startDate){
         this.name = name;

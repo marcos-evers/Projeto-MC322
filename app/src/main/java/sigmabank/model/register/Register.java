@@ -8,13 +8,20 @@ import java.util.UUID;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+
+import sigmabank.utils.LocalDateAdapter;
 
 @XmlRootElement
 public abstract class Register {
     // Personal Data
     @XmlElement private final UUID uuid;
     @XmlElement private final String name;
-    @XmlElement private final LocalDate dateOfBirth;
+
+    @XmlElement
+    @XmlJavaTypeAdapter(value = LocalDateAdapter.class)
+    private final LocalDate dateOfBirth;
+
     private String passwordHash;
 
     // Contact Data

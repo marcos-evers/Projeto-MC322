@@ -8,6 +8,9 @@ import java.util.UUID;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+
+import sigmabank.utils.LocalDateAdapter;
 
 @XmlRootElement(name="Loan")
 public class Loan {
@@ -15,8 +18,15 @@ public class Loan {
     @XmlElement private final BigDecimal fee;
     @XmlElement private final UUID clientUUID;
     @XmlElement private UUID loanUUID;
-    @XmlElement private final LocalDate startDay;
-    @XmlElement private LocalDate lastUpdateDate;
+
+    @XmlElement
+    @XmlJavaTypeAdapter(value = LocalDateAdapter.class)
+    private final LocalDate startDay;
+
+    @XmlElement
+    @XmlJavaTypeAdapter(value = LocalDateAdapter.class)
+    private LocalDate lastUpdateDate;
+
     @XmlElement private BigDecimal amount;
 
     public Loan() {
