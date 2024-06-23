@@ -19,7 +19,9 @@ gradle :server:run  # to run the server
 gradle :server:test # to run the server unit tests
 
 chmod +x ./sigmarun.sh # linux command for allowing the bash file to be executed
-./sigmarun.sh # to run both app and server, the full aplication 
+./sigmarun.sh # to run both app and server, the full application 
+
+./sigmarun.bat # to run both app and server, the full application windows
 ```
 
 ## Functionalities
