@@ -9,8 +9,8 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#open" prefHeight="94.0" prefWidth="344.0" stylesheets="@../../../css/item.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sigmabank.controllers.client.investment.ChooseItemController">
    <children>
-      <Text fx:id="rateOrAsset" fill="#828282" layoutX="174.0" layoutY="55.0" strokeWidth="0.0" text="Ação" textAlignment="RIGHT" wrappingWidth="147.6171875" />
-      <Label fx:id="name" layoutX="24.0" layoutY="31.0" prefHeight="33.0" prefWidth="238.0" text="Nome" />
+      <Text fx:id="rateOrAsset" fill="#828282" layoutX="245.0" layoutY="56.0" strokeWidth="0.0" text="Ação" textAlignment="RIGHT" wrappingWidth="79.6171875" />
+      <Label fx:id="name" layoutX="20.0" layoutY="31.0" prefHeight="33.0" prefWidth="238.0" text="Nome" />
    </children>
    <effect>
       <DropShadow offsetX="1.57" offsetY="1.57">
