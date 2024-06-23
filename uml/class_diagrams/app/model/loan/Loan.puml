@@ -1,0 +1,37 @@
+@startuml Loan 
+class Loan {
+    // Fields
+    - value: BigDecimal
+    - fee: BigDecimal
+    - clientUUID: UUID
+    - loanUUID: UUID
+    - startDay: LocalDate
+    - lastUpdateDate: LocalDate
+    - amount: BigDecimal
+    
+    // Constructors
+    + Loan(value: BigDecimal, clientUUID: UUID, startDay: LocalDate)
+    + Loan(value: BigDecimal, fee: BigDecimal, clientUUID: UUID, loanUUID: UUID, startDay: LocalDate, amount: BigDecimal, lastUpdateDate: LocalDate)
+    
+    // Getters
+    + getValue(): BigDecimal
+    + getFee(): BigDecimal
+    + getClientUUID(): UUID
+    + getStartDay(): LocalDate
+    + getAmount(): BigDecimal
+    + getLoanUUID(): UUID
+    + getLastUpdateDate(): LocalDate
+    
+    // Methods
+    + payLoan(valuePay: BigDecimal): void
+    + updateAmount(): void
+    + simulatePayment(numMonth: int): BigDecimal
+    
+    // Private methods (optional)
+    - checkUpdateDate(): Boolean
+    - calculateFee(loanValue: BigDecimal): BigDecimal
+    - sqrt(loanValue: BigDecimal, mc: MathContext): BigDecimal
+    - pow(base: BigDecimal, exponent: BigDecimal, mc: MathContext): BigDecimal
+}
+
+@enduml

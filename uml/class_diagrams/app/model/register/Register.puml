@@ -1,0 +1,47 @@
+@startuml Register
+class Register {
+  - uuid: UUID
+  - name: String
+  - dateOfBirth: LocalDate
+  - passwordHash: String
+  - email: String
+  - phoneNumber: String
+  - address: String
+
+  + Register()
+  + Register(name: String, dateOfBirth: LocalDate)
+  + Register(name: String, dateOfBirth: LocalDate, uuid: UUID)
+
+  + setEmail(email: String): void
+  + setPhoneNumber(phoneNumber: String): void
+  + setAddress(address: String): void
+  + setPassword(password: String): void
+  + setPasswordHash(passwordHash: String): void
+
+  + getUUID(): UUID
+  + getName(): String
+  + getDateOfBirth(): LocalDate
+  + getEmail(): String
+  + getPhoneNumber(): String
+  + getAddress(): String
+  + getPasswordHash(): String
+}
+
+note right of Register
+  Personal Data:
+  - uuid: unique identifier
+  - name: full name
+  - dateOfBirth: date of birth
+end note
+
+note left of Register
+  Contact Data:
+  - email: email address
+  - phoneNumber: phone number
+  - address: physical address
+end note
+
+
+
+
+@enduml

@@ -1,0 +1,9 @@
+@startuml InvestmentMainDiagram
+
+!include Investment.puml
+!include InvestmentOperations.puml
+
+!include RateInvestment.puml
+!include AssetInvestment.puml
+
+@enduml
