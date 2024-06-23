@@ -64,7 +64,7 @@ public class RegisterController extends BaseController<Client> {
             "phoneNumber", client.getPhoneNumber(),
             "address", client.getAddress(),
             "email", client.getEmail(),
-            "passwordHash", client.getPasswordHash()
+            "password", client.getPasswordHash()
         ));
 
         this.login(e);
