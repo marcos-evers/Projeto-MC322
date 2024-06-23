@@ -10,6 +10,7 @@ import javafx.scene.text.Text;
 import sigmabank.controllers.BaseController;
 import sigmabank.model.investment.Investment;
 import sigmabank.model.register.Client;
+import sigmabank.net.InvestmentOperationConnection;
 import sigmabank.utils.Rounder;
 
 public class InvestMoreController extends BaseController<Investment> {
@@ -21,7 +22,7 @@ public class InvestMoreController extends BaseController<Investment> {
         this.balance.setText("Saldo em conta: R$ " + Rounder.round(((Client)this.additionalData).getBalance()));
     }
 
-    public void confirm(ActionEvent e) {
+    public void confirm(ActionEvent e) throws IOException {
         BigDecimal valueToInvest;
         try {
             valueToInvest = new BigDecimal(value.getText());
@@ -40,10 +41,14 @@ public class InvestMoreController extends BaseController<Investment> {
             BaseController.errorDialog("Saldo insuficiente.");            
             return;
         }
+
+        InvestmentOperationConnection conn = new InvestmentOperationConnection("http://localhost:8000/investment/operate");
+        conn.sendOperation(this.object, "investmore", valueToInvest);
         
-        // TODO update the investment and client's balance on database
-        BigDecimal newBalance = client.getBalance().subtract(valueToInvest);
-        client.setBalance(newBalance);
+        this.object.setValue(this.object.getValue().add(valueToInvest));
+        client.setBalance(client.getBalance().subtract(valueToInvest));
+
+        this.leave(e);
     }
     
     public void leave(ActionEvent e) {
