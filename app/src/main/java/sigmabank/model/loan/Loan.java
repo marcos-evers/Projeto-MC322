@@ -11,6 +11,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import sigmabank.utils.LocalDateAdapter;
+import sigmabank.utils.Precision;
 
 @XmlRootElement(name="Loan")
 public class Loan {
@@ -36,7 +37,7 @@ public class Loan {
         this.startDay = null;
     }
     
-    public Loan(BigDecimal value, UUID clientUUID, LocalDate startDay){
+    public Loan(BigDecimal value, UUID clientUUID, LocalDate startDay) {
         this.value = value;
         this.fee = calculateFee(value);
         this.clientUUID = clientUUID;
@@ -119,25 +120,23 @@ public class Loan {
     }
 
     public static BigDecimal calculateFee(BigDecimal loanValue) {
-        // MathContext for precision
         BigDecimal marketRate = new BigDecimal(0.05);
-        MathContext mc = new MathContext(10, RoundingMode.HALF_UP);
 
         // Calculate tempo = pow(2 * valor, 1/2)
         BigDecimal two = new BigDecimal("2");
-        BigDecimal tempo = sqrt(two.multiply(loanValue, mc), mc);
+        BigDecimal tempo = sqrt(two.multiply(loanValue, Precision.MATH_CONTEXT));
 
         // Calculate pow(1.05, tempo)
         BigDecimal onePointZeroFive = new BigDecimal("1.05");
-        BigDecimal powOnePointZeroFive = onePointZeroFive.pow(tempo.intValue(), mc);
+        BigDecimal powOnePointZeroFive = onePointZeroFive.pow(tempo.intValue(), Precision.MATH_CONTEXT);
 
         // Calculate pow(pow(1.05, tempo) / tempo, 1 / (tempo + 1))
-        BigDecimal division = powOnePointZeroFive.divide(tempo, mc);
-        BigDecimal oneOverTempoPlusOne = BigDecimal.ONE.divide(tempo.add(BigDecimal.ONE), mc);
-        BigDecimal innerPower = pow(division, oneOverTempoPlusOne, mc);
+        BigDecimal division = powOnePointZeroFive.divide(tempo, Precision.MATH_CONTEXT);
+        BigDecimal oneOverTempoPlusOne = BigDecimal.ONE.divide(tempo.add(BigDecimal.ONE), Precision.MATH_CONTEXT);
+        BigDecimal innerPower = pow(division, oneOverTempoPlusOne);
 
         // Calculate final result
-        BigDecimal result = innerPower.subtract(BigDecimal.ONE).multiply(new BigDecimal("3"), mc);
+        BigDecimal result = innerPower.subtract(BigDecimal.ONE).multiply(new BigDecimal("3"), Precision.MATH_CONTEXT);
 
         if(result.compareTo(BigDecimal.ZERO) < 0 || result.compareTo(marketRate) < 0)
             return marketRate.round(new MathContext(4));
@@ -147,27 +146,27 @@ public class Loan {
     }
 
     
-    private static BigDecimal sqrt(BigDecimal loanValue, MathContext mc) {
+    private static BigDecimal sqrt(BigDecimal loanValue) {
         BigDecimal x0 = new BigDecimal(Math.sqrt(loanValue.doubleValue()));
-        BigDecimal x1 = loanValue.divide(x0, mc);
+        BigDecimal x1 = loanValue.divide(x0, Precision.MATH_CONTEXT);
         x1 = x1.add(x0);
-        x1 = x1.divide(new BigDecimal("2"), mc);
+        x1 = x1.divide(new BigDecimal("2"), Precision.MATH_CONTEXT);
         return x1;
     }
 
     
-    private static BigDecimal pow(BigDecimal base, BigDecimal exponent, MathContext mc) {
+    private static BigDecimal pow(BigDecimal base, BigDecimal exponent) {
         int signOf2 = exponent.signum();
         double dn1 = base.doubleValue();
         exponent = exponent.multiply(new BigDecimal(signOf2)); 
         BigDecimal remainderOf2 = exponent.remainder(BigDecimal.ONE);
         BigDecimal n2IntPart = exponent.subtract(remainderOf2);
-        BigDecimal intPow = base.pow(n2IntPart.intValueExact(), mc);
+        BigDecimal intPow = base.pow(n2IntPart.intValueExact(), Precision.MATH_CONTEXT);
         BigDecimal doublePow = new BigDecimal(Math.pow(dn1, remainderOf2.doubleValue()));
 
-        BigDecimal result = intPow.multiply(doublePow, mc);
+        BigDecimal result = intPow.multiply(doublePow, Precision.MATH_CONTEXT);
         if (signOf2 == -1) {
-            result = BigDecimal.ONE.divide(result, mc.getPrecision(), RoundingMode.HALF_UP);
+            result = BigDecimal.ONE.divide(result, Precision.MATH_CONTEXT.getPrecision(), RoundingMode.HALF_UP);
         }
         return result;
     }
@@ -189,7 +188,7 @@ public class Loan {
         BigDecimal sumFeeN = sumFee.pow(numMonth);
         BigDecimal sumFeeNDiv = one.divide(sumFeeN);
         BigDecimal feeSub = one.subtract(sumFeeNDiv);
-        BigDecimal valueParcel = amountFee.divide(feeSub);
+        BigDecimal valueParcel = amountFee.divide(feeSub, Precision.MATH_CONTEXT);
 
         return valueParcel;
     }

@@ -1,10 +1,11 @@
 package sigmabank.model.investment;
 
 import java.math.BigDecimal;
+import java.math.MathContext;
+import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.util.UUID;
 
-import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement(name = "AssetInvestment")
@@ -16,7 +17,7 @@ public class AssetInvestment extends Investment implements InvestmentOperations 
     public AssetInvestment(String name, BigDecimal investedvalue, UUID clientUUID, LocalDate startDate, BigDecimal assetValue, AssetInvestEnum assetType) {
         super(name, investedvalue, clientUUID, startDate);
         this.assetValue = assetValue;
-        this.assetQuantity = this.investedValue.divide(this.assetValue);
+        this.assetQuantity = this.investedValue.divide(this.assetValue, new MathContext(2, RoundingMode.HALF_UP));
         this.assetType = assetType;
     }
 
@@ -62,7 +63,7 @@ public class AssetInvestment extends Investment implements InvestmentOperations 
             return BigDecimal.valueOf(0);
         }
 
-        this.assetQuantity = this.assetQuantity.subtract(amount.divide(this.assetValue));
+        this.assetQuantity = this.assetQuantity.subtract(amount.divide(this.assetValue, new MathContext(2, RoundingMode.HALF_UP)));
         this.value = this.assetQuantity.multiply(this.assetValue);
         this.retrievedValue = this.retrievedValue.add(amount);
 
