@@ -1,12 +1,16 @@
 package sigmabank.controllers;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.Map;
 
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import sigmabank.model.register.Client;
+import sigmabank.net.ClientConnection;
+import sigmabank.utils.HashPassword;
 
 public class LoginController extends BaseController<Client> {
     @FXML private TextField cpf;
@@ -18,10 +22,19 @@ public class LoginController extends BaseController<Client> {
 
             return;
         }
+        ClientConnection connection = new ClientConnection("http://localhost:8000/client");
+        String hash = HashPassword.hashPassword(this.cpf.getText(), this.password.getText());
+        List<Client> clientsList = connection.fetch(Map.of("cpf", this.cpf.getText(), "password", hash));
+        if(clientsList != null){
+            this.loadView("client_page", "Home", clientsList.get(0));
+            return;
+        }
+        BaseController.errorDialog("Senha ou cpf invaliado");
+
 
         // TODO make login validation
         // TODO: query the client here
-        this.loadView("client_page", "Home", new Client(cpf.getText()));
+        //this.loadView("client_page", "Home", new Client(cpf.getText()));
     }
     
     public void register(ActionEvent e) throws IOException {
