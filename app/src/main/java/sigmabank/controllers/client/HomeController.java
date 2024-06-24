@@ -32,6 +32,16 @@ public class HomeController extends BaseController<Client> {
     @FXML private VBox investmentsBox;
     @FXML private Text investmentsTotal;
 
+    private void reset() {
+        for (int i = investmentsBox.getChildren().size() - 1; i > 0; --i) {
+            investmentsBox.getChildren().remove(i);
+        }
+
+        for (int i = loansBox.getChildren().size() - 1; i > 0; --i) {
+            loansBox.getChildren().remove(i);
+        }
+    }
+
     @Override
     public void initData() throws IOException {
         this.greeting.setText("Olá, " + this.object.getName().split(" ")[0] + "!");
@@ -50,13 +60,15 @@ public class HomeController extends BaseController<Client> {
         investments.sort(Comparator.comparing(Investment::getStartDate).reversed());
         loans.sort(Comparator.comparing(Loan::getStartDay).reversed());
 
+        this.reset();
+
         BigDecimal investmentTotal = BigDecimal.ZERO;
         for (Investment investment : investments) {
             investmentTotal = investmentTotal.add(investment.calculateProfit());
             investmentsBox.getChildren().add(this.getView("client/investment/investment_item", investment, this.object));
         }
         this.investmentsTotal.setText("Seus investimentos já renderam R$ " + Rounder.round(investmentTotal));
-
+        
         BigDecimal loanTotal = BigDecimal.ZERO;
         for (Loan loan : loans) {
             loanTotal = loanTotal.add(loan.getAmount());

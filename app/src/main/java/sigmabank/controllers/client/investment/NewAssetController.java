@@ -11,12 +11,10 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import sigmabank.controllers.BaseController;
-import sigmabank.model.investment.AssetInvestment;
 import sigmabank.model.investment.InfoInvestments.InfoInvest;
 import sigmabank.model.register.Client;
 import sigmabank.net.InvestmentConnection;
@@ -83,15 +81,6 @@ public class NewAssetController extends BaseController<InfoInvest> {
             BaseController.errorDialog("Saldo insuficiente.");            
             return;
         }
-
-        AssetInvestment investment = new AssetInvestment(
-            this.object.getName(),
-            valueToInvest,
-            client.getUUID(),
-            LocalDate.now(),
-            this.object.getAssetValue(),
-            this.object.getAssetType()
-        );
 
         InvestmentConnection conn = new InvestmentConnection("http://localhost:8000/investment");
         conn.send(Map.of(

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.effect.DropShadow?>
@@ -99,5 +100,20 @@
                </color>
             </DropShadow>
          </effect></ScrollPane>
+      <Button alignment="CENTER" contentDisplay="CENTER" layoutX="548.0" layoutY="697.0" mnemonicParsing="false" onAction="#initData" prefHeight="30.0" prefWidth="30.0" style="-fx-background-radius: 8; -fx-border-radius: 8; -fx-background-color: #ffffff;" stylesheets="@../../css/clickable_link.css" text="↻" textAlignment="CENTER">
+         <font>
+            <Font name="Segoe UI Black" size="21.0" />
+         </font>
+         <effect>
+            <DropShadow offsetX="1.57" offsetY="1.57">
+               <color>
+                  <Color opacity="0.5" />
+               </color>
+            </DropShadow>
+         </effect>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
    </children>
 </AnchorPane>

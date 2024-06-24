@@ -9,12 +9,10 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import sigmabank.controllers.BaseController;
-import sigmabank.model.investment.RateInvestment;
 import sigmabank.model.investment.InfoInvestments.InfoInvest;
 import sigmabank.model.register.Client;
 import sigmabank.net.InvestmentConnection;
@@ -66,16 +64,6 @@ public class NewRateController extends BaseController<InfoInvest> {
             return;
         }
 
-        RateInvestment investment = new RateInvestment(
-            this.object.getName(),
-            valueToInvest,
-            client.getUUID(),
-            LocalDate.now(),
-            this.object.getRate(),
-            this.object.getFrequencyType(),
-            this.object.getRateType()
-        );
-
         InvestmentConnection conn = new InvestmentConnection("http://localhost:8000/investment");
         conn.send(Map.of(
             "clientUUID", client.getUUID(),
@@ -84,7 +72,6 @@ public class NewRateController extends BaseController<InfoInvest> {
             "investedvalue", valueToInvest,
             "startdate", LocalDate.now()
         ));
-
 
         this.goBack(e);
     }
