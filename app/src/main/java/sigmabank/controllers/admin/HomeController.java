@@ -1,6 +1,7 @@
 package sigmabank.controllers.admin;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -13,6 +14,7 @@ import sigmabank.model.loan.Loan;
 import sigmabank.model.register.Admin;
 import sigmabank.model.register.Client;
 import sigmabank.net.ApprovalConnection;
+import sigmabank.net.UpdateConnection;
 
 public class HomeController extends BaseController<Admin> {
     @FXML private VBox accountRequests;
@@ -33,6 +35,8 @@ public class HomeController extends BaseController<Admin> {
     
     @Override
     public void initData() throws IOException {
+        new UpdateConnection("http://localhost:8000/update").send(new HashMap<>());
+
         ApprovalConnection conn = new ApprovalConnection("http://localhost:8000/toapproval");
         List<Object> temp = conn.fetch(Map.of());
         

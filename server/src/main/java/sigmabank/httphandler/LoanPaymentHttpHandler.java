@@ -50,18 +50,18 @@ public class LoanPaymentHttpHandler implements HttpHandler {
         BigDecimal value = new BigDecimal(params.get("value"));
 
         try {
-            Client client = (Client) Database.getInstance().query("Clients",
-                (Object obj) -> {
+            Client client = (Client) Database.getInstance()
+                .query("Clients", (Object obj) -> {
                     return ((Client) obj).getUUID().equals(clientUUID);
-            }).get(0);
-            Loan loan = (Loan) Database.getInstance().query("Loans",
-                (Object obj) -> {
+                }).get(0);
+            Loan loan = (Loan) Database.getInstance()
+                .query("Loans", (Object obj) -> {
                     return ((Loan)obj).getLoanUUID().equals(loanUUID)
                         && ((Loan)obj).getClientUUID().equals(clientUUID);
-            }).get(0);
+                }).get(0);
 
+            client.removeLoan(loan);
             loan.payLoan(value);
-            client.setBalance(client.getBalance().subtract(value));
 
             if (loan.getAmount().compareTo(BigDecimal.ZERO) < 0)
                 throw new Exception("Value more then the amount");
@@ -71,7 +71,8 @@ public class LoanPaymentHttpHandler implements HttpHandler {
                         return ((Loan)obj).getLoanUUID().equals(loanUUID)
                             && ((Loan)obj).getClientUUID().equals(clientUUID);
                 });
-            }
+            } else client.addLoan(loan);
+
             Database.getInstance().saveToXML();
 
             String response = "Payed " + value + " from loan successfuly";

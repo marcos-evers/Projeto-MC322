@@ -25,6 +25,7 @@ import javax.xml.bind.Marshaller;
 import java.util.List;
 
 import sigmabank.database.Database;
+import sigmabank.model.register.Admin;
 import sigmabank.model.register.Client;
 
 public class RegisterHttpHandler implements HttpHandler {
@@ -41,6 +42,10 @@ public class RegisterHttpHandler implements HttpHandler {
                 os.write(response.getBytes());
             }
         }
+    }
+
+    private boolean existAdmin() {
+        return !Database.getInstance().query("Admin", (Object obj) -> true).isEmpty();
     }
 
     private void handlePOSTMethod(HttpExchange exchange) throws IOException {
@@ -66,12 +71,13 @@ public class RegisterHttpHandler implements HttpHandler {
             Database.getInstance().addEntry("ClientsToApproval", client);
             Database.getInstance().saveToXML("src/main/resources/database");
 
-            String response = "Registration Successful: " + client.toString();
+            String response = "Registration Successful";
             exchange.sendResponseHeaders(200, response.getBytes().length);
             try (OutputStream os = exchange.getResponseBody()) {
                 os.write(response.getBytes());
             }
         } catch(Exception e) {
+            e.printStackTrace();
             String response = "Registration Unsuccessful: " + e.getMessage();
             exchange.sendResponseHeaders(400, response.getBytes().length);
             try (OutputStream os = exchange.getResponseBody()) {

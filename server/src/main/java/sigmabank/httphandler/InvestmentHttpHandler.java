@@ -30,6 +30,7 @@ import sigmabank.model.investment.ClientInvestmentMultiton;
 import sigmabank.model.investment.Investment;
 import sigmabank.model.investment.RateInvestEnum;
 import sigmabank.model.investment.RateInvestment;
+import sigmabank.model.register.Client;
 
 public class InvestmentHttpHandler implements HttpHandler {
     @Override
@@ -65,6 +66,7 @@ public class InvestmentHttpHandler implements HttpHandler {
         System.out.println("[MSG] Recived data: " + query);
 
         try {
+            UUID clientUUID = UUID.fromString(params.get("clientUUID"));
             Investment investment = null;
             if (params.get("invtype").equals("asset")) {
                 investment = ClientInvestmentMultiton.getInstance().getAssetInvestment(
@@ -81,6 +83,10 @@ public class InvestmentHttpHandler implements HttpHandler {
                     LocalDate.parse(params.get("startdate"))
                 );
             }
+
+            ((Client) Database.getInstance().query("Clients", (Object obj) -> {
+                return ((Client) obj).getUUID().equals(clientUUID);
+            }).get(0)).addInvestment(investment);
         
             Database.getInstance().saveToXML("src/main/resources/database");
             ClientInvestmentMultiton.getInstance()

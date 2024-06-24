@@ -38,6 +38,5 @@ public class Admin extends Register {
         for (Client client : clients) {
             client.updateValues();
         }
-
     }
 }
