@@ -135,6 +135,20 @@ public class Client extends Register {
     }
 
     /**
+     * Updates the value of the investments and loans of the client.
+     */
+    public void updateValues(){
+        for (Investment investment : investments) {
+            investment.updateValue();
+        }
+        
+        for (Loan loan : loans) {
+            loan.updateAmount();
+        }
+    }
+
+
+    /**
      * Checks if the client is an adult, more than 18 years old.
      *
      * @param dateOfBirth The date of birth of the client.
