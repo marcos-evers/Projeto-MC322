@@ -83,8 +83,10 @@ public class Client extends Register {
      *
      * @param investment The investment object to be added.
      */
-    public void addInvestiment(Investment investment) {
-        this.balance = this.balance.add(investment.getValue());
+    public void addInvestment(Investment investment) {
+        if (investment.getValue().compareTo(BigDecimal.ZERO) == 0)
+            return;
+        this.balance = this.balance.subtract(investment.getValue());
         this.investments.add(investment);
     }
 
@@ -94,8 +96,30 @@ public class Client extends Register {
      * @param loan The loan object to be added.
      */
     public void addLoan(Loan loan) {
+        if (loan.getValue().compareTo(BigDecimal.ZERO) == 0)
+            return;
         this.balance = this.balance.add(loan.getValue());
         this.loans.add(loan);
+    }
+
+    /**
+     * Remove a loan to the client.
+     *
+     * @param loan The loan object to be added.
+     */
+    public void removeLoan(Loan loan) {
+        this.balance = this.balance.subtract(loan.getValue());
+        this.loans.remove(loan);
+    }
+
+    /**
+     * Remove a investment to the client.
+     *
+     * @param loan The loan object to be added.
+     */
+    public void removeInvestment(Investment investment) {
+        this.balance = this.balance.add(investment.getValue());
+        this.investments.remove(investment);
     }
 
     /**

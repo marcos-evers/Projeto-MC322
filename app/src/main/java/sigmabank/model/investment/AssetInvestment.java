@@ -64,7 +64,7 @@ public class AssetInvestment extends Investment implements InvestmentOperations 
      */
     @Override
     public void updateValue(){
-        InfoInvest infoInvest = ReaderAssetInfo.readAssetInvestment("app/src/main/resources/AssetInvestments.xml", this.assetType.toString());
+        InfoInvest infoInvest = ReaderAssetInfo.readAssetInvestment("src/main/resources/AssetInvestments.xml", this.assetType.toString());
         setAssetValue(infoInvest.getAssetValue());
     }
     

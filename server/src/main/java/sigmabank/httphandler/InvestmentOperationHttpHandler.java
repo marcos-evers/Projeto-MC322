@@ -52,13 +52,13 @@ public class InvestmentOperationHttpHandler implements HttpHandler {
                 return ((Client) obj).getUUID().equals(clientUUID);
         }).get(0);
         
+        client.removeInvestment(investment);
         if (params.get("optype").equals("retrieve")) {
             investment.retrieveInvestment(amount);
-            client.setBalance(client.getBalance().add(amount));
         } else {
             investment.investMore(amount);
-            client.setBalance(client.getBalance().subtract(amount));
         }
+        client.addInvestment(investment);
     }
 
     private void handleRateOperation(Map<String, String> params) {
@@ -73,13 +73,13 @@ public class InvestmentOperationHttpHandler implements HttpHandler {
                 return ((Client) obj).getUUID().equals(clientUUID);
         }).get(0);
 
+        client.removeInvestment(investment);
         if (params.get("optype").equals("retrieve")) {
             investment.retrieveInvestment(amount);
-            client.setBalance(client.getBalance().add(amount));
         } else {
             investment.investMore(amount);
-            client.setBalance(client.getBalance().subtract(amount));
         }
+        client.addInvestment(investment);
     }
 
     /**

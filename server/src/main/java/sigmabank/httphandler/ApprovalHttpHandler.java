@@ -66,22 +66,20 @@ public class ApprovalHttpHandler implements HttpHandler {
         UUID loanUUID = UUID.fromString(params.get("uuid"));
         boolean isapproved = params.get("isapproved").equals("true");
 
-        List<Object> loans = Database.getInstance().deleteEntries("LoansToApproval",
-            (Object obj) -> {
-                Loan loan = (Loan) obj;
-                return loan.getLoanUUID().equals(loanUUID);
-        });
+        List<Object> loans = Database.getInstance()
+            .deleteEntries("LoansToApproval", (Object obj) -> {
+                return ((Loan) obj).getLoanUUID().equals(loanUUID);
+            });
 
         if (loans.size() != 1 || !isapproved) return false;
 
         Loan loan = (Loan) loans.get(0);
         
-        Client client = (Client) Database.getInstance().query("Clients",
-            (Object obj) -> {
+        ((Client) Database.getInstance()
+            .query("Clients", (Object obj) -> {
                 return ((Client) obj).getUUID().equals(loan.getClientUUID());
-        }).get(0);
-
-        client.setBalance(client.getBalance().add(loan.getValue()));
+            }).get(0))
+            .addLoan(loan);
 
         Database.getInstance().addEntry("Loans", loan);
         Database.getInstance().saveToXML();

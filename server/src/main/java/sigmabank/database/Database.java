@@ -1,11 +1,19 @@
 package sigmabank.database;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.HashMap;
 import java.util.function.Predicate;
 
+import sigmabank.model.investment.AssetInvestEnum;
+import sigmabank.model.investment.AssetInvestment;
+import sigmabank.model.investment.ClientInvestmentMultiton;
+import sigmabank.model.investment.RateInvestEnum;
+import sigmabank.model.investment.RateInvestment;
+import sigmabank.model.loan.Loan;
+import sigmabank.model.register.Client;
 import sigmabank.utils.readers.ReaderFactory;
 import sigmabank.utils.readers.ReaderXML;
 import sigmabank.utils.writters.WritterFactory;
@@ -87,6 +95,47 @@ public class Database {
             }
         }
         return result;
+    }
+
+    public void attachInvestments() {
+        for (Object clientobj: tables.get("Clients")) {
+            Client client = (Client) clientobj;
+            Map<RateInvestEnum, RateInvestment> rateInvestments = ClientInvestmentMultiton.getInstance()
+                .getRateInvestments(client.getUUID());
+            Map<AssetInvestEnum, AssetInvestment> assetInvestments = ClientInvestmentMultiton.getInstance()
+                .getAssetInvestments(client.getUUID());
+
+            for (RateInvestment investment: rateInvestments.values())
+                client.addInvestment(investment);
+            for (AssetInvestment investment: assetInvestments.values())
+                client.addInvestment(investment);
+        }
+    }
+    private void attachLoansToClient(Client client, List<Object> loans) {
+        for (Object loanobj: loans) {
+            Loan loan = (Loan) loanobj;
+            client.addLoan(loan);
+        }
+    }
+
+    public void attachLoans() {
+        for (Object clientobj: tables.get("Clients")) {
+            Client client = (Client) clientobj;
+            List<Object> loans = query("Loans",
+                (Object obj) -> {
+                    return ((Loan) obj).getClientUUID().equals(client.getUUID());
+                });
+            attachLoansToClient(client, loans);
+        }
+    }
+
+    public void initClients() {
+        for (Object clientobj: tables.get("Clients")) {
+            ((Client) clientobj).setBalance(BigDecimal.ZERO);
+        }
+
+        attachLoans();
+        attachInvestments();
     }
 
     public void saveToXML(String path) {
