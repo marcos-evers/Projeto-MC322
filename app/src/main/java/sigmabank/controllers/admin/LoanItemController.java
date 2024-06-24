@@ -16,7 +16,7 @@ public class LoanItemController extends BaseController<Loan> {
 
     @Override
     public void initData() throws IOException {
-        this.clientUuid.setText(this.object.getClientUUID().toString());
+        this.clientUuid.setText(Rounder.round(this.object.getClientUUID()));
         this.requestedValue.setText("R$ " + Rounder.round(this.object.getValue()));
     }
 

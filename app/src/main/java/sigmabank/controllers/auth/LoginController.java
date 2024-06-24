@@ -5,11 +5,15 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 
+import javax.swing.Action;
+
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import sigmabank.controllers.BaseController;
 import sigmabank.model.register.Client;
 import sigmabank.net.ClientConnection;
@@ -18,6 +22,12 @@ import sigmabank.utils.HashPassword;
 public class LoginController extends BaseController<Client> {
     @FXML private TextField cpf;
     @FXML private PasswordField password;
+
+    public void keyTrySubmit(KeyEvent e) throws IOException {
+        if (e.getCode() == KeyCode.ENTER){
+            trySubmit(null);
+        }
+    }
 
     public void trySubmit(ActionEvent e) throws IOException {
         if (cpf.getText() == null || cpf.getText().trim().isEmpty() || password.getText() == null) {

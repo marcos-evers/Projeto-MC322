@@ -2,6 +2,7 @@ package sigmabank.utils;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.UUID;
 
 public class Rounder {
     public static BigDecimal round(BigDecimal value) throws IllegalArgumentException{
@@ -10,5 +11,9 @@ public class Rounder {
 
     public static BigDecimal round(BigDecimal value, int scale) throws IllegalArgumentException{
         return new BigDecimal(value.setScale(scale, RoundingMode.HALF_UP).toString());
+    }
+
+    public static String round(UUID uuid) {
+        return uuid.toString().split(" ")[0];
     }
 }

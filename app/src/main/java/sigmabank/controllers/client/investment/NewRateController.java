@@ -3,6 +3,7 @@ package sigmabank.controllers.client.investment;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.Map;
 
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -16,6 +17,7 @@ import sigmabank.controllers.BaseController;
 import sigmabank.model.investment.RateInvestment;
 import sigmabank.model.investment.InfoInvestments.InfoInvest;
 import sigmabank.model.register.Client;
+import sigmabank.net.InvestmentConnection;
 import sigmabank.utils.Rounder;
 
 public class NewRateController extends BaseController<InfoInvest> {
@@ -74,7 +76,15 @@ public class NewRateController extends BaseController<InfoInvest> {
             this.object.getRateType()
         );
 
-        // call database stuff
+        InvestmentConnection conn = new InvestmentConnection("http://localhost:8000/investment");
+        conn.send(Map.of(
+            "clientUUID", client.getUUID(),
+            "invtype", "rate",
+            "type", this.object.getRateType(),
+            "investedvalue", valueToInvest,
+            "startdate", LocalDate.now()
+        ));
+
 
         this.goBack(e);
     }
