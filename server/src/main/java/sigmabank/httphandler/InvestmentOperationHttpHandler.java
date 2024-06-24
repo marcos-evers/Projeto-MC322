@@ -18,15 +18,13 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-
-import java.util.List;
-
 import sigmabank.database.Database;
 import sigmabank.model.investment.AssetInvestEnum;
 import sigmabank.model.investment.AssetInvestment;
 import sigmabank.model.investment.ClientInvestmentMultiton;
 import sigmabank.model.investment.RateInvestEnum;
 import sigmabank.model.investment.RateInvestment;
+import sigmabank.model.register.Client;
 
 public class InvestmentOperationHttpHandler implements HttpHandler {
     @Override
@@ -46,21 +44,20 @@ public class InvestmentOperationHttpHandler implements HttpHandler {
         UUID clientUUID = UUID.fromString(params.get("uuid"));
         AssetInvestEnum investEnum = AssetInvestEnum.valueOf(params.get("invenum"));
         BigDecimal amount = new BigDecimal(params.get("amount"));
-        List<Object> objects = Database.getInstance().query("AssetInvestments",
+
+        AssetInvestment investment = ClientInvestmentMultiton.getInstance()
+            .getAssetInvestments(clientUUID).get(investEnum);
+        Client client = (Client) Database.getInstance().query("Clients",
             (Object obj) -> {
-                AssetInvestment investment = (AssetInvestment) obj;
-                return investment.getClientUUID().equals(clientUUID)
-                    && investment.getAssetType().equals(investEnum);
-        });
-
-        if (objects.size() != 1) return;
-
-        AssetInvestment investment = (AssetInvestment) objects.get(0);
-
-        if (params.get("optype").equals("retrive")) {
+                return ((Client) obj).getUUID().equals(clientUUID);
+        }).get(0);
+        
+        if (params.get("optype").equals("retrieve")) {
             investment.retrieveInvestment(amount);
+            client.setBalance(client.getBalance().add(amount));
         } else {
             investment.investMore(amount);
+            client.setBalance(client.getBalance().subtract(amount));
         }
     }
 
@@ -68,21 +65,20 @@ public class InvestmentOperationHttpHandler implements HttpHandler {
         UUID clientUUID = UUID.fromString(params.get("uuid"));
         RateInvestEnum investEnum = RateInvestEnum.valueOf(params.get("invenum"));
         BigDecimal amount = new BigDecimal(params.get("amount"));
-        List<Object> objects = Database.getInstance().query("RateInvestment",
+
+        RateInvestment investment = ClientInvestmentMultiton.getInstance()
+            .getRateInvestments(clientUUID).get(investEnum);
+        Client client = (Client) Database.getInstance().query("Clients",
             (Object obj) -> {
-                RateInvestment investment = (RateInvestment) obj;
-                return investment.getClientUUID().equals(clientUUID)
-                    && investment.getRateType().equals(investEnum);
-        });
+                return ((Client) obj).getUUID().equals(clientUUID);
+        }).get(0);
 
-        if (objects.size() != 1) return;
-
-        RateInvestment investment = (RateInvestment) objects.get(0);
-
-        if (params.get("optype").equals("retrive")) {
+        if (params.get("optype").equals("retrieve")) {
             investment.retrieveInvestment(amount);
+            client.setBalance(client.getBalance().add(amount));
         } else {
             investment.investMore(amount);
+            client.setBalance(client.getBalance().subtract(amount));
         }
     }
 
