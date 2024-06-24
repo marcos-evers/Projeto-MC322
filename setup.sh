@@ -1,5 +1,12 @@
 #!/bin/bash
 
+touch server/src/main/resources/database/Clients.xml
+touch server/src/main/resources/database/ClientsToApproval.xml
+touch server/src/main/resources/database/Loans.xml
+touch server/src/main/resources/database/LoansToApproval.xml
+touch server/src/main/resources/database/RateInvestments.xml
+touch server/src/main/resources/database/AssetInvestments.xml
+
 echo "<Clients/>" | tee server/src/main/resources/database/Clients.xml
 echo "<ClientsToApproval/>" | tee server/src/main/resources/database/ClientsToApproval.xml
 
