@@ -39,7 +39,7 @@ public class ReaderAssetInfo {
                 AssetInvestEnum assetType = AssetInvestEnum.valueOf(element.getElementsByTagName("type").item(0).getTextContent());
                 String name = element.getElementsByTagName("name").item(0).getTextContent();
                 BigDecimal assetValue = new BigDecimal(element.getElementsByTagName("assetValue").item(0).getTextContent());
-
+                System.out.println(assetType.toString());
                 if (assetType.toString().equals(identifier)) {
                     investment = new InfoInvest(name, assetValue, assetType);
                     break;
@@ -61,7 +61,7 @@ public class ReaderAssetInfo {
     public static List<InfoInvest> readAssetInvestments() {
         List<InfoInvest> investments = new ArrayList<>();
         try {
-            File file = new File("src/main/resources/AssetInvestments.xml");
+            File file = new File("app/src/main/resources/AssetInvestments.xml");
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             Document doc = dBuilder.parse(file);

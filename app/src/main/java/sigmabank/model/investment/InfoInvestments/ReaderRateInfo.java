@@ -62,7 +62,7 @@ public class ReaderRateInfo {
     public static List<InfoInvest> readRateInvestments() {
         List<InfoInvest> investments = new ArrayList<>();
         try {
-            File file = new File("src/main/resources/RateInvestments.xml");
+            File file = new File("app/src/main/resources/RateInvestments.xml");
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             Document doc = dBuilder.parse(file);
