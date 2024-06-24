@@ -9,6 +9,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import sigmabank.controllers.BaseController;
 import sigmabank.model.register.Client;
 import sigmabank.model.register.InvalidAddressException;
@@ -49,6 +51,11 @@ public class RegisterController extends BaseController<Client> {
             this.confirmPassword.getText() == null;
     }
         
+    public void keyTrySubmit(KeyEvent e) throws IOException {
+        if (e.getCode() == KeyCode.ENTER){
+            trySubmit(null);
+        }
+    }
 
     public void trySubmit(ActionEvent e) throws IOException {
         if (this.hasEmptyField()) {

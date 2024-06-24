@@ -7,6 +7,8 @@ import java.util.Map;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.text.Text;
 import sigmabank.controllers.BaseController;
 import sigmabank.model.investment.Investment;
@@ -52,6 +54,12 @@ public class RetrievalController extends BaseController<Investment> {
         this.object.setValue(this.object.getValue().subtract(valueToRetrieve));
 
         this.leave(e);
+    }
+
+    public void keyLeave(KeyEvent e){
+        if (e.getCode() == KeyCode.ESCAPE){
+            leave(null);
+        }
     }
 
     public void leave(ActionEvent e) {
