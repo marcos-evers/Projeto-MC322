@@ -7,7 +7,6 @@ import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.util.Map;
 
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -91,10 +90,12 @@ public class NewAssetController extends BaseController<InfoInvest> {
             "startdate", LocalDate.now()
         ));
 
+        client.setBalance(client.getBalance().subtract(valueToInvest));
+
         this.goBack(e);
     }
 
-    public void leave(ActionEvent e) {
-        Platform.exit();
+    public void leave(ActionEvent e) throws IOException {
+        this.loadView("auth/login", "Login", null);
     }
 }

@@ -60,8 +60,6 @@ public class ClientController extends BaseController<Client> {
     }
 
     public void leave(Event e) {
-        // TODO return to admin/home but re calling the initData method.
-        // important: admin object is on this.additionalData
         this.stage.close();
     }
 }

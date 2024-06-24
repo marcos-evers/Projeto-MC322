@@ -6,7 +6,6 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.layout.VBox;
@@ -95,7 +94,7 @@ public class HomeController extends BaseController<Client> {
         this.loadView("client/loan/request", "Solicitar empréstimo", this.object);
     }
 
-    public void leave(ActionEvent e) {
-        Platform.exit();
+    public void leave(ActionEvent e) throws IOException {
+        this.loadView("auth/login", "Login", null);
     }
 }

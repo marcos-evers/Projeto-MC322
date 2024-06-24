@@ -72,7 +72,7 @@ public class RequestController extends BaseController<Client> {
         this.goBack(e);
     }
     
-    public void leave(ActionEvent e) {
-        Platform.exit();
+    public void leave(ActionEvent e) throws IOException {
+        this.loadView("client/home", "Home", this.object);
     }
 }
