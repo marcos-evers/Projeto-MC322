@@ -71,7 +71,6 @@ public abstract class Register {
      * @throws InvalidPhoneNumberException if the provided phone number does not match the expected format.
      */
     public void setPhoneNumber(String phoneNumber) throws InvalidPhoneNumberException {
-        // TODO fix regex
         Pattern pattern = Pattern.compile("^\\+?[0-9()-]*$");
         Matcher matcher = pattern.matcher(phoneNumber);
         
