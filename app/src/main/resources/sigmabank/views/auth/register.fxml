@@ -24,14 +24,14 @@
             <Font name="Segoe UI" size="15.0" />
          </font>
       </Text>
-      <TextField fx:id="name" layoutX="144.0" layoutY="265.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="48.0" prefWidth="412.0" promptText="Nome" />
-      <TextField fx:id="email" layoutX="573.0" layoutY="265.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="48.0" prefWidth="412.0" promptText="E-mail" />
-      <DatePicker fx:id="dateOfBirth" layoutX="144.0" layoutY="332.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="48.0" prefWidth="412.0" promptText="Data de nascimento" />
-      <TextField fx:id="phoneNumber" layoutX="573.0" layoutY="332.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="48.0" prefWidth="412.0" promptText="Número de telefone" />
-      <TextField fx:id="cpf" layoutX="144.0" layoutY="397.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="48.0" prefWidth="412.0" promptText="CPF" />
-      <TextField fx:id="address" layoutX="573.0" layoutY="397.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="48.0" prefWidth="412.0" promptText="Endereço" />
-      <PasswordField fx:id="password" layoutX="144.0" layoutY="460.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="48.0" prefWidth="412.0" promptText="Senha" />
-      <PasswordField fx:id="confirmPassword" layoutX="573.0" layoutY="460.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="48.0" prefWidth="412.0" promptText="Confirmar senha" />
+      <TextField fx:id="name" layoutX="144.0" layoutY="265.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="48.0" prefWidth="412.0" promptText="Nome"  onKeyPressed="#keyTrySubmit" />
+      <TextField fx:id="email" layoutX="573.0" layoutY="265.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="48.0" prefWidth="412.0" promptText="E-mail" onKeyPressed="#keyTrySubmit" />
+      <DatePicker fx:id="dateOfBirth" layoutX="144.0" layoutY="332.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="48.0" prefWidth="412.0" promptText="Data de nascimento" onKeyPressed="#keyTrySubmit" />
+      <TextField fx:id="phoneNumber" layoutX="573.0" layoutY="332.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="48.0" prefWidth="412.0" promptText="Número de telefone" onKeyPressed="#keyTrySubmit" />
+      <TextField fx:id="cpf" layoutX="144.0" layoutY="397.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="48.0" prefWidth="412.0" promptText="CPF" onKeyPressed="#keyTrySubmit" />
+      <TextField fx:id="address" layoutX="573.0" layoutY="397.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="48.0" prefWidth="412.0" promptText="Endereço" onKeyPressed="#keyTrySubmit" />
+      <PasswordField fx:id="password" layoutX="144.0" layoutY="460.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="48.0" prefWidth="412.0" promptText="Senha" onKeyPressed="#keyTrySubmit" />
+      <PasswordField fx:id="confirmPassword" layoutX="573.0" layoutY="460.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="48.0" prefWidth="412.0" promptText="Confirmar senha" onKeyPressed="#keyTrySubmit" />
       <Button alignment="CENTER" layoutX="493.0" layoutY="546.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#trySubmit" prefHeight="52.0" prefWidth="142.0" style="-fx-background-color: #000000; -fx-border-radius: 8; -fx-background-radius: 8;" text="Entrar" textAlignment="CENTER" textFill="WHITE">
          <padding>
             <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />

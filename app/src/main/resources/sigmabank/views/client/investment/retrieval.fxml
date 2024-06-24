@@ -25,7 +25,7 @@
             </DropShadow>
          </effect>
       </Button>
-      <TextField fx:id="value" layoutX="108.0" layoutY="83.0" prefWidth="249.0" promptText="Quanto deseja resgatar?" />
+      <TextField fx:id="value" layoutX="108.0" layoutY="83.0" prefWidth="249.0" promptText="Quanto deseja resgatar?" onKeyPressed="#keyLeave"/>
       <Text fx:id="available" fill="#828282" layoutY="153.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Disponível para resgate: R$ 1.896,23" textAlignment="CENTER" wrappingWidth="462.0">
          <font>
             <Font name="Segoe UI" size="13.0" />

@@ -66,12 +66,13 @@ public class LoanPaymentHttpHandler implements HttpHandler {
             if (loan.getAmount().compareTo(BigDecimal.ZERO) < 0)
                 throw new Exception("Value more then the amount");
             if (loan.getAmount().compareTo(BigDecimal.ZERO) == 0) {
-                Database.getInstance().deleteEntries("Loan",
+                Database.getInstance().deleteEntries("Loans",
                     (Object obj) -> {
                         return ((Loan)obj).getLoanUUID().equals(loanUUID)
                             && ((Loan)obj).getClientUUID().equals(clientUUID);
                 });
             }
+            Database.getInstance().saveToXML();
 
             String response = "Payed " + value + " from loan successfuly";
             exchange.sendResponseHeaders(200, response.getBytes().length);
