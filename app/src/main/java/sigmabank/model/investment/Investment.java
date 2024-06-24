@@ -67,6 +67,10 @@ public class Investment {
     public void setValue(BigDecimal value){
         this.value = value;
     }
+
+    public void updateValue(){
+        throw new UnsupportedOperationException("This method is not implemented yet");
+    }
     
     /**
      * Calculate the total profit of the investment generated throught history,

@@ -8,6 +8,9 @@ import java.util.UUID;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
+import sigmabank.model.investment.InfoInvestments.InfoInvest;
+import sigmabank.model.investment.InfoInvestments.ReaderAssetInfo;
+
 @XmlRootElement(name = "AssetInvestment")
 public class AssetInvestment extends Investment implements InvestmentOperations {
     private BigDecimal assetValue;
@@ -49,6 +52,15 @@ public class AssetInvestment extends Investment implements InvestmentOperations 
     public void setAssetValue(BigDecimal assetValue) {
         this.assetValue = assetValue;
         this.value = this.assetQuantity.multiply(this.assetValue);
+    }
+
+    /**
+     * Method that updates the value of the investment based on the asset value present in the infoInvest xml.
+     */
+    @Override
+    public void updateValue(){
+        InfoInvest infoInvest = ReaderAssetInfo.readAssetInvestment("app/src/main/resources/AssetInvestments.xml", this.assetType.toString());
+        setAssetValue(infoInvest.getAssetValue());
     }
     
 

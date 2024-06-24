@@ -82,8 +82,10 @@ public class RateInvestment extends Investment implements InvestmentOperations{
     }
 
     /**
-     * Updates the value of the investment based on the rate, also, adds the added value to the investment value. If 
+     * Updates the value of the investment based on the rate, also, adds the added value to the investment value.
+     * The added value is set to 0 after the update. 
      */
+    @Override
     public void updateValue() {
         if(!this.checkUpdateDate()){
             return;
