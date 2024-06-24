@@ -43,7 +43,7 @@ public class RetrievalController extends BaseController<Investment> {
 
         final Client client = (Client) this.additionalData;
         
-        InvestmentOperationConnection conn = new InvestmentOperationConnection("http://localhost:80000//investment/operate");
+        InvestmentOperationConnection conn = new InvestmentOperationConnection("http://localhost:8000/investment/operate");
         conn.sendOperation(this.object, "retrieve", valueToRetrieve);
 
         client.setBalance(client.getBalance().add(valueToRetrieve));

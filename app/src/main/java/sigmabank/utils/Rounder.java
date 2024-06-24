@@ -14,6 +14,6 @@ public class Rounder {
     }
 
     public static String round(UUID uuid) {
-        return uuid.toString().split(" ")[0];
+        return uuid.toString().split("-")[0];
     }
 }

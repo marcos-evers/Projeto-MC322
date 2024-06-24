@@ -42,6 +42,11 @@ public class PaymentController extends BaseController<Loan> {
             BaseController.errorDialog("Saldo insuficiente.");            
             return;
         }
+
+        if (this.object.getAmount().compareTo(valueToPay) < 0) {
+            BaseController.errorDialog("O montante do empréstimo é menor que isso.");
+            return;
+        }
         
         LoanPaymentConnection conn = new LoanPaymentConnection("http://localhost:8000/loan/payment");
         conn.send(Map.of(
