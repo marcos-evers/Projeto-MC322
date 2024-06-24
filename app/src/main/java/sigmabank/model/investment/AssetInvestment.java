@@ -7,6 +7,7 @@ import java.time.LocalDate;
 import java.util.UUID;
 
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlElement;
 
 import sigmabank.model.investment.InfoInvestments.InfoInvest;
 import sigmabank.model.investment.InfoInvestments.ReaderAssetInfo;
@@ -15,7 +16,11 @@ import sigmabank.model.investment.InfoInvestments.ReaderAssetInfo;
 public class AssetInvestment extends Investment implements InvestmentOperations {
     private BigDecimal assetValue;
     private BigDecimal assetQuantity;
-    private AssetInvestEnum assetType;
+    @XmlElement private AssetInvestEnum assetType;
+
+    public AssetInvestment() {
+        super();
+    }
 
     public AssetInvestment(String name, BigDecimal investedvalue, UUID clientUUID, LocalDate startDate, BigDecimal assetValue, AssetInvestEnum assetType) {
         super(name, investedvalue, clientUUID, startDate);

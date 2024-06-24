@@ -15,6 +15,10 @@ public class RateInvestment extends Investment implements InvestmentOperations{
     @XmlElement private LocalDate lastUpdateDate;
     @XmlElement private RateInvestEnum rateType;
 
+    public RateInvestment() {
+        super();
+        this.frequencyType = null;
+    }
 
     public RateInvestment(String name, BigDecimal investedvalue, UUID clientUUID, LocalDate startDate, BigDecimal rate, ROIFrequencyType frequencyType, RateInvestEnum rateType) {
         super(name, investedvalue, clientUUID, startDate);
