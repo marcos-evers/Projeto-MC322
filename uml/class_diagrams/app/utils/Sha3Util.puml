@@ -1,0 +1,8 @@
+@startuml Sha3Util
+class Sha3Util {
+    - static final String algorithm = "SHA3-256"
+    + static String sha3(String input)
+    - static String bytesToHex(byte[] bytes)
+}
+
+@enduml

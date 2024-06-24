@@ -1,0 +1,6 @@
+@startuml RateInvestmentWritter
+class RateInvestmentWritter {
+    - createElementFromInvestment(doc: Document, investment: RateInvestment): Element
+    + writeToXML(label: String, investments: List<Object>, pathToXML: String): void
+}
+@enduml

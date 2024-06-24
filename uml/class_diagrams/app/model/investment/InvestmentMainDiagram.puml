@@ -5,5 +5,17 @@
 
 !include RateInvestment.puml
 !include AssetInvestment.puml
+!include RateInvestEnum.puml
+!include AssetInvestEnum.puml
+
+!include InfoInvest.puml
+!include ClientInvestMultiton.puml
+!include ReaderAssetInfo.puml
+!include ReaderRateInfo.puml
+!include ROIFrequencyType.puml
+
+ROIFrequencyType *-- RateInvestEnum
+RateInvestEnum *-- RateInvestment
+AssetInvestEnum *-- AssetInvestment
 
 @enduml

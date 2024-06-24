@@ -1,0 +1,20 @@
+@startuml InfoInvest
+class InfoInvest {
+    - String name
+    - BigDecimal assetValue
+    - BigDecimal rate
+    - ROIFrequencyType frequencyType
+    - AssetInvestEnum assetType
+    - RateInvestEnum rateType
+
+    + InfoInvest(String name, BigDecimal rate, ROIFrequencyType frequencyType, RateInvestEnum rateType)
+    + InfoInvest(String name, BigDecimal assetValue, AssetInvestEnum assetType)
+
+    + String getName()
+    + BigDecimal getRate()
+    + AssetInvestEnum getAssetType()
+    + RateInvestEnum getRateType()
+    + ROIFrequencyType getFrequencyType()
+    + BigDecimal getAssetValue()
+}
+@enduml
