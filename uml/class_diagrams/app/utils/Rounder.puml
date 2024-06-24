@@ -1,0 +1,7 @@
+@startuml Rounder
+class Rounder {
+    + static BigDecimal round(BigDecimal value) throws IllegalArgumentException
+    + static BigDecimal round(BigDecimal value, int scale) throws IllegalArgumentException
+    + static String round(UUID uuid)
+}
+@enduml

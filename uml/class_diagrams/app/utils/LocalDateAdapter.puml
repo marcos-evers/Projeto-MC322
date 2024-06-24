@@ -1,0 +1,7 @@
+@startuml LocalDateAdapter
+class LocalDateAdapter {
+    + LocalDate unmarshal(String v) throws Exception
+    + String marshal(LocalDate v) throws Exception
+}
+
+@enduml

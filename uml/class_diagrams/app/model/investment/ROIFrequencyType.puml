@@ -1,0 +1,14 @@
+@startuml ROIFrequencyType
+enum ROIFrequencyType {
+    DAILY
+    WEEKLY
+    MONTHLY
+    YEARLY
+}
+
+class ROIFrequencyType {
+    + String label
+    + ROIFrequencyType(String label)
+    + String toString()
+}
+@enduml
