@@ -28,12 +28,12 @@
             <Font name="Segoe UI" size="30.0" />
          </font>
       </Text>
-      <TextField fx:id="cpf" layoutX="417.0" layoutY="348.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="48.0" prefWidth="295.0" promptText="CPF">
+      <TextField fx:id="cpf" layoutX="417.0" layoutY="348.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="48.0" prefWidth="295.0" promptText="CPF" onKeyPressed="#keyTrySubmit">
          <font>
             <Font name="Segoe UI" size="16.0" />
          </font>
       </TextField>
-      <PasswordField fx:id="password" layoutX="417.0" layoutY="405.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="48.0" prefWidth="295.0" promptText="Senha" />
+      <PasswordField fx:id="password" layoutX="417.0" layoutY="405.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="48.0" prefWidth="295.0" promptText="Senha" onKeyPressed="#keyTrySubmit" />
       <Button alignment="CENTER" layoutX="495.0" layoutY="501.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#trySubmit" prefHeight="52.0" prefWidth="136.0" style="-fx-background-color: #000000; -fx-border-radius: 8; -fx-background-radius: 8;" text="Entrar" textAlignment="CENTER" textFill="WHITE">
          <padding>
             <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
