@@ -31,3 +31,7 @@ chmod +x ./sigmarun.sh # linux command for allowing the bash file to be executed
 - Approvement of new clients and new loans
 - An administrator
 
+## Front issues
+- Erro ao tentar abrir a janela de resgatar o investimento
+- Não consegue criar investimento de juros (valor inválido)
+
