@@ -27,7 +27,7 @@ public class LoginController extends BaseController<Client> {
     }
 
     public void trySubmit(ActionEvent e) throws IOException {
-        if (cpf.getText() == null || cpf.getText().trim().isEmpty() || password.getText() == null) {
+        if (cpf.getText() == null || cpf.getText().trim().isEmpty() || password.getText() == null || password.getText().trim().isEmpty()) {
             BaseController.errorDialog("Preencha todos os campos!");
             return;
         }

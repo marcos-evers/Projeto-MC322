@@ -29,7 +29,7 @@ public class NewAssetController extends BaseController<InfoInvest> {
 
     @Override
     public void initData() throws IOException {
-        this.greeting.setText("Olá, " + ((Client)this.additionalData).getName() + "!");
+        this.greeting.setText("Olá, " + ((Client)this.additionalData).getName().split(" ")[0] + "!");
         this.name.setText(this.object.getName());
         this.assetValue.setText("R$ " + Rounder.round(this.object.getAssetValue()));
         value.textProperty().addListener((observable, oldValue, newValue) -> valueChanged(newValue));
@@ -64,7 +64,7 @@ public class NewAssetController extends BaseController<InfoInvest> {
             return null;
         }
 
-        return valueToInvest.divide(this.object.getAssetValue(), new MathContext(4, RoundingMode.HALF_UP));
+        return valueToInvest.divide(this.object.getAssetValue(), new MathContext(10, RoundingMode.HALF_UP));
     }
 
     public void confirm(Event e) throws IOException {

@@ -23,7 +23,7 @@ public class RequestController extends BaseController<Client> {
 
     @Override
     public void initData() throws IOException {
-        this.greeting.setText("Olá, " + this.object.getName() + "!");
+        this.greeting.setText("Olá, " + this.object.getName().split(" ")[0] + "!");
         value.textProperty().addListener((observable, oldValue, newValue) -> valueChanged(newValue));
     }
 

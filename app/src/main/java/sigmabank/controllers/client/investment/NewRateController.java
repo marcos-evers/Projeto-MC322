@@ -28,7 +28,7 @@ public class NewRateController extends BaseController<InfoInvest> {
     @Override
     public void initData() throws IOException {
         final Client client = (Client) this.additionalData;
-        this.greeting.setText("Olá, " + client.getName() + "!");
+        this.greeting.setText("Olá, " + client.getName().split(" ")[0] + "!");
         this.name.setText(this.object.getName());
         this.rate.setText(this.object.getRate().multiply(BigDecimal.valueOf(100.0)) + "%");
         this.frequency.setText(this.object.getFrequencyType().toString());
