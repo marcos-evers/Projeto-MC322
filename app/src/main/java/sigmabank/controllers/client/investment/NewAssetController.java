@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 import java.math.MathContext;
 import java.math.RoundingMode;
 import java.time.LocalDate;
+import java.util.Map;
 
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -18,6 +19,7 @@ import sigmabank.controllers.BaseController;
 import sigmabank.model.investment.AssetInvestment;
 import sigmabank.model.investment.InfoInvestments.InfoInvest;
 import sigmabank.model.register.Client;
+import sigmabank.net.InvestmentConnection;
 import sigmabank.utils.Rounder;
 
 public class NewAssetController extends BaseController<InfoInvest> {
@@ -85,12 +87,20 @@ public class NewAssetController extends BaseController<InfoInvest> {
         AssetInvestment investment = new AssetInvestment(
             this.object.getName(),
             valueToInvest,
-            ((Client)this.additionalData).getUUID(),
+            client.getUUID(),
             LocalDate.now(),
             this.object.getAssetValue(),
             this.object.getAssetType()
         );
-        // TODO database stuff to insert this asset investment
+
+        InvestmentConnection conn = new InvestmentConnection("http://localhost:8000/investment");
+        conn.send(Map.of(
+            "clientUUID", client.getUUID(),
+            "invtype", "asset",
+            "type", this.object.getAssetType(),
+            "investedvalue", valueToInvest,
+            "startdate", LocalDate.now()
+        ));
 
         this.goBack(e);
     }
