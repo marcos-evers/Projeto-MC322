@@ -3,7 +3,6 @@ package sigmabank.net;
 import java.io.InputStreamReader;
 import java.io.IOException;
 import java.io.BufferedReader;
-import java.io.DataOutputStream;
 
 import java.net.HttpURLConnection;
 import java.net.URI;
@@ -17,35 +16,23 @@ import sigmabank.model.investment.Investment;
 import sigmabank.model.investment.RateInvestment;
 import sigmabank.utils.readers.ReaderFactory;
 
-public class InvestmentConnection implements IConnection<Investment> {
-    private final String uri;
-
+public class InvestmentConnection extends Connection<Investment> {
     public InvestmentConnection(String uri) {
-        this.uri = uri;
+        super(uri);
     }
 
+    /**
+     * Do a POST request to create a new investment.
+     *
+     * @param params A map with thw data to create a investment
+     *      - clientUUID
+     *      - invtype = asset or rate
+     *      - type: AssetInvestmentEnum | RateInvestmentEnum
+     *      - investedvalue
+     *      - startdate
+     */
     public void send(Map<String, Object> params) throws IOException {
-        URL url = URI.create(uri).toURL();
-        HttpURLConnection connection = (HttpURLConnection) url.openConnection(); 
-
-        connection.setRequestMethod("POST");
-        connection.setDoOutput(true);
-
-        try(DataOutputStream os = new DataOutputStream(connection.getOutputStream())) {
-            os.writeBytes(buildPostData(params));
-            os.flush();
-        }
-
-        int responseCode = connection.getResponseCode();
-        try (BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()))) {
-            String inputLine;
-            StringBuilder response = new StringBuilder();
-            while ((inputLine = in.readLine()) != null) {
-                response.append(inputLine);
-            }
-            System.out.println("[MSG] Response: " + responseCode + "/" + response.toString());
-        }
-        connection.disconnect();
+        super.send(params);
     }
 
     public List<Investment> fetch(Map<String, Object> params) throws IOException {
@@ -77,19 +64,7 @@ public class InvestmentConnection implements IConnection<Investment> {
     }
 
     private String buildFetchURI(Map<String, Object> params) {
-        return uri + "?"
-            + "uuid=" + params.get("clientUUID").toString();
-    }
-
-    private String buildPostData(Map<String, Object> params) {
-        String postdata = "";
-        for (String key: params.keySet()) {
-            String data = params.get(key).toString();
-            if (postdata.isEmpty())
-                postdata += "&" + data;
-            else
-                postdata += "&" + data;
-        }
-        return postdata;
+        return getURI() + "?"
+            + "uuid=" + params.get("clientUUID");
     }
 }

@@ -1,7 +1,6 @@
 package sigmabank.net;
 
 import java.io.BufferedReader;
-import java.io.DataOutputStream;
 import java.io.InputStreamReader;
 import java.io.IOException;
 
@@ -17,11 +16,9 @@ import sigmabank.model.register.Client;
 import sigmabank.model.loan.Loan;
 import sigmabank.utils.readers.ReaderFactory;
 
-public class ApprovalConnection implements IConnection<Object> {
-    private final String uri;
-
+public class ApprovalConnection extends Connection<Object> {
     public ApprovalConnection(String uri) {
-        this.uri = uri;
+        super(uri);
     }
 
     /**
@@ -31,29 +28,9 @@ public class ApprovalConnection implements IConnection<Object> {
      *      - isapproved = true or false
      */
     public void send(Map<String, Object> params) throws IOException {
-        URL url = URI.create(uri).toURL();
-        HttpURLConnection connection = (HttpURLConnection) url.openConnection(); 
-
-        connection.setRequestMethod("POST");
-        connection.setDoOutput(true);
-
-        try(DataOutputStream os = new DataOutputStream(connection.getOutputStream())) {
-            os.writeBytes(buildPostData(params));
-            os.flush();
-        }
-
-        int responseCode = connection.getResponseCode();
-        try (BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()))) {
-            String inputLine;
-            StringBuilder response = new StringBuilder();
-            while ((inputLine = in.readLine()) != null) {
-                response.append(inputLine);
-            }
-            System.out.println("[MSG] Response: " + responseCode + "/" + response.toString());
-        }
-        connection.disconnect();
+        super.send(params);
     }
-    
+
     /**
      * Get Clients and Loans to approve
      * @param params a empty map
@@ -62,7 +39,7 @@ public class ApprovalConnection implements IConnection<Object> {
      *  1 - list with loans to approval
      */
     public List<Object> fetch(Map<String, Object> params) throws IOException {
-        URL url = URI.create(uri).toURL();
+        URL url = URI.create(this.getURI()).toURL();
         HttpURLConnection connection = (HttpURLConnection) url.openConnection(); 
 
         connection.setRequestMethod("GET");
@@ -95,11 +72,5 @@ public class ApprovalConnection implements IConnection<Object> {
         }
 
         return lists;
-    }
-
-    private String buildPostData(Map<String, Object> params) {
-        return "type=" + params.get("type") + "&"
-            +   "uuid=" + params.get("uuid") + "&"
-            +   "isapproved=" + params.get("isapproved");
     }
 }

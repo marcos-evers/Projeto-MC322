@@ -16,11 +16,10 @@ import java.util.List;
 import sigmabank.model.register.Client;
 import sigmabank.utils.readers.ReaderFactory;
 
-public class ClientConnection implements IConnection<Client> {
-    private final String uri;
+public class ClientConnection extends Connection<Client> {
 
     public ClientConnection(String uri) {
-        this.uri = uri;
+        super(uri);
     }
 
     /**
@@ -69,49 +68,19 @@ public class ClientConnection implements IConnection<Client> {
      *  - name
      *  - dateOfBirth
      *  - cpf
-     *  - phonenumber (Phone Number)
+     *  - phoneNumber
      *  - address
      *  - email
      *  - password (Password hash)
      * @throws IOException if a error occur connecting to the server
      */
     public void send(Map<String, Object> params) throws IOException {
-        URL url = URI.create(uri).toURL();
-        HttpURLConnection connection = (HttpURLConnection) url.openConnection(); 
-
-        connection.setRequestMethod("POST");
-        connection.setDoOutput(true);
-
-        try(DataOutputStream os = new DataOutputStream(connection.getOutputStream())) {
-            os.writeBytes(buildPostData(params));
-            os.flush();
-        }
-
-        int responseCode = connection.getResponseCode();
-        try (BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()))) {
-            String inputLine;
-            StringBuilder response = new StringBuilder();
-            while ((inputLine = in.readLine()) != null) {
-                response.append(inputLine);
-            }
-            System.out.println("[MSG] Response: " + responseCode + "/" + response.toString());
-        }
-        connection.disconnect();
+        super.send(params);
     }
 
     private String buildFetchURI(Map<String, Object> params) {
-        return uri + "?"
+        return getURI() + "?"
             + "cpf=" + params.get("cpf") + "&"
             + "password=" + params.get("password");
-    }
-
-    private String buildPostData(Map<String, Object> params) {
-        return "name=" + params.get("name") + "&"
-            +  "dob=" + params.get("dataOfBirth") + "&"
-            +  "cpf=" + params.get("cpf") + "&"
-            +  "phonenumber=" + params.get("phoneNumber") + "&"
-            +  "address=" + params.get("address") + "&"
-            +  "email=" + params.get("email") + "&"
-            +  "password=" + params.get("password");
     }
 }

@@ -54,13 +54,13 @@ public class RegisterHttpHandler implements HttpHandler {
         try { 
             Client client = new Client(
                 params.get("name"),
-                LocalDate.parse(params.get("dob")),
+                LocalDate.parse(params.get("dateOfBirth")),
                 params.get("cpf")
             );
         
             client.setPasswordHash(params.get("password"));
             client.setEmail(params.get("email"));
-            client.setPhoneNumber(params.get("phonenumber"));
+            client.setPhoneNumber(params.get("phoneNumber"));
             client.setAddress(params.get("address"));
 
             Database.getInstance().addEntry("ClientsToApproval", client);

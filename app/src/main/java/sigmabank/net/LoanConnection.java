@@ -3,7 +3,6 @@ package sigmabank.net;
 import java.io.InputStreamReader;
 import java.io.IOException;
 import java.io.BufferedReader;
-import java.io.DataOutputStream;
 
 import java.net.HttpURLConnection;
 import java.net.URI;
@@ -16,18 +15,16 @@ import java.util.List;
 import sigmabank.model.loan.Loan;
 import sigmabank.utils.readers.ReaderFactory;
 
-public class LoanConnection implements IConnection<Loan> {
-    private final String uri;
-
+public class LoanConnection extends Connection<Loan> {
     public LoanConnection(String uri) {
-        this.uri = uri;
+        super(uri);
     }
 
     /**
      * Do a GET request to the server for search for the loans of a client.
      *
-     * @param params A map with two keys:
-     *      - clientUUID (String).
+     * @param params A map with one key:
+     *      - clientUUID.
      * @return a list containing the loans of the client.
      * @throws IOException if a error occur connecting to the server.
      */
@@ -62,41 +59,18 @@ public class LoanConnection implements IConnection<Loan> {
     /**
      * Do a POST request to register a client that will pending approval
      *
-     * @param params A map with client attributes.
+     * @param params A map with the attributes:
+     *      - value
+     *      - uuid (Client UUID)
+     *      - startday
      * @throws IOException if a error occur connecting to the server
      */
     public void send(Map<String, Object> params) throws IOException {
-        URL url = URI.create(uri).toURL();
-        HttpURLConnection connection = (HttpURLConnection) url.openConnection(); 
-
-        connection.setRequestMethod("POST");
-        connection.setDoOutput(true);
-
-        try(DataOutputStream os = new DataOutputStream(connection.getOutputStream())) {
-            os.writeBytes(buildPostData(params));
-            os.flush();
-        }
-
-        int responseCode = connection.getResponseCode();
-        try (BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()))) {
-            String inputLine;
-            StringBuilder response = new StringBuilder();
-            while ((inputLine = in.readLine()) != null) {
-                response.append(inputLine);
-            }
-            System.out.println("[MSG] Response: " + responseCode + "/" + response.toString());
-        }
-        connection.disconnect();
+        super.send(params);
     }
 
     private String buildFetchURI(Map<String, Object> params) {
-        return uri + "?"
+        return getURI() + "?"
             + "uuid=" + params.get("clientUUID").toString();
-    }
-
-    private String buildPostData(Map<String, Object> params) {
-        return "value=" + params.get("value").toString() + "&"
-            +   "uuid=" + params.get("uuid").toString() + "&"
-            +   "startday=" + params.get("startday").toString();
     }
 }

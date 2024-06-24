@@ -40,20 +40,21 @@ public class LoanPaymentHttpHandler implements HttpHandler {
         InputStreamReader isr = new InputStreamReader(exchange.getRequestBody(), StandardCharsets.UTF_8);
         BufferedReader br = new BufferedReader(isr);
         String query = br.readLine();
-        Map<String, String> params = parseParams(query);
 
-        UUID clientUUID = UUID.fromString(params.get("clientduuid"));
-        UUID loanUUID = UUID.fromString(params.get("loanuuid"));
-        BigDecimal value = new BigDecimal(params.get("value"));
+        Map<String, String> params = parseParams(query);
 
         System.out.println("[MSG] Recived data: " + query);
 
+        UUID clientUUID = UUID.fromString(params.get("clientuuid"));
+        UUID loanUUID = UUID.fromString(params.get("loanuuid"));
+        BigDecimal value = new BigDecimal(params.get("value"));
+
         try {
-            Client client = (Client) Database.getInstance().query("Client",
+            Client client = (Client) Database.getInstance().query("Clients",
                 (Object obj) -> {
-                    return ((Loan)obj).getClientUUID().equals(clientUUID);
+                    return ((Client) obj).getUUID().equals(clientUUID);
             }).get(0);
-            Loan loan = (Loan) Database.getInstance().query("Loan",
+            Loan loan = (Loan) Database.getInstance().query("Loans",
                 (Object obj) -> {
                     return ((Loan)obj).getLoanUUID().equals(loanUUID)
                         && ((Loan)obj).getClientUUID().equals(clientUUID);
