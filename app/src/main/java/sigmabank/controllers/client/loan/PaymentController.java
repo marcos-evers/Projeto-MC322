@@ -51,7 +51,6 @@ public class PaymentController extends BaseController<Loan> {
         ));
 
         client.setBalance(client.getBalance().subtract(valueToPay));
-        this.object.payLoan(valueToPay);
 
         this.leave(e);
     }
