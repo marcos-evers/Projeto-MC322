@@ -1,0 +1,35 @@
+@startuml WritterFactory
+class WritterFactory {
+    + createWritter(objClass: Class<?>): WritterXML<T>
+}
+
+interface WritterXML<T> {
+    + void writeToXML(String label, List<Object> objects, String pathToXML) throws IOException
+}
+
+class ClientWritter {
+    <<constructor>>
+    ClientWritter()
+}
+
+class LoanWritter {
+    <<constructor>>
+    LoanWritter()
+}
+
+class AssetInvestmentWritter {
+    <<constructor>>
+    AssetInvestmentWritter()
+}
+
+class RateInvestmentWritter {
+    <<constructor>>
+    RateInvestmentWritter()
+}
+
+WritterFactory --> WritterXML
+WritterFactory ..> ClientWritter : creates
+WritterFactory ..> LoanWritter : creates
+WritterFactory ..> AssetInvestmentWritter : creates
+WritterFactory ..> RateInvestmentWritter : creates
+@enduml

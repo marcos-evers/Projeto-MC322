@@ -1,0 +1,6 @@
+@startuml DateFormatter
+class DateFormatter {
+    - static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy")
+    + static String format(LocalDate date)
+}
+@enduml

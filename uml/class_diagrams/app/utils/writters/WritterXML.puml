@@ -1,0 +1,5 @@
+@startuml WritterXML<T>
+interface WritterXML<T> {
+    + void writeToXML(String label, List<Object> objects, String pathToXML) throws IOException
+}
+@enduml

@@ -1,0 +1,22 @@
+@startuml ClientInvestmentMultiton
+class ClientInvestmentMultiton {
+    - static ClientInvestmentMultiton instance
+    - Map<UUID, Map<RateInvestEnum, RateInvestment>> rateInvestments
+    - Map<UUID, Map<AssetInvestEnum, AssetInvestment>> assetInvestments
+
+    - ClientInvestmentMultiton()
+    + static synchronized ClientInvestmentMultiton getInstance()
+    + RateInvestment getRateInvestment(UUID clientUUID, RateInvestEnum rateType, BigDecimal investedValue, LocalDate startDate)
+    - void loadRateInvestments(String pathToXML)
+    - void saveRateInvestments(String pathToXML) throws IOException
+    + AssetInvestment getAssetInvestment(UUID clientUUID, AssetInvestEnum assetType, BigDecimal investedValue, LocalDate startDate)
+    - void loadAssetInvestments(String pathToXML)
+    - void saveAssetInvestments(String pathToXML) throws IOException
+    + void loadInvestments(String pathToRateInvestments, String pathToAssetInvestments)
+    + void saveInvestments(String pathToRateInvestments, String pathToAssetInvestments) throws IOException
+    + Map<RateInvestEnum, RateInvestment> getRateInvestments(UUID clientUUID)
+    + Map<AssetInvestEnum, AssetInvestment> getAssetInvestments(UUID clientUUID)
+    + ArrayList<InfoInvest> getNotExistingRateInvestments(UUID clientUUID)
+    + ArrayList<InfoInvest> getNotExistingAssetInvestments(UUID clientUUID)
+}
+@enduml

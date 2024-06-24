@@ -1,0 +1,6 @@
+@startuml ReaderAssetInfo
+class ReaderAssetInfo {
+    + static InfoInvest readAssetInvestment(String pathToXML, String identifier)
+    + static List<InfoInvest> readAssetInvestments()
+}
+@enduml

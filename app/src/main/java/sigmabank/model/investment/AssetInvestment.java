@@ -73,6 +73,7 @@ public class AssetInvestment extends Investment implements InvestmentOperations 
      * Method that retrieves a certain amount of money from the investment.
      * 
      * @param amount the amount of money to be retrieved.
+     * @return the amount of money that was successfully retrieved.
      */
     @Override
     public BigDecimal retrieveInvestment(BigDecimal amount){
