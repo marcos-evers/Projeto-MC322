@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RateInvestments>
+    <RateInvestment>
+        <type>POUPANCA</type>
+        <name>Poupança</name>
+        <rate>0.05</rate>
+        <frequencyType>MONTHLY</frequencyType>
+    </RateInvestment>
+    <RateInvestment>
+        <type>TESOURODIRETO</type>
+        <name>Tesouro Direto</name>
+        <rate>0.07</rate>
+        <frequencyType>YEARLY</frequencyType>
+    </RateInvestment>
+    <RateInvestment>
+        <type>CDB</type>
+        <name>Certificado de Depósito</name>
+        <rate>0.06</rate>
+        <frequencyType>MONTHLY</frequencyType>
+    </RateInvestment>
+</RateInvestments>

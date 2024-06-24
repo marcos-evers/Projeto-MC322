@@ -45,7 +45,6 @@ public class InvestMoreController extends BaseController<Investment> {
         InvestmentOperationConnection conn = new InvestmentOperationConnection("http://localhost:8000/investment/operate");
         conn.sendOperation(this.object, "investmore", valueToInvest);
         
-        this.object.setValue(this.object.getValue().add(valueToInvest));
         client.setBalance(client.getBalance().subtract(valueToInvest));
 
         this.leave(e);

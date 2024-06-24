@@ -38,7 +38,6 @@ public class InvestmentController extends BaseController<Investment> {
     }
 
     public void retrieve(Event e) throws IOException {
-        // TODO
-        this.openModal(null, null, null);
+        this.openModal("retrieve", "Resgatar investimento", this.object, (Client) this.additionalData);
     }
 }

@@ -5,6 +5,7 @@ import java.util.Map;
 
 import javafx.event.Event;
 import javafx.fxml.FXML;
+import javafx.scene.input.KeyCode;
 import javafx.scene.text.Text;
 import sigmabank.controllers.BaseController;
 import sigmabank.model.register.Client;
@@ -19,6 +20,12 @@ public class ClientController extends BaseController<Client> {
 
     @Override
     public void initData() throws IOException {
+        this.getStage().getScene().setOnKeyPressed(e -> {
+            if (e.getCode() == KeyCode.ESCAPE) {
+                this.leave(e);
+            }
+        });
+
         this.name.setText(this.object.getName());
         this.cpf.setText(this.object.getFormattedCpf());
         this.email.setText(this.object.getEmail());

@@ -99,7 +99,7 @@ public class RegisterController extends BaseController<Client> {
 
         conn.send(Map.of(
             "name", client.getName(),
-            "dataOfBirth", client.getDateOfBirth(),
+            "dateOfBirth", client.getDateOfBirth(),
             "cpf", client.getCpf(),
             "phoneNumber", client.getPhoneNumber(),
             "address", client.getAddress(),

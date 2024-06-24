@@ -59,7 +59,7 @@ public class ClientInvestmentMultiton {
     public RateInvestment getRateInvestment(UUID clientUUID, RateInvestEnum rateType, BigDecimal investedValue, LocalDate startDate) {
         rateInvestments.putIfAbsent(clientUUID, new HashMap<>());
         Map<RateInvestEnum, RateInvestment> clientRateInvestments = rateInvestments.get(clientUUID);
-        InfoInvest info = ReaderRateInfo.readRateInvestment("app/src/main/resources/RateInvestments.xml", rateType.toString());
+        InfoInvest info = ReaderRateInfo.readRateInvestment("src/main/resources/RateInvestments.xml", rateType.toString());
 
         if (!clientRateInvestments.containsKey(rateType)) {
             RateInvestment newInvestment = new RateInvestment(info.getName(), investedValue, clientUUID, startDate, info.getRate(), info.getFrequencyType(), rateType);
@@ -99,7 +99,7 @@ public class ClientInvestmentMultiton {
         List<Object> rateInvestmentsList = new ArrayList<>();
         for (UUID uuid: assetInvestments.keySet()) {
             for (RateInvestment investment: rateInvestments.get(uuid).values()) {
-                rateInvestmentsList.add((Object) investment.getValue());
+                rateInvestmentsList.add((Object) investment);
             }
         }
         writter.writeToXML("RateInvestments", rateInvestmentsList, pathToXML);
@@ -119,7 +119,7 @@ public class ClientInvestmentMultiton {
     public AssetInvestment getAssetInvestment(UUID clientUUID, AssetInvestEnum assetType, BigDecimal investedValue, LocalDate startDate) {
         assetInvestments.putIfAbsent(clientUUID, new HashMap<>());
         Map<AssetInvestEnum, AssetInvestment> clientAssetInvestments = assetInvestments.get(clientUUID);
-        InfoInvest info = ReaderAssetInfo.readAssetInvestment("app/src/main/resources/AssetInvestments.xml", assetType.toString());
+        InfoInvest info = ReaderAssetInfo.readAssetInvestment("src/main/resources/AssetInvestments.xml", assetType.toString());
         
         if (!clientAssetInvestments.containsKey(assetType)) {
             AssetInvestment newInvestment = new AssetInvestment(info.getName(), investedValue, clientUUID, startDate, info.getAssetValue(), assetType);
@@ -158,7 +158,7 @@ public class ClientInvestmentMultiton {
         List<Object> assetInvestmentsList = new ArrayList<>();
         for (UUID uuid: assetInvestments.keySet()) {
             for (AssetInvestment investment: assetInvestments.get(uuid).values()) {
-                assetInvestmentsList.add((Object) investment.getValue());
+                assetInvestmentsList.add((Object) investment);
             }
         }
         writter.writeToXML("AssetInvestments", assetInvestmentsList, pathToXML);

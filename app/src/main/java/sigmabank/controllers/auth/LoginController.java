@@ -1,11 +1,8 @@
 package sigmabank.controllers.auth;
 
 import java.io.IOException;
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
-
-import javax.swing.Action;
 
 import javafx.application.Platform;
 import javafx.event.ActionEvent;

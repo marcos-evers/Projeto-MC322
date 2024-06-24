@@ -25,9 +25,11 @@ import javax.xml.bind.Marshaller;
 
 import sigmabank.database.Database;
 import sigmabank.model.investment.AssetInvestEnum;
+import sigmabank.model.investment.AssetInvestment;
 import sigmabank.model.investment.ClientInvestmentMultiton;
 import sigmabank.model.investment.Investment;
 import sigmabank.model.investment.RateInvestEnum;
+import sigmabank.model.investment.RateInvestment;
 
 public class InvestmentHttpHandler implements HttpHandler {
     @Override
@@ -116,15 +118,15 @@ public class InvestmentHttpHandler implements HttpHandler {
 
         try {
             StringWriter sw = new StringWriter();
-            JAXBContext jaxbcontext = JAXBContext.newInstance(Investment.class);
+            JAXBContext jaxbcontext = JAXBContext.newInstance(Investment.class, AssetInvestment.class, RateInvestment.class);
             Marshaller marshaller = jaxbcontext.createMarshaller();
 
             marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, false);
             marshaller.setProperty(Marshaller.JAXB_FRAGMENT, true);
 
-            for (Object investment: assetInvestments.entrySet())
+            for (Object investment: assetInvestments.values())
                 marshaller.marshal(investment, sw);
-            for (Object investment: rateInvestments.entrySet())
+            for (Object investment: rateInvestments.values())
                 marshaller.marshal(investment, sw);
 
             String response = "<Investments>" + sw.toString() + "</Investments>";
