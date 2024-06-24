@@ -32,8 +32,8 @@ public class Server {
             .loadFromXML();
 
         ClientInvestmentMultiton.getInstance()
-            .loadInvestments("src/main/resources/database/Investments.xml",
-                             "src/main/resources/database/Investments.xml");
+            .loadInvestments("src/main/resources/database/RateInvestments.xml",
+                             "src/main/resources/database/AssetInvestments.xml");
 
         server = HttpServer.create(new InetSocketAddress(port), 0);
 

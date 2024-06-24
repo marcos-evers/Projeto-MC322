@@ -1,5 +1,6 @@
 package sigmabank.model.investment;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -12,7 +13,9 @@ import sigmabank.model.investment.InfoInvestments.InfoInvest;
 import sigmabank.model.investment.InfoInvestments.ReaderRateInfo;
 import sigmabank.model.investment.InfoInvestments.ReaderAssetInfo;
 import sigmabank.utils.readers.ReaderFactory;
+import sigmabank.utils.writters.WritterFactory;
 import sigmabank.utils.readers.ReaderXML;
+import sigmabank.utils.writters.WritterXML;
 
 /**
  * ClientInvestmentMultiton manages client investments in rate-based and asset-based instruments.
@@ -84,8 +87,24 @@ public class ClientInvestmentMultiton {
                 clientRateInvestments.put(rateInvestment.getRateType(), rateInvestment);
             }
         }
-
     }
+
+    /**
+     * Save rate-based investments to an XML file.
+     * @param pathToXML Path to the XML file containing rate-based investments
+     */
+    private void saveRateInvestments(String pathToXML) throws IOException {
+        WritterXML<RateInvestment> writter = WritterFactory.createWritter(RateInvestment.class);
+
+        List<Object> rateInvestmentsList = new ArrayList<>();
+        for (UUID uuid: assetInvestments.keySet()) {
+            for (RateInvestment investment: rateInvestments.get(uuid).values()) {
+                rateInvestmentsList.add((Object) investment.getValue());
+            }
+        }
+        writter.writeToXML("RateInvestments", rateInvestmentsList, pathToXML);
+    }
+
 
 
     /**
@@ -101,7 +120,7 @@ public class ClientInvestmentMultiton {
         assetInvestments.putIfAbsent(clientUUID, new HashMap<>());
         Map<AssetInvestEnum, AssetInvestment> clientAssetInvestments = assetInvestments.get(clientUUID);
         InfoInvest info = ReaderAssetInfo.readAssetInvestment("app/src/main/resources/AssetInvestments.xml", assetType.toString());
-
+        
         if (!clientAssetInvestments.containsKey(assetType)) {
             AssetInvestment newInvestment = new AssetInvestment(info.getName(), investedValue, clientUUID, startDate, info.getAssetValue(), assetType);
             clientAssetInvestments.put(assetType, newInvestment);
@@ -127,8 +146,22 @@ public class ClientInvestmentMultiton {
                 clientAssetInvestments.put(assetInvestment.getAssetType(), assetInvestment);
             }
         }
+    }
 
-        
+    /**
+     * Save asset-based investments to an XML file.
+     * @param pathToXML Path to the XML file containing asset-based investments
+     */
+    private void saveAssetInvestments(String pathToXML) throws IOException {
+        WritterXML<AssetInvestment> writter = WritterFactory.createWritter(AssetInvestment.class);
+
+        List<Object> assetInvestmentsList = new ArrayList<>();
+        for (UUID uuid: assetInvestments.keySet()) {
+            for (AssetInvestment investment: assetInvestments.get(uuid).values()) {
+                assetInvestmentsList.add((Object) investment.getValue());
+            }
+        }
+        writter.writeToXML("AssetInvestments", assetInvestmentsList, pathToXML);
     }
 
     /**
@@ -139,6 +172,16 @@ public class ClientInvestmentMultiton {
     public void loadInvestments(String pathToRateInvestments, String pathToAssetInvestments) {
         loadRateInvestments(pathToRateInvestments);
         loadAssetInvestments(pathToAssetInvestments);
+    }
+
+    /**
+     * Save rate-based and asset-based investments from XML files.
+     * @param pathToRateInvestments Path to the XML file containing rate-based investments
+     * @param pathToAssetInvestments Path to the XML file containing asset-based investments
+     */
+    public void saveInvestments(String pathToRateInvestments, String pathToAssetInvestments) throws IOException {
+        saveRateInvestments(pathToRateInvestments);
+        saveAssetInvestments(pathToAssetInvestments);
     }
 
     /**

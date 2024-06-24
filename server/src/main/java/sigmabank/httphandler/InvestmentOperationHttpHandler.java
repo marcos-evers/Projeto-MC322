@@ -24,6 +24,7 @@ import java.util.List;
 import sigmabank.database.Database;
 import sigmabank.model.investment.AssetInvestEnum;
 import sigmabank.model.investment.AssetInvestment;
+import sigmabank.model.investment.ClientInvestmentMultiton;
 import sigmabank.model.investment.RateInvestEnum;
 import sigmabank.model.investment.RateInvestment;
 
@@ -109,6 +110,12 @@ public class InvestmentOperationHttpHandler implements HttpHandler {
             }
 
             Database.getInstance().saveToXML("src/main/resources/database");
+            ClientInvestmentMultiton.getInstance()
+                .saveInvestments(
+                    "src/main/resources/database/RateInvestments.xml",
+                    "src/main/resources/database/AssetInvestments.xml"
+                );
+
             String response = "Operation Successful";
             exchange.sendResponseHeaders(200, response.getBytes().length);
             try (OutputStream os = exchange.getResponseBody()) {

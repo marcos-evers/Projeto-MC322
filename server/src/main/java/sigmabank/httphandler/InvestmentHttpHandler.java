@@ -66,14 +66,14 @@ public class InvestmentHttpHandler implements HttpHandler {
             Investment investment = null;
             if (params.get("invtype").equals("asset")) {
                 investment = ClientInvestmentMultiton.getInstance().getAssetInvestment(
-                    UUID.fromString(params.get("clientuuid")),
+                    UUID.fromString(params.get("clientUUID")),
                     AssetInvestEnum.valueOf(params.get("type")),
                     new BigDecimal(params.get("investedvalue")),
                     LocalDate.parse(params.get("startdate"))
                 );
             } else {
                 investment = ClientInvestmentMultiton.getInstance().getRateInvestment(
-                    UUID.fromString(params.get("clientuuid")),
+                    UUID.fromString(params.get("clientUUID")),
                     RateInvestEnum.valueOf(params.get("type")),
                     new BigDecimal(params.get("investedvalue")),
                     LocalDate.parse(params.get("startdate"))
@@ -81,13 +81,20 @@ public class InvestmentHttpHandler implements HttpHandler {
             }
         
             Database.getInstance().saveToXML("src/main/resources/database");
+            ClientInvestmentMultiton.getInstance()
+                .saveInvestments(
+                    "src/main/resources/database/RateInvestments.xml",
+                    "src/main/resources/database/AssetInvestments.xml"
+                );
+
             String response = "Register investment: " + investment.toString();
             exchange.sendResponseHeaders(200, response.getBytes().length);
             try (OutputStream os = exchange.getResponseBody()) {
                 os.write(response.getBytes());
             }
         } catch(Exception e) {
-            String response = "Registration Unsuccessful: " + e.getMessage();
+            e.printStackTrace();
+            String response = "Cannot invest: " + e.getMessage();
             exchange.sendResponseHeaders(200, response.getBytes().length);
             try (OutputStream os = exchange.getResponseBody()) {
                 os.write(response.getBytes());
