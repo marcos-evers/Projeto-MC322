@@ -83,8 +83,8 @@
             </Text>
          </children>
       </AnchorPane>
-      <Button layoutX="156.0" layoutY="549.0" mnemonicParsing="false" onAction="#leave" prefHeight="29.0" prefWidth="120.0" stylesheets="@../../../css/clickable_link.css" text="Sair" underline="true" />
-      <Button layoutX="81.0" layoutY="499.0" mnemonicParsing="false" onAction="#retrieve" prefHeight="35.0" prefWidth="114.0" style="-fx-background-color: #ffffff; -fx-background-radius: 8; -fx-border-radius: 8;" text="Resgatar" textAlignment="CENTER">
+      <Button layoutX="161.0" layoutY="547.0" mnemonicParsing="false" onAction="#leave" prefHeight="29.0" prefWidth="120.0" stylesheets="@../../../css/clickable_link.css" text="Sair" underline="true" />
+      <Button layoutX="68.0" layoutY="499.0" mnemonicParsing="false" onAction="#retrieve" prefHeight="35.0" prefWidth="135.0" style="-fx-background-color: #ffffff; -fx-background-radius: 8; -fx-border-radius: 8;" text="Resgatar" textAlignment="CENTER">
          <font>
             <Font name="Segoe UI Semibold" size="16.0" />
          </font>
@@ -96,7 +96,7 @@
             </DropShadow>
          </effect>
       </Button>
-      <Button layoutX="250.0" layoutY="499.0" mnemonicParsing="false" onAction="#investMore" prefHeight="35.0" prefWidth="114.0" style="-fx-background-color: #ffffff; -fx-background-radius: 8; -fx-border-radius: 8;" text="Investir mais" textAlignment="CENTER">
+      <Button layoutX="239.0" layoutY="499.0" mnemonicParsing="false" onAction="#investMore" prefHeight="35.0" prefWidth="135.0" style="-fx-background-color: #ffffff; -fx-background-radius: 8; -fx-border-radius: 8;" text="Investir mais" textAlignment="CENTER">
          <font>
             <Font name="Segoe UI Semibold" size="16.0" />
          </font>
