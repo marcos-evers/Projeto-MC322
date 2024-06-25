@@ -32,12 +32,22 @@ public class Database {
     private Database() {
     }
 
+    /**
+     * 
+     * @return
+     */
     public static Database getInstance() {
         if (instance == null)
             instance = new Database();
         return instance;
     }
 
+    /**
+     * 
+     * @param label
+     * @param tableClass
+     * @return
+     */
     public Database addTable(String label, Class<?> tableClass) {
         tables.put(label, new ArrayList<>());
         tableClasses.put(label, tableClass);
@@ -60,6 +70,12 @@ public class Database {
         }
     }
 
+    /**
+     * 
+     * @param label
+     * @param func
+     * @return
+     */
     public List<Object> deleteEntries(String label, Predicate<Object> func) {
         List<Object> remain = new ArrayList<>();
         List<Object> deleted = new ArrayList<>();
@@ -111,6 +127,12 @@ public class Database {
                 client.addInvestment(investment);
         }
     }
+
+    /**
+     * 
+     * @param client
+     * @param loans
+     */
     private void attachLoansToClient(Client client, List<Object> loans) {
         for (Object loanobj: loans) {
             Loan loan = (Loan) loanobj;
@@ -138,6 +160,10 @@ public class Database {
         attachInvestments();
     }
 
+    /**
+     * 
+     * @param path
+     */
     public void saveToXML(String path) {
         try {
             for (String label: tables.keySet()) {
@@ -157,6 +183,10 @@ public class Database {
         saveToXML(DB_PATH);
     }
 
+    /**
+     * 
+     * @param path
+     */
     public void loadFromXML(String path) {
         try {
             for (String key: tables.keySet()) {

@@ -21,6 +21,11 @@ public class Server {
     private static int port = 8000;
     private static HttpServer server;
 
+    /**
+     * 
+     * @param args
+     * @throws IOException
+     */
     public static void main(String[] args) throws IOException {
         Database.getInstance()
             .addTable("Clients", Client.class)

@@ -110,6 +110,11 @@ public class InvestmentHttpHandler implements HttpHandler {
         }
     }
 
+    /**
+     * 
+     * @param exchange
+     * @throws IOException
+     */
     private void handleGETMethod(HttpExchange exchange) throws IOException {
         String query = exchange.getRequestURI().toString().substring("/investment?".length());
         Map<String, String> params = parseParams(query);
@@ -150,6 +155,12 @@ public class InvestmentHttpHandler implements HttpHandler {
         }
     }
 
+    /**
+     * 
+     * @param query
+     * @return
+     * @throws UnsupportedEncodingException
+     */
     private Map<String, String> parseParams(String query) throws UnsupportedEncodingException {
         Map<String, String> result = new HashMap<>();
         for (String param : query.split("&")) {

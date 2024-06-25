@@ -25,6 +25,11 @@ public class UpdateHttpHandler implements HttpHandler {
         }
     }
 
+    /**
+     * 
+     * @param exchange
+     * @throws IOException
+     */
     private void handlePOSTMethod(HttpExchange exchange) throws IOException {
         System.out.println("[MSG] Recieve Update Request");
         try { 

@@ -43,6 +43,11 @@ public class ApprovalHttpHandler implements HttpHandler {
         }
     }
 
+    /**
+     * 
+     * @param params
+     * @return
+     */
     private boolean handleClientApproval(Map<String, String> params) {
         UUID clientUUID = UUID.fromString(params.get("uuid"));
         boolean isapproved = params.get("isapproved").equals("true");
@@ -62,6 +67,11 @@ public class ApprovalHttpHandler implements HttpHandler {
         return true;
     }
 
+    /**
+     * 
+     * @param params
+     * @return
+     */
     private boolean handleLoanApproval(Map<String, String> params) {
         UUID loanUUID = UUID.fromString(params.get("uuid"));
         boolean isapproved = params.get("isapproved").equals("true");
@@ -87,6 +97,11 @@ public class ApprovalHttpHandler implements HttpHandler {
         return true;
     }
 
+    /**
+     * 
+     * @param exchange
+     * @throws IOException
+     */
     private void handlePOSTMethod(HttpExchange exchange) throws IOException {
         InputStreamReader isr = new InputStreamReader(exchange.getRequestBody(), StandardCharsets.UTF_8);
         BufferedReader br = new BufferedReader(isr);
@@ -109,6 +124,11 @@ public class ApprovalHttpHandler implements HttpHandler {
         }
     }
 
+    /**
+     * 
+     * @param exchange
+     * @throws IOException
+     */
     private void handleGETMethod(HttpExchange exchange) throws IOException {
         List<Object> clients = Database.getInstance().query("ClientsToApproval",
             (Object obj) -> {
@@ -157,6 +177,12 @@ public class ApprovalHttpHandler implements HttpHandler {
         }
     }
 
+    /**
+     * 
+     * @param query
+     * @return
+     * @throws UnsupportedEncodingException
+     */
     private Map<String, String> parseParams(String query) throws UnsupportedEncodingException {
         Map<String, String> result = new HashMap<>();
         for (String param : query.split("&")) {

@@ -40,6 +40,10 @@ public class InvestmentOperationHttpHandler implements HttpHandler {
         }
     }
 
+    /**
+     * 
+     * @param params
+     */
     private void handleAssetOperation(Map<String, String> params) {
         UUID clientUUID = UUID.fromString(params.get("uuid"));
         AssetInvestEnum investEnum = AssetInvestEnum.valueOf(params.get("invenum"));
@@ -61,6 +65,10 @@ public class InvestmentOperationHttpHandler implements HttpHandler {
         client.addInvestment(investment);
     }
 
+    /**
+     * 
+     * @param params
+     */
     private void handleRateOperation(Map<String, String> params) {
         UUID clientUUID = UUID.fromString(params.get("uuid"));
         RateInvestEnum investEnum = RateInvestEnum.valueOf(params.get("invenum"));
@@ -126,6 +134,12 @@ public class InvestmentOperationHttpHandler implements HttpHandler {
         }
     }
 
+    /**
+     * 
+     * @param query
+     * @return
+     * @throws UnsupportedEncodingException
+     */
     private Map<String, String> parseParams(String query) throws UnsupportedEncodingException {
         Map<String, String> result = new HashMap<>();
         for (String param : query.split("&")) {

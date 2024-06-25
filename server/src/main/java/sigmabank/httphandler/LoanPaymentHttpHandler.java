@@ -36,6 +36,11 @@ public class LoanPaymentHttpHandler implements HttpHandler {
         }
     }
 
+    /**
+     * 
+     * @param exchange
+     * @throws IOException
+     */
     private void handlePOSTMethod(HttpExchange exchange) throws IOException {
         InputStreamReader isr = new InputStreamReader(exchange.getRequestBody(), StandardCharsets.UTF_8);
         BufferedReader br = new BufferedReader(isr);
@@ -89,6 +94,12 @@ public class LoanPaymentHttpHandler implements HttpHandler {
         }
     }
 
+    /**
+     * 
+     * @param query
+     * @return
+     * @throws UnsupportedEncodingException
+     */
     private Map<String, String> parseParams(String query) throws UnsupportedEncodingException {
         Map<String, String> result = new HashMap<>();
         for (String param : query.split("&")) {
