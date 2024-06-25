@@ -20,12 +20,22 @@ public class LoginController extends BaseController<Client> {
     @FXML private TextField cpf;
     @FXML private PasswordField password;
 
+    /**
+     * 
+     * @param e
+     * @throws IOException
+     */
     public void keyTrySubmit(KeyEvent e) throws IOException {
         if (e.getCode() == KeyCode.ENTER){
             trySubmit(null);
         }
     }
 
+    /**
+     * 
+     * @param e
+     * @throws IOException
+     */
     public void trySubmit(ActionEvent e) throws IOException {
         if (cpf.getText() == null || cpf.getText().trim().isEmpty() || password.getText() == null || password.getText().trim().isEmpty()) {
             BaseController.errorDialog("Preencha todos os campos!");
@@ -54,13 +64,22 @@ public class LoginController extends BaseController<Client> {
         BaseController.errorDialog("CPF ou senha inválidos.");
     }
     
+    /**
+     * 
+     * @param e
+     * @throws IOException
+     */
     public void register(ActionEvent e) throws IOException {
         this.loadView("auth/register", "Criar conta", null);
     }
     
     @Override
     public void initData() { }
-
+    
+    /**
+     * 
+     * @param e
+     */
     public void leave(ActionEvent e) {
         Platform.exit();
     }

@@ -119,6 +119,11 @@ public class Loan {
         this.amount = newAmount;
     }
 
+    /**
+     * 
+     * @param loanValue
+     * @return
+     */
     public static BigDecimal calculateFee(BigDecimal loanValue) {
         BigDecimal marketRate = new BigDecimal(0.05);
 
@@ -145,7 +150,11 @@ public class Loan {
         return resultScaled;
     }
 
-    
+    /**
+     * 
+     * @param loanValue
+     * @return
+     */
     private static BigDecimal sqrt(BigDecimal loanValue) {
         BigDecimal x0 = new BigDecimal(Math.sqrt(loanValue.doubleValue()));
         BigDecimal x1 = loanValue.divide(x0, Precision.MATH_CONTEXT);
@@ -154,7 +163,12 @@ public class Loan {
         return x1;
     }
 
-    
+    /**
+     * 
+     * @param base
+     * @param exponent
+     * @return
+     */
     private static BigDecimal pow(BigDecimal base, BigDecimal exponent) {
         int signOf2 = exponent.signum();
         double dn1 = base.doubleValue();

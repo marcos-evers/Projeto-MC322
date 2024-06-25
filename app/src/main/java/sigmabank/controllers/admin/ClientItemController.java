@@ -19,6 +19,11 @@ public class ClientItemController extends BaseController<Client> {
         this.cpf.setText(this.object.getFormattedCpf());
     }
 
+    /**
+     * 
+     * @param e
+     * @throws IOException
+     */
     public void open(Event e) throws IOException {
         this.openModal("admin/client", "Cliente", this.object, this.additionalData);
     }

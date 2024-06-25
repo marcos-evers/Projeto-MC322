@@ -76,6 +76,11 @@ public class HomeController extends BaseController<Client> {
         this.loansTotal.setText("Seus empréstimos somam R$ " + Rounder.round(loanTotal));
     }
     
+    /**
+     * 
+     * @param e
+     * @throws IOException
+     */
     public void newInvestment(ActionEvent e) throws IOException {
         final List<InfoInvest> infoInvestments = ClientInvestmentMultiton
             .getInstance()
@@ -90,10 +95,20 @@ public class HomeController extends BaseController<Client> {
         this.openModal("client/investment/choose", "Escolher investimento", infoInvestments, this.object);
     }
     
+    /**
+     * 
+     * @param e
+     * @throws IOException
+     */
     public void requestLoan(ActionEvent e) throws IOException {
         this.loadView("client/loan/request", "Solicitar empréstimo", this.object);
     }
 
+    /**
+     * 
+     * @param e
+     * @throws IOException
+     */
     public void leave(ActionEvent e) throws IOException {
         this.loadView("auth/login", "Login", null);
     }

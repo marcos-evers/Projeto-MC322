@@ -21,6 +21,11 @@ public class InvestmentItemController extends BaseController<Investment> {
         this.value.setText("R$ " + Rounder.round(this.object.getValue()));
     }
     
+    /**
+     * 
+     * @param e
+     * @throws IOException
+     */
     public void open(Event e) throws IOException {
         this.openModal("client/investment/investment", "Investimento", this.object, (Client) this.additionalData);
     }

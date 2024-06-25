@@ -140,6 +140,17 @@ public abstract class BaseController<T> {
         return newStage;
     }
 
+    /**
+     * 
+     * @param <C>
+     * @param stage
+     * @param loader
+     * @param viewTitle
+     * @param object
+     * @param data
+     * @return
+     * @throws IOException
+     */
     private static <C> BaseController<C> setModalOnStage(Stage stage, FXMLLoader loader, String viewTitle, C object, Object data) throws IOException {
         stage.setScene(new Scene(loader.load()));
         stage.setTitle(viewTitle);

@@ -27,10 +27,20 @@ public class RequestController extends BaseController<Client> {
         value.textProperty().addListener((observable, oldValue, newValue) -> valueChanged(newValue));
     }
 
+    /**
+     * 
+     * @param e
+     * @throws IOException
+     */
     public void goBack(Event e) throws IOException {
         this.loadView("client/home", "Home", this.object);
     }
 
+    /**
+     * 
+     * @param newValue
+     * @return
+     */
     private BigDecimal getValueToLoan(String newValue) {
         try {
             return new BigDecimal(newValue);
@@ -39,6 +49,10 @@ public class RequestController extends BaseController<Client> {
         }
     }
 
+    /**
+     * 
+     * @param newValue
+     */
     public void valueChanged(String newValue) {
         BigDecimal valueToLoan = this.getValueToLoan(newValue);
         BigDecimal feeValue = this.getFee(valueToLoan);
@@ -46,6 +60,11 @@ public class RequestController extends BaseController<Client> {
         this.fee.setText(feeValue == null ? "-" : feeValue + "%");
     }
 
+    /**
+     * 
+     * @param valueToLoan
+     * @return
+     */
     private BigDecimal getFee(BigDecimal valueToLoan) {
         if (valueToLoan == null || valueToLoan.compareTo(BigDecimal.ZERO) <= 0) {
             return null;
@@ -54,6 +73,11 @@ public class RequestController extends BaseController<Client> {
         return Loan.calculateFee(valueToLoan);
     }
 
+    /**
+     * 
+     * @param e
+     * @throws IOException
+     */
     public void confirm(Event e) throws IOException {
         BigDecimal valueToLoan = this.getValueToLoan(this.value.getText());
         BigDecimal feeValue = this.getFee(valueToLoan);
@@ -72,6 +96,11 @@ public class RequestController extends BaseController<Client> {
         this.goBack(e);
     }
     
+    /**
+     * 
+     * @param e
+     * @throws IOException
+     */
     public void leave(ActionEvent e) throws IOException {
         this.loadView("client/home", "Home", this.object);
     }

@@ -70,7 +70,7 @@ public class ClientReader implements ReaderXML<Client> {
         return clients;
     }
 
-    
+
     public List<Object> readStringXML(String xmlContent) {
         List<Object> clients = new ArrayList<>();
 

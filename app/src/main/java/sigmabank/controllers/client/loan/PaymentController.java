@@ -23,6 +23,11 @@ public class PaymentController extends BaseController<Loan> {
         this.balance.setText("Saldo em conta: R$ " + Rounder.round(((Client)this.additionalData).getBalance()));
     }
 
+    /**
+     * 
+     * @param e
+     * @throws IOException
+     */
     public void confirm(ActionEvent e) throws IOException {
         BigDecimal valueToPay;
         try {
@@ -60,6 +65,10 @@ public class PaymentController extends BaseController<Loan> {
         this.leave(e);
     }
     
+    /**
+     * 
+     * @param e
+     */
     public void leave(ActionEvent e) {
         this.stage.close();
     }

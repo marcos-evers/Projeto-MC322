@@ -26,6 +26,11 @@ public class ChooseItemController extends BaseController<InfoInvest> {
         }
     }
 
+    /**
+     * 
+     * @param e
+     * @throws IOException
+     */
     public void open(Event e) throws IOException {
         String destinyView = "client/investment/new_";
         destinyView += this.object.getRate() != null ? "rate" : "asset";

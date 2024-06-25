@@ -69,6 +69,11 @@ public class LoanConnection extends Connection<Loan> {
         super.send(params);
     }
 
+    /**
+     * 
+     * @param params
+     * @return
+     */
     private String buildFetchURI(Map<String, Object> params) {
         return getURI() + "?"
             + "uuid=" + params.get("clientUUID").toString();

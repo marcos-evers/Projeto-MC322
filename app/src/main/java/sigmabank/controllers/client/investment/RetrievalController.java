@@ -22,6 +22,11 @@ public class RetrievalController extends BaseController<Investment> {
         this.available.setText("R$ " + Rounder.round(this.object.getValue()));
     }
 
+    /**
+     * 
+     * @param e
+     * @throws IOException
+     */
     public void confirm(ActionEvent e) throws IOException {
         BigDecimal valueToRetrieve;
         try {
@@ -51,6 +56,10 @@ public class RetrievalController extends BaseController<Investment> {
         this.leave(e);
     }
 
+    /**
+     * 
+     * @param e
+     */
     public void leave(ActionEvent e) {
         this.stage.close();
     }

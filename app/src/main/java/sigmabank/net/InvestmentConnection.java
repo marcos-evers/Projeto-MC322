@@ -63,6 +63,11 @@ public class InvestmentConnection extends Connection<Investment> {
         return investmentsInvestment;
     }
 
+    /**
+     * 
+     * @param params
+     * @return
+     */
     private String buildFetchURI(Map<String, Object> params) {
         return getURI() + "?"
             + "uuid=" + params.get("clientUUID");

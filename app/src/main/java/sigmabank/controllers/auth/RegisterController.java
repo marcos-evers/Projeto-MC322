@@ -50,13 +50,23 @@ public class RegisterController extends BaseController<Client> {
             this.password.getText() == null ||
             this.confirmPassword.getText() == null;
     }
-        
+      
+    /**
+     * 
+     * @param e
+     * @throws IOException
+     */
     public void keyTrySubmit(KeyEvent e) throws IOException {
         if (e.getCode() == KeyCode.ENTER){
             trySubmit(null);
         }
     }
 
+    /**
+     * 
+     * @param e
+     * @throws IOException
+     */
     public void trySubmit(ActionEvent e) throws IOException {
         if (this.hasEmptyField()) {
             BaseController.errorDialog("Preencha todos os campos!");
@@ -110,10 +120,19 @@ public class RegisterController extends BaseController<Client> {
         this.login(e);
     }
 
+    /**
+     * 
+     * @param e
+     * @throws IOException
+     */
     public void login(ActionEvent e) throws IOException {
         this.loadView("auth/login", "Login", null);
     }
 
+    /**
+     * 
+     * @param e
+     */
     public void leave(ActionEvent e) {
         Platform.exit();
     }

@@ -77,6 +77,11 @@ public class ClientConnection extends Connection<Client> {
         super.send(params);
     }
 
+    /**
+     * 
+     * @param params
+     * @return
+     */
     private String buildFetchURI(Map<String, Object> params) {
         return getURI() + "?"
             + "cpf=" + params.get("cpf") + "&"

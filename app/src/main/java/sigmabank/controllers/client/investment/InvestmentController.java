@@ -29,14 +29,28 @@ public class InvestmentController extends BaseController<Investment> {
         this.retrieved.setText("R$ " + Rounder.round(this.object.getRetrievedValue()));
     }
     
+    /**
+     * 
+     * @param e
+     */
     public void leave(ActionEvent e) {
         this.stage.close();
     }
 
+    /**
+     * 
+     * @param e
+     * @throws IOException
+     */
     public void investMore(Event e) throws IOException {
         this.openModal("client/investment/invest_more", "Aplicar", this.object, (Client) this.additionalData);
     }
 
+    /**
+     * 
+     * @param e
+     * @throws IOException
+     */
     public void retrieve(Event e) throws IOException {
         this.openModal("client/investment/retrieval", "Resgatar investimento", this.object, (Client) this.additionalData);
     }

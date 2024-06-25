@@ -35,6 +35,11 @@ public class NewRateController extends BaseController<InfoInvest> {
         this.balance.setText("Saldo em conta: R$ " + Rounder.round(client.getBalance()));
     }
 
+    /**
+     * 
+     * @param e
+     * @throws IOException
+     */
     public void goBack(Event e) throws IOException {
         Stage parentStage = (Stage) this.stage.getOwner();
 
@@ -43,6 +48,12 @@ public class NewRateController extends BaseController<InfoInvest> {
         parentStage.close();
     }
 
+
+    /**
+     * 
+     * @param e
+     * @throws IOException
+     */
     public void confirm(Event e) throws IOException {
         BigDecimal valueToInvest;
         try {
@@ -77,6 +88,11 @@ public class NewRateController extends BaseController<InfoInvest> {
         this.goBack(e);
     }
 
+    /**
+     * 
+     * @param e
+     * @throws IOException
+     */
     public void leave(ActionEvent e) throws IOException {
         this.loadView("auth/login", "Login", null);
     }

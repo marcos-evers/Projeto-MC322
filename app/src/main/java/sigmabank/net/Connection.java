@@ -23,6 +23,11 @@ public abstract class Connection<T> {
         return this.uri;
     }
 
+    /**
+     * 
+     * @param params
+     * @throws IOException
+     */
     public void send(Map<String, Object> params) throws IOException {
         URL url = URI.create(uri).toURL();
         HttpURLConnection connection = (HttpURLConnection) url.openConnection(); 

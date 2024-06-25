@@ -22,6 +22,11 @@ public class InvestMoreController extends BaseController<Investment> {
         this.balance.setText("Saldo em conta: R$ " + Rounder.round(((Client)this.additionalData).getBalance()));
     }
 
+    /**
+     * 
+     * @param e
+     * @throws IOException
+     */
     public void confirm(ActionEvent e) throws IOException {
         BigDecimal valueToInvest;
         try {
@@ -50,6 +55,10 @@ public class InvestMoreController extends BaseController<Investment> {
         this.leave(e);
     }
     
+    /**
+     * 
+     * @param e
+     */
     public void leave(ActionEvent e) {
         this.stage.close();
     }

@@ -36,6 +36,11 @@ public class NewAssetController extends BaseController<InfoInvest> {
         this.balance.setText("R$ " + Rounder.round(((Client)this.additionalData).getBalance()));
     }
 
+    /**
+     * 
+     * @param newValue
+     * @return null or BigDecimal
+     */
     private BigDecimal getValueToInvest(String newValue) {
         try {
             return new BigDecimal(newValue);
@@ -44,6 +49,11 @@ public class NewAssetController extends BaseController<InfoInvest> {
         }
     }
 
+    /**
+     * 
+     * @param e
+     * @throws IOException
+     */
     public void goBack(Event e) throws IOException {
         Stage parentStage = (Stage) this.stage.getOwner();
 
@@ -52,6 +62,11 @@ public class NewAssetController extends BaseController<InfoInvest> {
         parentStage.close();
     }
 
+    /**
+     * 
+     * @param newValue
+     * @throws IOException
+     */
     public void valueChanged(String newValue) {
         BigDecimal valueToInvest = this.getValueToInvest(newValue);
         BigDecimal quantity = this.getQuantity(valueToInvest);
@@ -59,6 +74,11 @@ public class NewAssetController extends BaseController<InfoInvest> {
         this.amount.setText(quantity == null ? "-" : quantity.toString());
     }
 
+    /**
+     * 
+     * @param valueToInvest
+     * @return
+     */
     private BigDecimal getQuantity(BigDecimal valueToInvest) {
         if (valueToInvest == null || valueToInvest.compareTo(BigDecimal.ZERO) <= 0) {
             return null;
@@ -67,6 +87,11 @@ public class NewAssetController extends BaseController<InfoInvest> {
         return valueToInvest.divide(this.object.getAssetValue(), new MathContext(10, RoundingMode.HALF_UP));
     }
 
+    /**
+     * 
+     * @param e
+     * @throws IOException
+     */
     public void confirm(Event e) throws IOException {
         BigDecimal valueToInvest = this.getValueToInvest(this.value.getText());
         BigDecimal quantity = this.getQuantity(valueToInvest);
@@ -95,6 +120,11 @@ public class NewAssetController extends BaseController<InfoInvest> {
         this.goBack(e);
     }
 
+    /**
+     * 
+     * @param e
+     * @throws IOException
+     */
     public void leave(ActionEvent e) throws IOException {
         this.loadView("auth/login", "Login", null);
     }

@@ -20,6 +20,11 @@ public class LoanItemController extends BaseController<Loan> {
         this.requestedValue.setText("R$ " + Rounder.round(this.object.getValue()));
     }
 
+    /**
+     * 
+     * @param e
+     * @throws IOException
+     */
     public void open(Event e) throws IOException {
         this.openModal("admin/loan", "Solicitação de empréstimo", this.object, this.additionalData);
     }

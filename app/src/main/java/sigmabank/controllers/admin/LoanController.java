@@ -24,6 +24,11 @@ public class LoanController extends BaseController<Loan> {
         this.clientUuid.setText(Rounder.round(this.object.getClientUUID()));
     }
 
+    /**
+     * 
+     * @param e
+     * @throws IOException
+     */
     public void deny(Event e) throws IOException {
         ApprovalConnection conn = new ApprovalConnection("http://localhost:8000/toapproval");
         conn.send(Map.of(
@@ -46,6 +51,7 @@ public class LoanController extends BaseController<Loan> {
         this.leave(e);
     }
 
+    
     public void leave(Event e) {
         this.stage.close();
     }

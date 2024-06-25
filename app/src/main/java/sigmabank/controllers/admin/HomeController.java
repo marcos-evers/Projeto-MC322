@@ -56,6 +56,11 @@ public class HomeController extends BaseController<Admin> {
         this.amountLoans.setText(loans.size() + " novas solicitações");
     }
     
+    /**
+     * 
+     * @param e
+     * @throws IOException
+     */
     public void leave(ActionEvent e) throws IOException {
         this.loadView("auth/login", "Login", null);
     }

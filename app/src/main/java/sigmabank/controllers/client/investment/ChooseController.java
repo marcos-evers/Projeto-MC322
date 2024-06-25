@@ -19,6 +19,10 @@ public class ChooseController extends BaseController<List<InfoInvest>> {
         }
     }
 
+    /**
+     * 
+     * @param e
+     */
     public void leave(ActionEvent e) {
         this.stage.close();
     }

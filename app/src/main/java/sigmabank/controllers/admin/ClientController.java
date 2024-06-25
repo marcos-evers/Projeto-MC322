@@ -33,6 +33,11 @@ public class ClientController extends BaseController<Client> {
         this.dateOfBirth.setText(DateFormatter.format(this.object.getDateOfBirth()));
     }
 
+    /**
+     * 
+     * @param e
+     * @throws IOException
+     */
     public void deny(Event e) throws IOException {
         ApprovalConnection conn = new ApprovalConnection("http://localhost:8000/toapproval");
         conn.send(
@@ -46,6 +51,11 @@ public class ClientController extends BaseController<Client> {
         this.leave(e);
     }
 
+    /**
+     * 
+     * @param e
+     * @throws IOException
+     */
     public void approve(Event e) throws IOException {
         ApprovalConnection conn = new ApprovalConnection("http://localhost:8000/toapproval");
         conn.send(
@@ -59,6 +69,10 @@ public class ClientController extends BaseController<Client> {
         this.leave(e);
     }
 
+    /**
+     * 
+     * @param e
+     */
     public void leave(Event e) {
         this.stage.close();
     }
