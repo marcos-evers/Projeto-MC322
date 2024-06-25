@@ -1,0 +1,6 @@
+@startuml DocumentValidator
+class DocumentValidator {
+    + static boolean isValidCPF(String cpf)
+    + static boolean isValidCNPJ(String cnpj)
+}
+@enduml

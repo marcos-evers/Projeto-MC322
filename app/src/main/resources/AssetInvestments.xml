@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AssetInvestments>
+    <AssetInvestment>
+        <type>DOLAR</type>
+        <name>US Dollar Investment</name>
+        <assetValue>1000.00</assetValue>
+    </AssetInvestment>
+    <AssetInvestment>
+        <type>BITCOIN</type>
+        <name>Bitcoin Investment</name>
+        <assetValue>50000.00</assetValue>
+    </AssetInvestment>
+    <AssetInvestment>
+        <type>JESLA</type>
+        <name>Tesla Investment</name>
+        <assetValue>700.00</assetValue>
+    </AssetInvestment>
+    <AssetInvestment>
+        <type>APPLES</type>
+        <name>Apple Investment</name>
+        <assetValue>145.00</assetValue>
+    </AssetInvestment>
+</AssetInvestments>

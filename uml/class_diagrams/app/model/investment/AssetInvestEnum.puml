@@ -1,0 +1,8 @@
+@startuml AssetInvestEnum
+enum AssetInvestEnum {
+    DOLAR
+    BITCOIN
+    JESLA
+    APPLES
+}
+@enduml

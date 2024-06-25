@@ -1,0 +1,8 @@
+@startuml RateInvestEnum
+enum RateInvestEnum {
+    POUPANCA
+    TESOURODIRETO
+    CDB
+}
+@enduml
+    

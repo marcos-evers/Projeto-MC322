@@ -1,0 +1,48 @@
+@startuml Client
+class Client extends Register {
+  - cpf: String
+  - balance: BigDecimal
+  - investments: List<Investment>
+  - loans: List<Loan>
+
+  + Client()
+  + Client(cpf: String)
+  + Client(name: String, dateOfBirth: LocalDate, cpf: String) throws InvalidCPFException, InvalidBirthDateException
+  + Client(name: String, dateOfBirth: LocalDate, cpf: String, uuid: UUID) throws InvalidCPFException, InvalidBirthDateException
+
+  + addInvestiment(investment: Investment)
+  + addLoan(loan: Loan)
+  + setPassword(password: String)
+  + getCpf(): String
+  + getFormattedCpf(): String
+  + getInvestments(): List<Investment>
+  + getLoan(): List<Loan>
+  + getBalance(): BigDecimal
+  + setBalance(balance: BigDecimal)
+  + Transfer(clientSellerAccount: UUID, amount: BigDecimal, description: String, password: String) throws InvalidAttributeValueException
+  - isAdult(dateOfBirth: LocalDate): boolean
+}
+
+note right of Client
+  Client attributes:
+  - cpf: CPF number
+  - balance: current balance
+  - investments: list of investments
+  - loans: list of loans
+end note
+
+note left of Client
+  Client methods:
+  - addInvestiment: adds a new investment
+  - addLoan: adds a new loan
+  - setPassword: sets the password
+  - getCpf: gets the CPF number
+  - getFormattedCpf: gets the formatted CPF number
+  - getInvestments: gets the list of investments
+  - getLoan: gets the list of loans
+  - getBalance: gets the current balance
+  - setBalance: sets the current balance
+  - isAdult: checks if the client is an adult
+  - Transfer: initiates a transfer of funds (future implementation)
+end note
+@enduml

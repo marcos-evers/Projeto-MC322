@@ -1,0 +1,8 @@
+@startuml InvestmentOperations
+
+interface InvestmentOperations {
+    + retrieveInvestment(amount: BigDecimal): BigDecimal
+    + investMore(amount: BigDecimal): void
+}
+
+@enduml

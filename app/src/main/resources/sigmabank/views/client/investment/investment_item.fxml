@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#open" prefHeight="94.0" prefWidth="471.0" stylesheets="@../../../css/item.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sigmabank.controllers.client.investment.InvestmentItemController">
+   <children>
+      <Text fx:id="value" fill="#828282" layoutX="305.0" layoutY="55.0" strokeWidth="0.0" text="R$ 1.234,56" textAlignment="RIGHT" wrappingWidth="148.6171875" />
+      <Label fx:id="name" layoutX="18.0" layoutY="31.0" prefHeight="33.0" prefWidth="292.0" text="Nome do investimento" />
+   </children>
+   <effect>
+      <DropShadow offsetX="1.57" offsetY="1.57">
+         <color>
+            <Color opacity="0.5038167834281921" />
+         </color>
+      </DropShadow>
+   </effect>
+   <cursor>
+      <Cursor fx:constant="HAND" />
+   </cursor>
+</AnchorPane>

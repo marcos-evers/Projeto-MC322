@@ -1,0 +1,5 @@
+@startuml RegisterMainDiagram
+
+!include Register.puml
+!include Client.puml
+!include Admin.puml

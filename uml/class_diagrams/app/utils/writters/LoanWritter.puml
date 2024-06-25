@@ -1,0 +1,7 @@
+@startuml LoanWritter
+class LoanWritter {
+    - createElementFromLoan(doc: Document, loan: Loan): Element
+    + writeToXML(label: String, loans: List<Object>, filename: String): void
+}
+LoanWritter ..|> WritterXML
+@enduml

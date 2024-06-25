@@ -1,0 +1,20 @@
+@startuml AssetInvestment
+
+class AssetInvestment extends Investment implements InvestmentOperations{
+    - assetValue: BigDecimal
+    - assetQuantity: BigDecimal
+    - assetType: AssetInvestEnum
+    
+    + AssetInvestment(name: String, investedValue: BigDecimal, clientUUID: UUID, startDate: LocalDate, assetValue: BigDecimal, assetType: AssetInvestEnum)
+    + AssetInvestment(name: String, investedValue: BigDecimal, value: BigDecimal, retrievedValue: BigDecimal, clientUUID: UUID, startDate: LocalDate, assetValue: BigDecimal, assetQuantity: BigDecimal, assetType: AssetInvestEnum)
+    
+    + getAssetQuantity(): BigDecimal
+    + getAssetValue(): BigDecimal
+    + getAssetType(): AssetInvestEnum
+    + setAssetQuantity(assetQuantity: BigDecimal): void
+    + setAssetValue(assetValue: BigDecimal): void
+    + retrieveInvestment(amount: BigDecimal): BigDecimal
+    + investMore(additionalValue: BigDecimal): void
+}
+
+@enduml
